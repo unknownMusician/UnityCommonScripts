@@ -201,10 +201,12 @@ namespace AreYouFruits.Common.ComponentGeneration
                 )
                 .ToArray();
 
-            int index = EditorGUI.Popup(
+            int index = Array.IndexOf(components, (Component)objectProperty.objectReferenceValue); 
+
+            index = EditorGUI.Popup(
                 position,
                 label,
-                Array.IndexOf(components, (Component)objectProperty.objectReferenceValue),
+                index,
                 variants
             );
 
