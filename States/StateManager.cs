@@ -5,26 +5,26 @@ using AreYouFruits.Common.Collections.InterfaceExtensions;
 namespace AreYouFruits.Common.States
 {
     public abstract class StateManager<TStateName>
-        where TStateName : Enum
+        where TStateName : struct, Enum
     {
-        internal Action<TStateName> _onStateChange;
+        internal Action<TStateName>? OnStateChangeEvent;
 
         public event Action<TStateName> OnStateChange
         {
             add
             {
-                _onStateChange += value;
-                value?.Invoke(ActiveName);
+                OnStateChangeEvent += value;
+                value(ActiveName);
             }
-            remove => _onStateChange -= value;
+            remove => OnStateChangeEvent -= value;
         }
 
         protected internal TStateName ActiveName { get; protected set; }
     }
 
     public abstract class StateManager<TStateName, TActionsName> : StateManager<TStateName>, IDisposable
-        where TStateName : Enum
-        where TActionsName : Enum
+        where TStateName : struct, Enum
+        where TActionsName : struct, Enum
     {
         protected Dictionary<TStateName, State<TActionsName>> _states =
             new Dictionary<TStateName, State<TActionsName>>();
@@ -47,7 +47,7 @@ namespace AreYouFruits.Common.States
             if (!ActiveName.Equals(stateName))
             {
                 ActiveName = stateName;
-                _onStateChange?.Invoke(stateName);
+                OnStateChangeEvent?.Invoke(stateName);
             }
         }
 
@@ -58,21 +58,21 @@ namespace AreYouFruits.Common.States
                 state.Dispose();
             }
 
-            _onStateChange = null;
+            OnStateChangeEvent = null;
             _states.Clear();
         }
     }
 
     public sealed class ChangeableStateManager<TStateName, TActionsName> : StateManager<TStateName, TActionsName>
-        where TStateName : Enum
-        where TActionsName : Enum
+        where TStateName : struct, Enum
+        where TActionsName : struct, Enum
     {
         public new void TryChange(TStateName stateName) => base.TryChange(stateName);
     }
 
     public sealed class HookableStateManager<TStateName, TActionsName> : StateManager<TStateName, TActionsName>
-        where TStateName : Enum
-        where TActionsName : Enum
+        where TStateName : struct, Enum
+        where TActionsName : struct, Enum
     {
         private readonly List<StateManager<TStateName>> _hookedManagers = new List<StateManager<TStateName>>();
 
@@ -93,7 +93,7 @@ namespace AreYouFruits.Common.States
     }
 
     public class StateHook<TStateName>
-        where TStateName : Enum
+        where TStateName : struct, Enum
     {
         internal StateManager<TStateName> StateManager;
 

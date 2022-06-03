@@ -138,9 +138,11 @@ namespace {type.Namespace}
             string componentPath =
                 fileInfo.FilePath.Replace(logicPath, componentsPath).Replace(".cs", "Component.cs");
 
-            if (!Directory.Exists(componentsPath))
+            string componentFolderPath = componentPath[..componentPath.LastIndexOf('\\')];
+
+            if (!Directory.Exists(componentFolderPath))
             {
-                Directory.CreateDirectory(componentsPath);
+                Directory.CreateDirectory(componentFolderPath);
             }
 
             if (!File.Exists(componentPath))
@@ -180,9 +182,9 @@ namespace {type.Namespace}
                 Directory.CreateDirectory(abstractionFolderPath);
             }
 
-            abstractionPath = abstractionPath.Substring(0, lastAbstractionSlashIndex)
+            abstractionPath = abstractionPath[..lastAbstractionSlashIndex]
               + "\\I"
-              + abstractionPath.Substring(lastAbstractionSlashIndex + 1);
+              + abstractionPath[(lastAbstractionSlashIndex + 1)..];
 
             if (!File.Exists(abstractionPath))
             {
@@ -264,7 +266,8 @@ namespace {type.Namespace}
                     )
                     .Replace(" ", string.Empty)
                     .Replace("\r", string.Empty)
-                    .Replace("\n", string.Empty);
+                    .Replace("\n", string.Empty)
+                    .Replace("@", string.Empty);
 
                 string typeNamespace = fileText.Substring(
                         namespaceTextIndex + "namespace ".Length,
@@ -272,7 +275,8 @@ namespace {type.Namespace}
                     )
                     .Replace(" ", string.Empty)
                     .Replace("\r", string.Empty)
-                    .Replace("\n", string.Empty);
+                    .Replace("\n", string.Empty)
+                    .Replace("@", string.Empty);
 
                 Type type = ReflectionUtils.AllTypes.First(
                     type => type.Name == typeName && type.Namespace == typeNamespace

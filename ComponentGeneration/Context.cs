@@ -10,9 +10,11 @@ namespace AreYouFruits.Common.ComponentGeneration
     {
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(Context))]
     public sealed class ContextEditor : Editor
     {
+    #nullable disable
         private Type[] _types;
         private string[] _typeNamespaces;
         private string _namespaceFilter = string.Empty;
@@ -21,6 +23,7 @@ namespace AreYouFruits.Common.ComponentGeneration
         private string[] _filteredNamespaces;
         private Type[] _filteredByNamespaceTypes;
         private Type[] _filteredTypes;
+    #nullable enable
         
         private void OnEnable()
         {
@@ -69,4 +72,5 @@ namespace AreYouFruits.Common.ComponentGeneration
             serializedObject.ApplyModifiedProperties();
         }
     }
+#endif
 }
