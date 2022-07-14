@@ -1,6 +1,7 @@
 ﻿namespace AreYouFruits.Common.Mutability
 {
-    public readonly struct Immutable<T> where T : struct
+    public readonly struct Immutable<T>
+        where T : struct
     {
         public readonly T Value;
 

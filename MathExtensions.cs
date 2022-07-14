@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 namespace AreYouFruits.Common
 {
@@ -58,28 +56,27 @@ namespace AreYouFruits.Common
 
         public static void Deconstruct(this Vector2 v, out float x, out float y)
         {
-            x = v.x;
-            y = v.y;
+            (x, y) = (v.x, v.y);
         }
 
         public static void Deconstruct(this Vector3 v, out float x, out float y, out float z)
         {
-            x = v.x;
-            y = v.y;
-            z = v.z;
+            (x, y, z) = (v.x, v.y, v.z);
+        }
+
+        public static void Deconstruct(this Vector4 v, out float x, out float y, out float z, out float w)
+        {
+            (x, y, z, w) = (v.x, v.y, v.z, v.w);
         }
 
         public static void Deconstruct(this Vector2Int v, out int x, out int y)
         {
-            x = v.x;
-            y = v.y;
+            (x, y) = (v.x, v.y);
         }
 
         public static void Deconstruct(this Vector3Int v, out int x, out int y, out int z)
         {
-            x = v.x;
-            y = v.y;
-            z = v.z;
+            (x, y, z) = (v.x, v.y, v.z);
         }
 
         public static Quaternion SmoothDamp(
@@ -99,24 +96,26 @@ namespace AreYouFruits.Common
             return destination * Quaternion.Inverse(origin);
         }
 
+        public static Vector2 DivideBy(this Vector2 v1, Vector2 v2)
+        {
+            return new Vector2(v1.x / v2.x, v1.y / v2.y);
+        }
+
         public static Vector3 DivideBy(this Vector3 v1, Vector3 v2)
         {
             return new Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
         }
 
+        public static Vector4 DivideBy(this Vector4 v1, Vector4 v2)
+        {
+            return new Vector4(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z, v1.w / v2.w);
+        }
+
         public static int ToOdd(this int n) => n | 1;
-        public static int ToOdd(this ref int n) => n |= 1;
-
         public static int ToEven(this int n) => n & ~1;
-        public static int ToEven(this ref int n) => n &= ~1;
 
-        public static void MakeCycleDegrees360(this ref float angle) => angle = GetCycleDegrees360(angle);
         public static float GetCycleDegrees360(this float angle) => GetCycleDegrees(angle, 360f);
-        public static void MakeCycleDegrees180(this ref float angle) => angle = GetCycleDegrees180(angle);
         public static float GetCycleDegrees180(this float angle) => GetCycleDegrees(angle, 180f);
-
-        public static void MakeCycleDegrees(this ref float angle, float cycleMaxAngle)
-            => angle = GetCycleDegrees(angle, cycleMaxAngle);
 
         public static float GetCycleDegrees(this float angle, float cycleMaxAngle)
         {
@@ -134,7 +133,7 @@ namespace AreYouFruits.Common
             power %= byteSizeInBits * sizeOfType;
             
             return (number << power) | (number >> (sizeOfType * byteSizeInBits - power));
-        }
+        } 
 
         public static int CircularShiftRight(this int number, int power, int sizeOfType)
         {
@@ -143,11 +142,41 @@ namespace AreYouFruits.Common
             
             return (number >> power) | (number << (sizeOfType * byteSizeInBits - power));
         }
+
+        public static Vector2 DroppedSign(this Vector2 v)
+        {
+            return new Vector2(Mathf.Abs(v.x), Mathf.Abs(v.y));
+        }
+
+        public static Vector3 DroppedSign(this Vector3 v)
+        {
+            return new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+        }
+
+        public static Vector4 DroppedSign(this Vector4 v)
+        {
+            return new Vector4(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z), Mathf.Abs(v.w));
+        }
+
+        public static Vector2Int DroppedSign(this Vector2Int v)
+        {
+            return new Vector2Int(Mathf.Abs(v.x), Mathf.Abs(v.y));
+        }
+
+        public static Vector3Int DroppedSign(this Vector3Int v)
+        {
+            return new Vector3Int(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
+        }
+
+        public static float Area(this Vector2 v) => v.x * v.y;
+        public static int Area(this Vector2Int v) => v.x * v.y;
+        public static float Volume(this Vector3 v) => v.x * v.y * v.z;
+        public static int Volume(this Vector3Int v) => v.x * v.y * v.z;
     }
 
     public static class MathAYF
     {
-        public static float Average(Span<int> values)
+        public static float Average(ReadOnlySpan<int> values)
         {
             int length = values.Length;
             float sum = 0;
@@ -160,7 +189,7 @@ namespace AreYouFruits.Common
             return sum;
         }
         
-        public static float Average(Span<float> values)
+        public static float Average(ReadOnlySpan<float> values)
         {
             int length = values.Length;
             float sum = 0;
@@ -173,7 +202,7 @@ namespace AreYouFruits.Common
             return sum;
         }
         
-        public static Vector2 Average(Span<Vector2> values)
+        public static Vector2 Average(ReadOnlySpan<Vector2> values)
         {
             int length = values.Length;
             Vector2 sum = Vector2.zero;
@@ -186,7 +215,7 @@ namespace AreYouFruits.Common
             return sum;
         }
         
-        public static Vector3 Average(Span<Vector3> values)
+        public static Vector3 Average(ReadOnlySpan<Vector3> values)
         {
             int length = values.Length;
             Vector3 sum = Vector3.zero;
@@ -199,7 +228,7 @@ namespace AreYouFruits.Common
             return sum;
         }
         
-        public static Vector4 Average(Span<Vector4> values)
+        public static Vector4 Average(ReadOnlySpan<Vector4> values)
         {
             int length = values.Length;
             Vector4 sum = Vector4.zero;

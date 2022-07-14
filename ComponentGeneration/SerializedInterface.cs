@@ -2,26 +2,40 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
-using UnityEditor;
+using AreYouFruits.Common.InspectorValidation;
 using UnityEngine;
-using UnityEngine.UI;
 using Object = UnityEngine.Object;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace AreYouFruits.Common.ComponentGeneration
 {
     [Serializable]
     public struct SerializedInterface<TInterface> : ISerializedInterface
+        where TInterface : class
     {
-#nullable disable
+    #nullable disable
         [SerializeField] private Object _object;
-#nullable enable
+    #nullable enable
 
-        internal Type InterfaceType => typeof(TInterface);
-        public TInterface Interface => _object is TInterface @interface ? @interface : default!;
+        public SerializedInterface(TInterface value)
+        {
+            _object = value as Object;
+        }
+
+        public TInterface Interface
+            => _object as TInterface ?? throw new BehaviourNotInitializedException();
 
         public static implicit operator TInterface(SerializedInterface<TInterface> serializedInterface)
         {
             return serializedInterface.Interface;
+        }
+
+        public static implicit operator SerializedInterface<TInterface>(TInterface @interface)
+        {
+            return new SerializedInterface<TInterface>(@interface);
         }
     }
 
@@ -31,12 +45,14 @@ namespace AreYouFruits.Common.ComponentGeneration
     [CustomPropertyDrawer(typeof(SerializedInterface<>))]
     public class SerializedObjectDrawer : PropertyDrawer
     {
-        private enum SerializeType { Interface = 0, Object, Popup }
+        public enum SerializeType { Interface = 0, Object, Popup }
 
-        private const int PopupWidth = 50;
-        private const int GapWidth = 2;
+        public const int PopupWidth = 50;
+        public const int GapWidth = 2;
 
         private SerializeType _serializeType = SerializeType.Interface;
+
+        private GameObject? _choosingGameObject;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -46,11 +62,14 @@ namespace AreYouFruits.Common.ComponentGeneration
 
             object serializedInterface = GetTargetObjectOfProperty(property)!;
 
-            Type interfaceType =
-                (Type)serializedInterface.GetType()!.GetProperty(
-                    "InterfaceType",
-                    BindingFlags.Instance | BindingFlags.NonPublic
-                )!.GetMethod.Invoke(serializedInterface, null);
+            Type[] genericArguments = serializedInterface.GetType().GenericTypeArguments;
+
+            if (genericArguments.Length != 1)
+            {
+                throw new NotImplementedException();
+            }
+
+            Type interfaceType = genericArguments.First();
 
             Rect popupPosition = new Rect(
                 new Vector2(position.max.x - PopupWidth, position.position.y),
@@ -64,15 +83,15 @@ namespace AreYouFruits.Common.ComponentGeneration
             switch (_serializeType)
             {
                 case SerializeType.Interface:
-                    OnGuiAsInterface(position, objectProperty, label, interfaceType);
+                    OnGuiAsInterfaceField(position, objectProperty, label, interfaceType);
 
                     break;
                 case SerializeType.Object:
-                    OnGuiAsObject(position, objectProperty, label, interfaceType);
+                    OnGuiAsObjectField(position, objectProperty, label, interfaceType, ref _choosingGameObject);
 
                     break;
                 case SerializeType.Popup:
-                    OnGuiAsPopup(position, objectProperty, label, interfaceType);
+                    OnGuiAsPopupField(position, objectProperty, label, interfaceType);
 
                     break;
                 default: throw new ArgumentOutOfRangeException();
@@ -81,7 +100,7 @@ namespace AreYouFruits.Common.ComponentGeneration
             EditorGUI.EndProperty();
         }
 
-        private void OnGuiAsInterface(
+        public static void OnGuiAsInterfaceField(
             Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType
         )
         {
@@ -94,17 +113,15 @@ namespace AreYouFruits.Common.ComponentGeneration
             );
         }
 
-        private GameObject? _choosingGameObject;
-
-        private void OnGuiAsObject(
-            Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType
+        public static void OnGuiAsObjectField(
+            Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType, ref GameObject? choosingGameObject
         )
         {
             position = EditorGUI.PrefixLabel(position, label);
 
             Object obj;
 
-            if (_choosingGameObject == null)
+            if (choosingGameObject == null)
             {
                 obj = EditorGUI.ObjectField(
                     position,
@@ -129,7 +146,7 @@ namespace AreYouFruits.Common.ComponentGeneration
 
                 obj = EditorGUI.ObjectField(
                     objectPosition,
-                    _choosingGameObject,
+                    choosingGameObject,
                     typeof(Object),
                     true
                 );
@@ -162,7 +179,7 @@ namespace AreYouFruits.Common.ComponentGeneration
                 }
             }
 
-            _choosingGameObject = obj as GameObject;
+            choosingGameObject = obj as GameObject;
 
             TrySetObjectReferenceValue(obj, objectProperty, interfaceType);
 
@@ -177,7 +194,7 @@ namespace AreYouFruits.Common.ComponentGeneration
             }
         }
 
-        private void OnGuiAsPopup(
+        public static void OnGuiAsPopupField(
             Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType
         )
         {
@@ -221,7 +238,7 @@ namespace AreYouFruits.Common.ComponentGeneration
                     : c.ToString();
         }
 
-        private static object? GetTargetObjectOfProperty(SerializedProperty prop)
+        public static object? GetTargetObjectOfProperty(SerializedProperty prop)
         {
             string path = prop.propertyPath.Replace(".Array.data[", "[");
             object? obj = prop.serializedObject.targetObject;

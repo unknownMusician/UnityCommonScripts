@@ -7,6 +7,7 @@ namespace AreYouFruits.Common
 {
     public static class Tasks
     {
+        [Obsolete("Use Task.Delay(TimeSpan.FromSeconds(seconds)) instead")]
         public static async Task DelaySeconds(float seconds)
         {
             await Task.Delay(TimeSpan.FromSeconds(seconds));
