@@ -1,4 +1,5 @@
 ﻿using System;
+using AreYouFruits.Common.Math;
 
 namespace AreYouFruits.Common.Encryption
 {

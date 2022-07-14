@@ -1,4 +1,5 @@
 ﻿using System;
+using AreYouFruits.Common.Math;
 using UnityEngine;
 
 namespace AreYouFruits.Common
@@ -10,6 +11,7 @@ namespace AreYouFruits.Common
         {
             return !range.IsBounded || (value.CompareTo(range.Min) >= 0 && value.CompareTo(range.Max) <= 0);
         }
+        
         public static bool Contains<TComparable>(this Range<TComparable> range, Range<TComparable> value)
             where TComparable : IComparable<TComparable>
         {
