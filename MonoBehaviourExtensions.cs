@@ -9,6 +9,16 @@ namespace AreYouFruits.Common
     // todo: check for covariance to optimize
     public static class MonoBehaviourExtensions
     {
+        public static T GetComponentOrThrow<T>(this GameObject obj)
+        {
+            if (!obj.TryGetComponent(out T component))
+            {
+                throw new ArgumentException($"No component of type ({typeof(T)}) on GameObject.");
+            }
+
+            return component;
+        }
+        
         public static void GetComponents<T1, T2>(this GameObject obj, out T1 c1, out T2 c2)
         {
             c1 = obj.GetComponent<T1>();

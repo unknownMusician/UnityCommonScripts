@@ -6,12 +6,31 @@ namespace AreYouFruits.Common
 {
     public static class RangeExtensions
     {
+        public static TComparable Clamp<TComparable>(this Range<TComparable> range, TComparable value)
+            where TComparable : IComparable<TComparable>
+        {
+            if (range.IsBounded)
+            {
+                if (value.CompareTo(range.Min) < 0)
+                {
+                    return range.Min;
+                }
+
+                if (value.CompareTo(range.Max) > 0)
+                {
+                    return range.Max;
+                }
+            }
+
+            return value;
+        }
+
         public static bool Contains<TComparable>(this Range<TComparable> range, TComparable value)
             where TComparable : IComparable<TComparable>
         {
             return !range.IsBounded || (value.CompareTo(range.Min) >= 0 && value.CompareTo(range.Max) <= 0);
         }
-        
+
         public static bool Contains<TComparable>(this Range<TComparable> range, Range<TComparable> value)
             where TComparable : IComparable<TComparable>
         {
@@ -52,10 +71,10 @@ namespace AreYouFruits.Common
                 min = float.MinValue;
                 max = float.MaxValue;
             }
-            
+
             return UnityEngine.Random.Range(min, max);
         }
-        
+
         public static float Random(this Range<int> range)
         {
             float min;
@@ -72,10 +91,10 @@ namespace AreYouFruits.Common
                 min = int.MinValue;
                 max = int.MaxValue;
             }
-            
+
             return UnityEngine.Random.Range(min, max);
         }
-        
+
         public static int RandomInt(this Range<int> range)
         {
             int min;
@@ -90,7 +109,7 @@ namespace AreYouFruits.Common
                 min = int.MinValue;
                 max = int.MaxValue;
             }
-            
+
             return UnityEngine.Random.Range(min, max);
         }
 
