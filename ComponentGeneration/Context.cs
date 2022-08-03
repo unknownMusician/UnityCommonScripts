@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AreYouFruits.Common.ComponentGeneration
 {
     // todo
-    public sealed class Context : MonoBehaviour
+    internal sealed class Context : MonoBehaviour
     {
     }
 
