@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AreYouFruits.Common.Collections
 {
-    public static class OtherExtensions
+    public static class MultiDimensionalArraysExtensions
     {
         public static T[,] For<T>(this T[,] array, Action<T> action) => ForArray<T, T[,]>(array, action);
         public static T[,,] For<T>(this T[,,] array, Action<T> action) => ForArray<T, T[,,]>(array, action);
@@ -30,14 +29,6 @@ namespace AreYouFruits.Common.Collections
                 indices[dimension] = i;
                 nextAction();
             }
-        }
-
-        public static void Deconstruct<TKey, TValue>(
-            this KeyValuePair<TKey, TValue> pair, out TKey key, out TValue value
-        )
-        {
-            key = pair.Key;
-            value = pair.Value;
         }
     }
 }

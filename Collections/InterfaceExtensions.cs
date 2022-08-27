@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AreYouFruits.Common.Collections.InterfaceExtensions
+namespace AreYouFruits.Common.Collections
 {
     public static class InterfaceExtensions
     {
@@ -68,6 +68,19 @@ namespace AreYouFruits.Common.Collections.InterfaceExtensions
             }
 
             valueList.Add(value);
+        }
+        
+        public static int LastIndexOf<T>(this IReadOnlyList<T> collection, T element)
+        {
+            for (int i = collection.Count - 1; i >= 0; i--)
+            {
+                if (EqualityComparer<T>.Default.Equals(collection[i], element))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
 }

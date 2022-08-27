@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AreYouFruits.Common.Collections.GenericExtensions
+namespace AreYouFruits.Common.Collections
 {
     public static class GenericExtensions
     {

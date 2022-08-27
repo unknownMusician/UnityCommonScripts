@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AreYouFruits.Common.Collections.InterfaceExtensions;
+using AreYouFruits.Common.Collections;
 
 namespace AreYouFruits.Common.States
 {
