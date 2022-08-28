@@ -8,24 +8,29 @@ using UnityEditor;
 namespace AreYouFruits.Common
 {
     [Serializable]
-    public struct SerializedNullable<T> where T : struct
+    public struct SerializedNullable<T>
     {
         public T Value;
         public bool HasValue;
 
         public SerializedNullable(T? value)
         {
-            Value = value.GetValueOrDefault();
-            HasValue = value.HasValue;
+            Value = value!;
+            HasValue = value == null;
         }
 
         public void Deconstruct(out T value, out bool hasValue) => (value, hasValue) = (Value, HasValue);
 
+        public T? AsNullable()
+        {
+            return (T?)this;
+        }
+        
         public static implicit operator T?(in SerializedNullable<T> serializedNullable)
         {
             (T value, bool hasValue) = serializedNullable;
 
-            return hasValue ? value : (T?)null;
+            return hasValue ? (T?)value : default;
         }
     }
     
@@ -45,20 +50,28 @@ namespace AreYouFruits.Common
             SerializedProperty valueProperty = property.FindPropertyRelative("Value");
             SerializedProperty nullProperty = property.FindPropertyRelative("HasValue");
 
+            position = EditorGUI.PrefixLabel(position, label);
+
             Rect nullPosition = position;
             nullPosition.x += position.width - position.height;
             nullPosition.width = position.height;
 
             Rect propertyPosition = position;
-            propertyPosition.width -= nullPosition.height - 2.0f;
+            propertyPosition.width -= nullPosition.height + EditorGUIUtility.standardVerticalSpacing * 2;
 
-            nullProperty.boolValue = EditorGUI.Toggle(nullPosition, nullProperty.boolValue);
+            bool hasValue = EditorGUI.Toggle(nullPosition, nullProperty.boolValue);
+
+            nullProperty.boolValue = hasValue;
             
-            bool guiEnabled = GUI.enabled;
-            GUI.enabled &= nullProperty.boolValue;
-            EditorGUI.PropertyField(propertyPosition, valueProperty, label, true);
-            GUI.enabled = guiEnabled;
-                
+            if (hasValue)
+            {
+                EditorGUI.PropertyField(propertyPosition, valueProperty, GUIContent.none, true);
+            }
+            else
+            {
+                EditorGUI.LabelField(position, GUIContent.none, new GUIContent("null"));
+            }
+
             EditorGUI.EndProperty();
         }
     }

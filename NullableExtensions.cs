@@ -30,5 +30,10 @@
 
             return false;
         }
+        
+        public static bool IsNull<T>(this SerializedNullable<T> nullable, out T value)
+        {
+            return IsNull((T?)nullable, out value);
+        }
     }
 }
