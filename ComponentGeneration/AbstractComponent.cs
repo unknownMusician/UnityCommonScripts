@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3_8
+
+using System;
 using UnityEngine;
 
 namespace AreYouFruits.Common.ComponentGeneration
@@ -46,3 +48,5 @@ namespace AreYouFruits.Common.ComponentGeneration
         protected abstract T Create();
     }
 }
+
+#endif

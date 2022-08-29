@@ -2,6 +2,7 @@
 
 namespace AreYouFruits.Common.ComponentGeneration
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class HasComponentAttribute : Attribute
     {
         public readonly bool HasInterfaceAlso;

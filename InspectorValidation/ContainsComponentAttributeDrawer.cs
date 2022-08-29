@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_EDITORd
+
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,3 +43,5 @@ namespace AreYouFruits.Common.InspectorValidation
         }
     }
 }
+
+#endif

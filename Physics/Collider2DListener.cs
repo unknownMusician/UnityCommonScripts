@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3
+
+using System;
 using UnityEngine;
 
 namespace AreYouFruits.Common.Physics
@@ -19,3 +21,5 @@ namespace AreYouFruits.Common.Physics
         }
     }
 }
+
+#endif

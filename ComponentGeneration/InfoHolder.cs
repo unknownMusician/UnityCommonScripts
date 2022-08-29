@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_2021_3_8
+
 using UnityEngine;
 
 namespace AreYouFruits.Common.ComponentGeneration
 {
     public abstract class InfoHolder<TInfo> : ScriptableObject, IComponent<TInfo>
     {
-#nullable disable
+    #nullable disable
         [SerializeField] protected TInfo Info;
-#nullable enable
+    #nullable enable
 
         public TInfo HeldItem => Info;
     }
 }
+
+#endif

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3
+
+using System;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -77,3 +79,5 @@ namespace AreYouFruits.Common
     }
 #endif
 }
+
+#endif

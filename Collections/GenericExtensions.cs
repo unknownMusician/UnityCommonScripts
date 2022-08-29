@@ -6,9 +6,12 @@ namespace AreYouFruits.Common.Collections
 {
     public static class GenericExtensions
     {
+        private static readonly Random Random = new();
+
         public static TDictionary Foreach<TKey, TValue, TDictionary>(
             this TDictionary dictionary, Action<TKey, TValue> action
-        ) where TDictionary : IDictionary<TKey, TValue>
+        )
+            where TDictionary : IDictionary<TKey, TValue>
         {
             foreach ((TKey key, TValue value) in dictionary)
             {
@@ -42,7 +45,8 @@ namespace AreYouFruits.Common.Collections
 
         public static TReadOnlyCollection For<T, TReadOnlyCollection>(
             this TReadOnlyCollection array, Action<int> action
-        ) where TReadOnlyCollection : IReadOnlyCollection<T>
+        )
+            where TReadOnlyCollection : IReadOnlyCollection<T>
         {
             for (int i = 0; i < array.Count; i++)
             {
@@ -65,7 +69,9 @@ namespace AreYouFruits.Common.Collections
 
         public static void SafeAddToValueCollection<TKey, TValue, TCollection, TDictionary>(
             this TDictionary dictionary, TKey key, TValue value
-        ) where TCollection : ICollection<TValue>, new() where TDictionary : IDictionary<TKey, TCollection>
+        )
+            where TCollection : ICollection<TValue>, new()
+            where TDictionary : IDictionary<TKey, TCollection>
         {
             if (!dictionary.TryGetValue(key, out TCollection valueList))
             {
@@ -73,6 +79,27 @@ namespace AreYouFruits.Common.Collections
             }
 
             valueList.Add(value);
+        }
+
+        public static int LastIndexOf<T, TReadOnlyList>(this TReadOnlyList list, T element)
+            where TReadOnlyList : IReadOnlyList<T>
+        {
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                if (EqualityComparer<T>.Default.Equals(list[i], element))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static T GetRandomElement<T, TReadOnlyList>(this TReadOnlyList list)
+            where TReadOnlyList : IReadOnlyList<T>
+        {
+            int randomIndex = Random.Next(0, list.Count);
+            return list[randomIndex];
         }
     }
 }

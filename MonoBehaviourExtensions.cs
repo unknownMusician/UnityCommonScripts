@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -136,3 +138,5 @@ namespace AreYouFruits.Common
         }
     }
 }
+
+#endif

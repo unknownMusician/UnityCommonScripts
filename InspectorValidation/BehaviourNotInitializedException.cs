@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3_8
+
+using System;
 using System.Reflection;
 
 namespace AreYouFruits.Common.InspectorValidation
@@ -7,23 +9,22 @@ namespace AreYouFruits.Common.InspectorValidation
     {
         private const string DefaultMessage = "Behaviour is not completely initialized.";
 
-        public BehaviourNotInitializedException(FieldInfo unitializedField) : this(
-            GenerateMessage(unitializedField)
-        ) { }
+        public BehaviourNotInitializedException(FieldInfo uninitializedField) :
+            this(GenerateMessage(uninitializedField)) { }
 
-        private static string GenerateMessage(FieldInfo unitializedField)
+        private static string GenerateMessage(FieldInfo uninitializedField)
         {
-            return $"Member {unitializedField.FieldType} {unitializedField.Name}"
-              + $" in {unitializedField.DeclaringType} is not completely initialized.";
+            return $"Member {uninitializedField.FieldType} {uninitializedField.Name}"
+              + $" in {uninitializedField.DeclaringType} is not completely initialized.";
         }
 
         public BehaviourNotInitializedException() : base(DefaultMessage) { }
-        
+
         public BehaviourNotInitializedException(string message) : base(message) { }
 
-        public BehaviourNotInitializedException(string message, Exception innerException) : base(
-            message,
-            innerException
-        ) { }
+        public BehaviourNotInitializedException(string message, Exception innerException) : base(message,
+            innerException) { }
     }
 }
+
+#endif

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using UnityEngine;
 
 namespace AreYouFruits.Common.Assertions
 {
@@ -10,40 +9,43 @@ namespace AreYouFruits.Common.Assertions
 
         [Conditional(DirectiveName)]
         public static void AssertNotNull<TNullable>(this TNullable? nullable, string? name = "")
-            where TNullable : class
         {
-            if (nullable == null)
+            if (nullable != null)
             {
-                string valueName = string.IsNullOrEmpty(name) ? "value" : name!;
-
-                throw new ArgumentNullException($"{valueName} should not be null");
+                return;
             }
+
+            string valueName = string.IsNullOrEmpty(name) ? "value" : name!;
+
+            throw new ArgumentNullException($"{valueName} should not be null");
         }
 
         [Conditional(DirectiveName)]
-        public static void AssertNotNull<TBehaviour>(this TBehaviour behaviour, params object?[] nullables)
-            where TBehaviour : MonoBehaviour
-        {
-            int i = 0;
-
-            foreach (object? nullable in nullables)
-            {
-                nullable.AssertNotNull($"Value #{i} in {behaviour.GetType().Name}");
-
-                i++;
-            }
-        }
-
-        [Conditional(DirectiveName)]
-        public static void ThrowIf<TException>(bool condition, TException exception) where TException : Exception
+        public static void ThrowIf(bool condition, Func<Exception> exceptionProvider)
         {
             if (condition)
             {
-                throw exception;
+                throw exceptionProvider();
             }
         }
 
         [Conditional(DirectiveName)]
-        public static void ThrowIf(bool condition, string message) => ThrowIf(condition, new Exception(message));
+        public static void ThrowIf<TException>(bool condition)
+            where TException : Exception, new()
+        {
+            if (condition)
+            {
+                throw new TException();
+            }
+        }
+
+        [Conditional(DirectiveName)]
+        public static void ThrowIf(bool condition, string message)
+        {
+            if (condition)
+            {
+                throw new Exception(message);
+            }
+        }
     }
 }

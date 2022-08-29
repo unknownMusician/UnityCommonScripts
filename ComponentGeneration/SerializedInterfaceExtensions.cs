@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_2021_3_8
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AreYouFruits.Common.ComponentGeneration
@@ -23,3 +25,5 @@ namespace AreYouFruits.Common.ComponentGeneration
         }
     }
 }
+
+#endif

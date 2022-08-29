@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3_8
+
+using System;
 using UnityEngine;
 
 namespace AreYouFruits.Common.Math
@@ -131,3 +133,5 @@ namespace AreYouFruits.Common.Math
         }
     }
 }
+
+#endif

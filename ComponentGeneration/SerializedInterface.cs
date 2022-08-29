@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3_8
+
+using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
@@ -25,8 +27,7 @@ namespace AreYouFruits.Common.ComponentGeneration
             _object = value as Object;
         }
 
-        public TInterface Interface
-            => _object as TInterface ?? throw new BehaviourNotInitializedException();
+        public TInterface Interface => _object as TInterface ?? throw new BehaviourNotInitializedException();
 
         public static implicit operator TInterface(SerializedInterface<TInterface> serializedInterface)
         {
@@ -71,10 +72,8 @@ namespace AreYouFruits.Common.ComponentGeneration
 
             Type interfaceType = genericArguments.First();
 
-            Rect popupPosition = new Rect(
-                new Vector2(position.max.x - PopupWidth, position.position.y),
-                new Vector2(PopupWidth, position.size.y)
-            );
+            Rect popupPosition = new Rect(new Vector2(position.max.x - PopupWidth, position.position.y),
+                new Vector2(PopupWidth, position.size.y));
 
             position = new Rect(position.position, position.size - (PopupWidth + GapWidth) * Vector2.right);
 
@@ -104,17 +103,13 @@ namespace AreYouFruits.Common.ComponentGeneration
             Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType
         )
         {
-            objectProperty.objectReferenceValue = EditorGUI.ObjectField(
-                position,
-                label,
-                objectProperty.objectReferenceValue,
-                interfaceType,
-                true
-            );
+            objectProperty.objectReferenceValue = EditorGUI.ObjectField(position, label,
+                objectProperty.objectReferenceValue, interfaceType, true);
         }
 
         public static void OnGuiAsObjectField(
-            Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType, ref GameObject? choosingGameObject
+            Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType,
+            ref GameObject? choosingGameObject
         )
         {
             position = EditorGUI.PrefixLabel(position, label);
@@ -123,12 +118,7 @@ namespace AreYouFruits.Common.ComponentGeneration
 
             if (choosingGameObject == null)
             {
-                obj = EditorGUI.ObjectField(
-                    position,
-                    objectProperty.objectReferenceValue,
-                    typeof(Object),
-                    true
-                );
+                obj = EditorGUI.ObjectField(position, objectProperty.objectReferenceValue, typeof(Object), true);
 
                 if (obj == objectProperty.objectReferenceValue)
                 {
@@ -139,22 +129,15 @@ namespace AreYouFruits.Common.ComponentGeneration
             {
                 var objectPosition = new Rect(position.position, new Vector2(position.size.x / 2, position.size.y));
 
-                var componentPosition = new Rect(
-                    position.position + (objectPosition.width + GapWidth) * Vector2.right,
-                    new Vector2(position.size.x - objectPosition.size.x - GapWidth, position.size.y)
-                );
+                var componentPosition = new Rect(position.position + (objectPosition.width + GapWidth) * Vector2.right,
+                    new Vector2(position.size.x - objectPosition.size.x - GapWidth, position.size.y));
 
-                obj = EditorGUI.ObjectField(
-                    objectPosition,
-                    choosingGameObject,
-                    typeof(Object),
-                    true
-                );
+                obj = EditorGUI.ObjectField(objectPosition, choosingGameObject, typeof(Object), true);
 
                 if (obj is GameObject gameObject)
                 {
                     Component[] interfaceComponents = gameObject.GetVarianceComponents(interfaceType);
-                    
+
                     if (interfaceComponents.Length == 1)
                     {
                         obj = interfaceComponents[0];
@@ -163,13 +146,10 @@ namespace AreYouFruits.Common.ComponentGeneration
                     {
                         Component[] allComponents = gameObject.GetAllComponents();
                         int count = 0;
-                        
-                        int index = CustomEditorGUI.Popup(
-                            componentPosition,
-                            -1,
+
+                        int index = CustomEditorGUI.Popup(componentPosition, -1,
                             allComponents.Select(c => new GUIContent(count++ + " " + GetName(c))).ToArray(),
-                            i => interfaceComponents.Contains(allComponents[i])
-                        );
+                            i => interfaceComponents.Contains(allComponents[i]));
 
                         if (index >= 0)
                         {
@@ -183,9 +163,7 @@ namespace AreYouFruits.Common.ComponentGeneration
 
             TrySetObjectReferenceValue(obj, objectProperty, interfaceType);
 
-            static void TrySetObjectReferenceValue(
-                Object? value, SerializedProperty objectProperty, Type interfaceType
-            )
+            static void TrySetObjectReferenceValue(Object? value, SerializedProperty objectProperty, Type interfaceType)
             {
                 if (value is null || interfaceType.IsInstanceOfType(value))
                 {
@@ -200,32 +178,22 @@ namespace AreYouFruits.Common.ComponentGeneration
         {
             GameObject[] gameObjects = Object.FindObjectsOfType<GameObject>();
 
-            Component[] components = gameObjects
-                .SelectMany(g => g.GetVarianceComponents(interfaceType))
-                .ToArray();
+            Component[] components = gameObjects.SelectMany(g => g.GetVarianceComponents(interfaceType)).ToArray();
 
-            GUIContent[] variants = components.Select(
-                    c =>
-                    {
-                        string index =
-                            c.gameObject.GetVarianceComponents(interfaceType).Count()
-                         <= 1
-                                ? string.Empty
-                                : $"[{Array.IndexOf(c.gameObject.GetAllComponents(), c)}] ";
+            GUIContent[] variants = components.Select(c =>
+                                              {
+                                                  string index =
+                                                      c.gameObject.GetVarianceComponents(interfaceType).Count() <= 1 ?
+                                                          string.Empty :
+                                                          $"[{Array.IndexOf(c.gameObject.GetAllComponents(), c)}] ";
 
-                        return new GUIContent($"{c.gameObject.name}.{index}{GetName(c)}");
-                    }
-                )
-                .ToArray();
+                                                  return new GUIContent($"{c.gameObject.name}.{index}{GetName(c)}");
+                                              })
+                                              .ToArray();
 
-            int index = Array.IndexOf(components, (Component)objectProperty.objectReferenceValue); 
+            int index = Array.IndexOf(components, (Component)objectProperty.objectReferenceValue);
 
-            index = EditorGUI.Popup(
-                position,
-                label,
-                index,
-                variants
-            );
+            index = EditorGUI.Popup(position, label, index, variants);
 
             objectProperty.objectReferenceValue = index == -1 ? null : components[index];
         }
@@ -233,9 +201,9 @@ namespace AreYouFruits.Common.ComponentGeneration
         private static string GetName(Component c)
         {
             return c.GetType().GetMethod("ToString")!.DeclaringType
-             == typeof(Object).GetMethod("ToString")!.DeclaringType
-                    ? c.GetType().Name
-                    : c.ToString();
+             == typeof(Object).GetMethod("ToString")!.DeclaringType ?
+                    c.GetType().Name :
+                    c.ToString();
         }
 
         public static object? GetTargetObjectOfProperty(SerializedProperty prop)
@@ -249,11 +217,9 @@ namespace AreYouFruits.Common.ComponentGeneration
                 {
                     string elementName = element.Substring(0, element.IndexOf("[", StringComparison.Ordinal));
 
-                    int index = Convert.ToInt32(
-                        element.Substring(element.IndexOf("[", StringComparison.Ordinal))
-                            .Replace("[", "")
-                            .Replace("]", "")
-                    );
+                    int index = Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.Ordinal))
+                                                       .Replace("[", "")
+                                                       .Replace("]", ""));
 
                     obj = GetValueImp(obj, elementName, index);
                 }
@@ -297,20 +263,16 @@ namespace AreYouFruits.Common.ComponentGeneration
 
             while (type != null)
             {
-                FieldInfo? f = type.GetField(
-                    name,
-                    BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance
-                );
+                FieldInfo? f = type.GetField(name,
+                    BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
                 if (f != null)
                 {
                     return f.GetValue(source);
                 }
 
-                PropertyInfo? p = type.GetProperty(
-                    name,
-                    BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase
-                );
+                PropertyInfo? p = type.GetProperty(name,
+                    BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
 
                 if (p != null)
                 {
@@ -325,3 +287,5 @@ namespace AreYouFruits.Common.ComponentGeneration
     }
 #endif
 }
+
+#endif

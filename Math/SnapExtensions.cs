@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_2021_3
+
+using UnityEngine;
 
 namespace AreYouFruits.Common.Math
 {
@@ -20,3 +22,5 @@ namespace AreYouFruits.Common.Math
         }
     }
 }
+
+#endif

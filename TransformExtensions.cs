@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿#if UNITY_2021_3
+
+using System.Linq;
 using UnityEngine;
 
 namespace AreYouFruits.Common
@@ -11,3 +13,5 @@ namespace AreYouFruits.Common
         }
     }
 }
+
+#endif

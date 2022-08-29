@@ -114,6 +114,7 @@ namespace AreYouFruits.Common
         }
 
         public static float Lerp(this Range<float> range, float t) => Mathf.Lerp(range.Min, range.Max, t);
+    #if UNITY_2021_3
         public static Color Lerp(this Range<Color> range, float t) => Color.Lerp(range.Min, range.Max, t);
         public static Vector2 Lerp(this Range<Vector2> range, float t) => Vector2.Lerp(range.Min, range.Max, t);
         public static Vector3 Lerp(this Range<Vector3> range, float t) => Vector3.Lerp(range.Min, range.Max, t);
@@ -129,5 +130,6 @@ namespace AreYouFruits.Common
         {
             return Quaternion.Slerp(range.Min, range.Max, t);
         }
+    #endif
     }
 }

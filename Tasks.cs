@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if UNITY_2021_3
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -7,12 +9,6 @@ namespace AreYouFruits.Common
 {
     public static class Tasks
     {
-        [Obsolete("Use Task.Delay(TimeSpan.FromSeconds(seconds)) instead")]
-        public static async Task DelaySeconds(float seconds)
-        {
-            await Task.Delay(TimeSpan.FromSeconds(seconds));
-        }
-
         public static async Task LerpAsync(
             float time, Action<float> lerpConsumer, Func<bool>? conditionProvider = null,
             CancellationToken cancellation = default
@@ -38,5 +34,17 @@ namespace AreYouFruits.Common
                 lerpConsumer(1.0f);
             }
         }
+        
+        public static async Task Repeat(this Action action, CancellationToken cancellation)
+        {
+            while (!cancellation.IsCancellationRequested)
+            {
+                action();
+                
+                await Task.Yield();
+            }
+        }
     }
 }
+
+#endif

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_2021_3_8
+using System;
 using UnityEngine;
 
 namespace AreYouFruits.Common.Math
@@ -8,9 +9,9 @@ namespace AreYouFruits.Common.Math
         public static Vector2Int MinByMagnitude(ReadOnlySpan<Vector2Int> values)
         {
             int length = values.Length;
-            
+
             if (length == 0) { throw new ArgumentOutOfRangeException(); }
-            
+
             Vector2Int min = values[0];
 
             if (length == 1) { return min; }
@@ -33,9 +34,9 @@ namespace AreYouFruits.Common.Math
         public static Vector3Int MinByMagnitude(ReadOnlySpan<Vector3Int> values)
         {
             int length = values.Length;
-            
+
             if (length == 0) { throw new ArgumentOutOfRangeException(); }
-            
+
             Vector3Int min = values[0];
 
             if (length == 1) { return min; }
@@ -54,13 +55,13 @@ namespace AreYouFruits.Common.Math
 
             return min;
         }
-        
+
         public static Vector2 MinByMagnitude(ReadOnlySpan<Vector2> values)
         {
             int length = values.Length;
-            
+
             if (length == 0) { throw new ArgumentOutOfRangeException(); }
-            
+
             Vector2 min = values[0];
 
             if (length == 1) { return min; }
@@ -83,9 +84,9 @@ namespace AreYouFruits.Common.Math
         public static Vector3 MinByMagnitude(ReadOnlySpan<Vector3> values)
         {
             int length = values.Length;
-            
+
             if (length == 0) { throw new ArgumentOutOfRangeException(); }
-            
+
             Vector3 min = values[0];
 
             if (length == 1) { return min; }
@@ -108,9 +109,9 @@ namespace AreYouFruits.Common.Math
         public static Vector4 MinByMagnitude(ReadOnlySpan<Vector4> values)
         {
             int length = values.Length;
-            
+
             if (length == 0) { throw new ArgumentOutOfRangeException(); }
-            
+
             Vector4 min = values[0];
 
             if (length == 1) { return min; }
@@ -131,3 +132,5 @@ namespace AreYouFruits.Common.Math
         }
     }
 }
+
+#endif

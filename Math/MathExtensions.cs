@@ -17,9 +17,11 @@ namespace AreYouFruits.Common.Math
             return angle - fullCyclesAngle;
         }
 
+    #if UNITY_2021_3
         public static float Area(this Vector2 v) => v.x * v.y;
         public static int Area(this Vector2Int v) => v.x * v.y;
         public static float Volume(this Vector3 v) => v.x * v.y * v.z;
         public static int Volume(this Vector3Int v) => v.x * v.y * v.z;
+    #endif
     }
 }

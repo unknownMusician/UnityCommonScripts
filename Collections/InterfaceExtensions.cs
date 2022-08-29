@@ -6,6 +6,8 @@ namespace AreYouFruits.Common.Collections
 {
     public static class InterfaceExtensions
     {
+        private static readonly Random Random = new();
+
         public static IDictionary<TKey, TValue> Foreach<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary, Action<TKey, TValue> action
         )
@@ -81,6 +83,12 @@ namespace AreYouFruits.Common.Collections
             }
 
             return -1;
+        }
+        
+        public static T GetRandomElement<T>(this IReadOnlyList<T> array)
+        {
+            int randomIndex = Random.Next(0, array.Count);
+            return array[randomIndex];
         }
     }
 }

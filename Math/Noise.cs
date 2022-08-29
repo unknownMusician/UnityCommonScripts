@@ -1,4 +1,6 @@
-﻿using Unity.Collections.LowLevel.Unsafe;
+﻿#if UNITY_2021_3
+
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace AreYouFruits.Common.Math
@@ -139,3 +141,5 @@ namespace AreYouFruits.Common.Math
         }
     }
 }
+
+#endif
