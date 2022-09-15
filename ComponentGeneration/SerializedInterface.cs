@@ -15,7 +15,7 @@ using UnityEditor;
 namespace AreYouFruits.Common.ComponentGeneration
 {
     [Serializable]
-    public struct SerializedInterface<TInterface> : ISerializedInterface
+    public struct SerializedInterface<TInterface>
         where TInterface : class
     {
     #nullable disable
@@ -28,6 +28,7 @@ namespace AreYouFruits.Common.ComponentGeneration
         }
 
         public TInterface Interface => _object as TInterface ?? throw new BehaviourNotInitializedException();
+        public Object AsObject => _object;
 
         public static implicit operator TInterface(SerializedInterface<TInterface> serializedInterface)
         {
@@ -39,8 +40,6 @@ namespace AreYouFruits.Common.ComponentGeneration
             return new SerializedInterface<TInterface>(@interface);
         }
     }
-
-    public interface ISerializedInterface { }
 
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(SerializedInterface<>))]

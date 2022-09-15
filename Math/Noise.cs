@@ -32,6 +32,11 @@ namespace AreYouFruits.Common.Math
             return (float)((double)hash / uint.MaxValue);
         }
 
+        public static float Generate(int seed)
+        {
+            return Generate(UnsafeUtility.As<int, uint>(ref seed));
+        }
+
         public static float Simple(float x) => Generate(UnsafeUtility.As<float, uint>(ref x));
 
         public static float Simple(float x, float y)
