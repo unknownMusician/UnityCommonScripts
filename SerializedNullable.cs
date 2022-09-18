@@ -1,6 +1,7 @@
 ﻿#if UNITY_2021_3
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -9,40 +10,101 @@ using UnityEditor;
 
 namespace AreYouFruits.Common
 {
+    public static class SerializedNullableExtensions
+    {
+        public static T? AsNullable<T>(SerializedNullable<T> serializedNullable)
+            where T : struct
+        {
+            return serializedNullable.HasValue ? serializedNullable.Value : null;
+        }
+    }
+
     [Serializable]
-    public struct SerializedNullable<T>
+    public struct SerializedNullable<T> : IEquatable<SerializedNullable<T>>, IEquatable<T>
     {
         public static readonly SerializedNullable<T> Null = default;
-        
+
         public T Value;
         public bool HasValue;
 
-        public SerializedNullable(T? value)
+        public SerializedNullable(T value, bool hasValue)
         {
-            Value = value!;
-            HasValue = value == null;
+            Value = value;
+            HasValue = hasValue;
         }
 
         public void Deconstruct(out T value, out bool hasValue) => (value, hasValue) = (Value, HasValue);
 
-        public T? AsNullable()
+        public bool IsNull(out T value)
         {
-            return (T?)this;
-        }
-        
-        public static implicit operator T?(in SerializedNullable<T> serializedNullable)
-        {
-            (T value, bool hasValue) = serializedNullable;
+            if (HasValue)
+            {
+                value = Value;
+                return false;
+            }
 
-            return hasValue ? (T?)value : default;
+            value = default;
+            return true;
         }
-        
-        public static implicit operator SerializedNullable<T>(in T? nullable)
+
+        public bool Equals(T other)
         {
-            return new SerializedNullable<T>(nullable);
+            return !IsNull(out T value) && EqualityComparer<T>.Default.Equals(value, other);
+        }
+        public bool Equals(SerializedNullable<T> other)
+        {
+            if (HasValue != other.HasValue)
+            {
+                return false;
+            }
+
+            if (!HasValue)
+            {
+                return true;
+            }
+            
+            return EqualityComparer<T>.Default.Equals(Value, other.Value);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is SerializedNullable<T> other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Value, HasValue);
+        }
+
+        public static bool operator ==(
+            SerializedNullable<T> serializedNullable1, SerializedNullable<T> serializedNullable2
+        )
+        {
+            return serializedNullable1.Equals(serializedNullable2);
+        }
+
+        public static bool operator !=(
+            SerializedNullable<T> serializedNullable1, SerializedNullable<T> serializedNullable2
+        )
+        {
+            return !serializedNullable1.Equals(serializedNullable2);
+        }
+
+        public static bool operator ==(
+            SerializedNullable<T> serializedNullable, T nullable
+        )
+        {
+            return serializedNullable.Equals(nullable);
+        }
+
+        public static bool operator !=(
+            SerializedNullable<T> serializedNullable, T nullable
+        )
+        {
+            return !serializedNullable.Equals(nullable);
         }
     }
-    
+
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(SerializedNullable<>))]
     public sealed class SerializedNullableDrawer : PropertyDrawer
@@ -55,7 +117,7 @@ namespace AreYouFruits.Common
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
-            
+
             SerializedProperty valueProperty = property.FindPropertyRelative("Value");
             SerializedProperty nullProperty = property.FindPropertyRelative("HasValue");
 
@@ -71,7 +133,7 @@ namespace AreYouFruits.Common
             bool hasValue = EditorGUI.Toggle(nullPosition, nullProperty.boolValue);
 
             nullProperty.boolValue = hasValue;
-            
+
             if (hasValue)
             {
                 EditorGUI.PropertyField(propertyPosition, valueProperty, GUIContent.none, true);
