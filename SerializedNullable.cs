@@ -12,6 +12,8 @@ namespace AreYouFruits.Common
     [Serializable]
     public struct SerializedNullable<T>
     {
+        public static readonly SerializedNullable<T> Null = default;
+        
         public T Value;
         public bool HasValue;
 
@@ -33,6 +35,11 @@ namespace AreYouFruits.Common
             (T value, bool hasValue) = serializedNullable;
 
             return hasValue ? (T?)value : default;
+        }
+        
+        public static implicit operator SerializedNullable<T>(in T? nullable)
+        {
+            return new SerializedNullable<T>(nullable);
         }
     }
     
