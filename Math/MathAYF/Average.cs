@@ -37,7 +37,7 @@ namespace AreYouFruits.Common.Math
             return sum;
         }
 
-    #if UNITY_2021_3_8
+    #if UNITY_2021_3_OR_NEWER
         public static Vector2 Average(ReadOnlySpan<Vector2> values)
         {
             int length = values.Length;
