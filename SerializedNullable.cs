@@ -1,7 +1,6 @@
 ﻿#if UNITY_2021_3
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -13,7 +12,7 @@ namespace AreYouFruits.Common
     public static class SerializedNullableExtensions
     {
         public static T? AsNullable<T>(SerializedNullable<T> serializedNullable)
-            where T : struct
+            where T : struct, IEquatable<T>
         {
             return serializedNullable.HasValue ? serializedNullable.Value : null;
         }
@@ -21,6 +20,7 @@ namespace AreYouFruits.Common
 
     [Serializable]
     public struct SerializedNullable<T> : IEquatable<SerializedNullable<T>>, IEquatable<T>
+        where T : IEquatable<T>
     {
         public static readonly SerializedNullable<T> Null = default;
 
@@ -43,13 +43,13 @@ namespace AreYouFruits.Common
                 return false;
             }
 
-            value = default;
+            value = default!;
             return true;
         }
 
         public bool Equals(T other)
         {
-            return !IsNull(out T value) && EqualityComparer<T>.Default.Equals(value, other);
+            return !IsNull(out T value) && value.Equals(other);
         }
         public bool Equals(SerializedNullable<T> other)
         {
@@ -63,7 +63,7 @@ namespace AreYouFruits.Common
                 return true;
             }
             
-            return EqualityComparer<T>.Default.Equals(Value, other.Value);
+            return Value.Equals(other.Value);
         }
 
         public override bool Equals(object? obj)
