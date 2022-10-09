@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Common", "AreYouFruits.Common\AreYouFruits.Common.csproj", "{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Common.Unity", "AreYouFruits.Common.Unity\AreYouFruits.Common.Unity.csproj", "{8B241FDB-6B9F-4027-A684-3A74D0B101C8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7} = {97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Common.Unity.Editor", "AreYouFruits.Common.Unity.Editor\AreYouFruits.Common.Unity.Editor.csproj", "{07A647C0-97F2-440C-811C-1A1D094A25C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8B241FDB-6B9F-4027-A684-3A74D0B101C8} = {8B241FDB-6B9F-4027-A684-3A74D0B101C8}
+		{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7} = {97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97BEC6DE-1A70-4FA2-9E23-5ABEEB2C31E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B241FDB-6B9F-4027-A684-3A74D0B101C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B241FDB-6B9F-4027-A684-3A74D0B101C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B241FDB-6B9F-4027-A684-3A74D0B101C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B241FDB-6B9F-4027-A684-3A74D0B101C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A647C0-97F2-440C-811C-1A1D094A25C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A647C0-97F2-440C-811C-1A1D094A25C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A647C0-97F2-440C-811C-1A1D094A25C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A647C0-97F2-440C-811C-1A1D094A25C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
