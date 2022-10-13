@@ -8,7 +8,7 @@ namespace AreYouFruits.Common
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("Value"));
+            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("Value"), label);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
