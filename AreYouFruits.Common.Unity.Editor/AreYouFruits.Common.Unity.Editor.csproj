@@ -12,8 +12,17 @@
       <Reference Include="UnityEditor">
         <HintPath>..\..\..\..\..\Apps\Unity\Versions\2021.3.11f1\Editor\Data\Managed\UnityEditor.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEditor.CoreModule">
+        <HintPath>..\..\..\..\Apps\Unity\Versions\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEditor.CoreModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\..\..\..\..\Apps\Unity\Versions\2021.3.11f1\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\..\..\..\Apps\Unity\Versions\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.IMGUIModule">
+        <HintPath>..\..\..\..\Apps\Unity\Versions\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

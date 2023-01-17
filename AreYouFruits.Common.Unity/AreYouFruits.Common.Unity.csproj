@@ -9,12 +9,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="UnityEngine">
-        <HintPath>..\..\..\..\..\Apps\Unity\Versions\2021.3.11f1\Editor\Data\Managed\UnityEngine.dll</HintPath>
-      </Reference>
+      <ProjectReference Include="..\AreYouFruits.Common\AreYouFruits.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AreYouFruits.Common\AreYouFruits.Common.csproj" />
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\..\..\..\Apps\Unity\Versions\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.Physics2DModule">
+        <HintPath>..\..\..\..\Apps\Unity\Versions\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.Physics2DModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.PhysicsModule">
+        <HintPath>..\..\..\..\Apps\Unity\Versions\2021.3.16f1\Editor\Data\Managed\UnityEngine\UnityEngine.PhysicsModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>
