@@ -30,8 +30,16 @@ namespace Starfish.TempDi.Settings
 
         private static DiSettings Load()
         {
-            DiSettings settings = ScriptableObject.CreateInstance<DiSettings>();
+            DiSettings settings = UnityEditor.AssetDatabase.LoadAssetAtPath<DiSettings>(SettingsLocalPath);
 
+            if (settings != null)
+            {
+                return settings;
+            }
+
+            settings = ScriptableObject.CreateInstance<DiSettings>();
+            settings.Bindings = Array.Empty<Binding>();
+            
             string directory = Path.GetDirectoryName(SettingsPath) + '\\';
                 
             if (!Directory.Exists(directory))

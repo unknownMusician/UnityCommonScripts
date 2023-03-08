@@ -52,6 +52,11 @@ namespace AreYouFruits.DependencyInjection
                 resolvingTypes.Remove(type);
             }
 
+            if (resolved is null)
+            {
+                throw new ArgumentNullException(nameof(resolved), $"Bound object of type {type} is null. This is not permitted.");
+            }
+
             if (!type.IsInstanceOfType(resolved))
             {
                 throw new BindingTypeMismatch(type, resolved);

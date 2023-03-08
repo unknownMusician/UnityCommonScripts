@@ -8,7 +8,7 @@ namespace AreYouFruits.DependencyInjection
         {
             if (!resolver.TryResolve(type, out object result))
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"No object of type {type} bound.");
             }
 
             return result;

@@ -1,3 +1,4 @@
+using AreYouFruits.DependencyInjection;
 using AreYouFruits.DependencyInjection.ContextInitialization;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace AreYouFruits.Common.DependencyInjection
         private static void Clear()
         {
             ContextInitializer.Reset();
+            Context.Container.Clear();
         }
     }
 }
