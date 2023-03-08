@@ -5,13 +5,13 @@ using AreYouFruits.DependencyInjection.BinderProviders;
 using AreYouFruits.DependencyInjection.Binders;
 using AreYouFruits.DependencyInjection.Exceptions;
 
-namespace AreYouFruits.DependencyInjection.TypeResolvers
+namespace AreYouFruits.DependencyInjection
 {
     public sealed class DiContainer : IDiContainer
     {
-        private readonly Dictionary<int, RecursiveDiByTypeResolver> _aliveThreadResolvers = new Dictionary<int, RecursiveDiByTypeResolver>();
+        private readonly Dictionary<int, RecursiveDiByTypeResolver> aliveThreadResolvers = new Dictionary<int, RecursiveDiByTypeResolver>();
         
-        private BindingsHolder _bindingsHolder = new BindingsHolder();
+        private BindingsHolder bindingsHolder = new BindingsHolder();
 
         public IDiBinder Bind(Type type)
         {
@@ -22,27 +22,27 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
             
             var binder = new DiBinder(type);
 
-            _bindingsHolder.Add(binder);
+            bindingsHolder.Add(binder);
 
             return binder;
         }
 
         public void Clear()
         {
-            _bindingsHolder = new BindingsHolder();
+            bindingsHolder = new BindingsHolder();
         }
 
-        public void ClearBinding(Type type)
+        public void Clear(Type type)
         {
             if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
             
-            _bindingsHolder.TryRemove(type);
+            bindingsHolder.TryRemove(type);
         }
 
-        public object Resolve(Type type)
+        public bool TryResolve(Type type, out object result)
         {
             if (type is null)
             {
@@ -51,37 +51,42 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
 
             int threadId = Thread.CurrentThread.ManagedThreadId;
             
-            if (!_aliveThreadResolvers.TryGetValue(threadId, out RecursiveDiByTypeResolver recursiveTypeResolver))
+            if (!aliveThreadResolvers.TryGetValue(threadId, out RecursiveDiByTypeResolver recursiveTypeResolver))
             {
-                recursiveTypeResolver = new RecursiveDiByTypeResolver(_bindingsHolder);
-                _aliveThreadResolvers.Add(threadId, recursiveTypeResolver);
+                recursiveTypeResolver = new RecursiveDiByTypeResolver(bindingsHolder);
+                aliveThreadResolvers.Add(threadId, recursiveTypeResolver);
             }
 
             try
             {
-                return ResolveThreadIndependent(type, recursiveTypeResolver);
+                return ResolveThreadIndependent(type, recursiveTypeResolver, out result);
             }
             finally
             {
-                _aliveThreadResolvers.Remove(threadId);
+                aliveThreadResolvers.Remove(threadId);
             }
         }
 
-        private object ResolveThreadIndependent(Type type, RecursiveDiByTypeResolver recursiveDiByTypeResolver)
+        private bool ResolveThreadIndependent(Type type, IDiByTypeResolver diByTypeResolver, out object result)
         {
-            object resolved = recursiveDiByTypeResolver.Resolve(type);
-
-            if (resolved is null)
+            if (!diByTypeResolver.TryResolve(type, out object potentialResult))
             {
-                throw new InvalidProgramException(nameof(resolved));
+                result = null!;
+                return false;
             }
 
-            if (!type.IsInstanceOfType(resolved))
+            if (potentialResult is null)
             {
-                throw new BindingTypeMismatch(type, resolved);
+                throw new InvalidProgramException(nameof(potentialResult));
             }
 
-            return resolved;
+            if (!type.IsInstanceOfType(potentialResult))
+            {
+                throw new BindingTypeMismatch(type, potentialResult);
+            }
+
+            result = potentialResult;
+            return true;
         }
     }
 }

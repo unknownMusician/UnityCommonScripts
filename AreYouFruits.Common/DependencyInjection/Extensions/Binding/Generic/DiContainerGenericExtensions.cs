@@ -12,7 +12,7 @@ namespace AreYouFruits.DependencyInjection
 
         public static void ClearBinding<TSource>(this IDiContainer container)
         {
-            container.ClearBinding(typeof(TSource));
+            container.Clear(typeof(TSource));
         }
     }
 }

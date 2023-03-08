@@ -7,8 +7,8 @@ namespace AreYouFruits.DependencyInjection.BinderProviders
 {
     public sealed class BindingsHolder : IBindingsHolder
     {
-        private readonly object _locker = new object();
-        private readonly Dictionary<Type, IDiBinding> _binders = new Dictionary<Type, IDiBinding>();
+        private readonly object locker = new object();
+        private readonly Dictionary<Type, IDiBinding> binders = new Dictionary<Type, IDiBinding>();
 
         public void Add(IDiBinding binding)
         {
@@ -24,25 +24,25 @@ namespace AreYouFruits.DependencyInjection.BinderProviders
                 throw new ArgumentNullException(nameof(binding.SourceType));
             }
 
-            lock (_locker)
+            lock (locker)
             {
-                if (!_binders.TryAdd(type, binding))
+                if (!binders.TryAdd(type, binding))
                 {
                     throw new BindingCollisionException(type);
                 }
             }
         }
 
-        public IDiBinding Get(Type type)
+        public bool TryGet(Type type, out IDiBinding binding)
         {
             if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
 
-            lock (_locker)
+            lock (locker)
             {
-                return _binders[type];
+                return binders.TryGetValue(type, out binding);
             }
         }
 
@@ -53,9 +53,9 @@ namespace AreYouFruits.DependencyInjection.BinderProviders
                 throw new ArgumentNullException(nameof(type));
             }
 
-            lock (_locker)
+            lock (locker)
             {
-                _binders.Remove(type);
+                binders.Remove(type);
             }
         }
     }

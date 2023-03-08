@@ -7,6 +7,6 @@ namespace AreYouFruits.DependencyInjection
     {
         public IDiBinder Bind(Type type);
         public void Clear();
-        public void ClearBinding(Type type);
+        public void Clear(Type type);
     }
 }

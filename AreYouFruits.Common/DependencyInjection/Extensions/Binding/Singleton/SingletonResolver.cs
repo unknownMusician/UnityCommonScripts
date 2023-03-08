@@ -5,7 +5,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Singleton
 {
     public sealed class SingletonResolver<TSource> : IResolver<TSource>
     {
-        private readonly TSource _singleton;
+        private readonly TSource singleton;
 
         public SingletonResolver(TSource singleton)
         {
@@ -14,7 +14,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Singleton
                 throw new ArgumentNullException(nameof(singleton));
             }
             
-            _singleton = singleton;
+            this.singleton = singleton;
         }
 
         public TSource Resolve(IDiByTypeResolver resolver)
@@ -24,7 +24,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Singleton
                 throw new ArgumentNullException(nameof(resolver));
             }
             
-            return _singleton;
+            return singleton;
         }
     }
 }

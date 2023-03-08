@@ -1,13 +1,13 @@
 ﻿using System;
 using AreYouFruits.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.Factory
+namespace AreYouFruits.DependencyInjection.Extensions.Binding.DelegateFactory
 {
-    public sealed class FactoryResolver<TSource> : IResolver<TSource>
+    public sealed class DelegateFactoryResolver<TSource> : IResolver<TSource>
     {
-        private readonly IFactory<TSource> factory;
+        private readonly Func<TSource> factory;
 
-        public FactoryResolver(IFactory<TSource> factory)
+        public DelegateFactoryResolver(Func<TSource> factory)
         {
             if (factory is null)
             {
@@ -24,7 +24,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Factory
                 throw new ArgumentNullException(nameof(resolver));
             }
             
-            return factory.Get();
+            return factory();
         }
     }
 }

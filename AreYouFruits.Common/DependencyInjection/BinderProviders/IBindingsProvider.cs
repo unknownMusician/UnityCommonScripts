@@ -5,6 +5,6 @@ namespace AreYouFruits.DependencyInjection.BinderProviders
 {
     public interface IBindingsProvider
     {
-        public IDiBinding Get(Type type);
+        public bool TryGet(Type type, out IDiBinding binding);
     }
 }

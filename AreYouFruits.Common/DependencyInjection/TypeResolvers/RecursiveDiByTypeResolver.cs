@@ -5,12 +5,12 @@ using AreYouFruits.DependencyInjection.Binders;
 using AreYouFruits.DependencyInjection.Exceptions;
 using AreYouFruits.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.TypeResolvers
+namespace AreYouFruits.DependencyInjection
 {
     public sealed class RecursiveDiByTypeResolver : IDiByTypeResolver
     {
-        private readonly IBindingsProvider _bindingsProvider;
-        private readonly HashSet<Type> _resolvingTypes;
+        private readonly IBindingsProvider bindingsProvider;
+        private readonly HashSet<Type> resolvingTypes;
 
         public RecursiveDiByTypeResolver(IBindingsProvider bindingsProvider)
         {
@@ -19,18 +19,18 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
                 throw new ArgumentNullException(nameof(bindingsProvider));
             }
             
-            _bindingsProvider = bindingsProvider;
-            _resolvingTypes = new HashSet<Type>();
+            this.bindingsProvider = bindingsProvider;
+            resolvingTypes = new HashSet<Type>();
         }
 
-        public object Resolve(Type type)
+        public bool TryResolve(Type type, out object result)
         {
             if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
             
-            if (!_resolvingTypes.Add(type))
+            if (!resolvingTypes.Add(type))
             {
                 throw new RecursiveBindingException();
             }
@@ -39,13 +39,17 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
 
             try
             {
-                IDiBinding binding = _bindingsProvider.Get(type);
+                if (!bindingsProvider.TryGet(type, out IDiBinding binding))
+                {
+                    result = null!;
+                    return false;
+                }
 
                 resolved = Resolve(binding.Resolver);
             }
             finally
             {
-                _resolvingTypes.Remove(type);
+                resolvingTypes.Remove(type);
             }
 
             if (!type.IsInstanceOfType(resolved))
@@ -53,10 +57,11 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
                 throw new BindingTypeMismatch(type, resolved);
             }
 
-            return resolved;
+            result = resolved;
+            return true;
         }
 
-        private object Resolve(IResolver<object> resolver)
+        private object Resolve(IResolver<object>? resolver)
         {
             if (resolver is null)
             {

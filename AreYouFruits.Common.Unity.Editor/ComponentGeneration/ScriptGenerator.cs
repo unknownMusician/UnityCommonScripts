@@ -9,6 +9,7 @@ using UnityEngine;
 namespace AreYouFruits.Common.ComponentGeneration
 {
     public static class ScriptGenerator
+        // todo: remake with Source Generators
     {
         private struct FileInfo
         {

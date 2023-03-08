@@ -1,13 +1,13 @@
 ﻿using System;
 using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Extensions.Binding.Conversion;
+using AreYouFruits.DependencyInjection.Extensions.Binding.DelegateConversion;
 
 namespace AreYouFruits.DependencyInjection
 {
-    public static class ConversionResolverExtensions
+    public static class DelegateConversionResolverExtensions
     {
         public static void ToConversion<TSource, TDestination>(
-            this IGenericDiBinder<TSource> binder, IConverter<TDestination, TSource> converter
+            this IGenericDiBinder<TSource> binder, Func<TDestination, TSource> converter
         )
         {
             if (converter is null)
@@ -15,7 +15,7 @@ namespace AreYouFruits.DependencyInjection
                 throw new ArgumentNullException(nameof(converter));
             }
 
-            binder.To(new ConversionResolver<TSource, TDestination>(converter));
+            binder.To(new DelegateConversionResolver<TSource, TDestination>(converter));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace AreYouFruits.DependencyInjection
 {
     public static class LazySingletonResolverExtensions
     {
-        public static void ToLazySingleton<TSource>(this IGenericDiBinder<TSource> binder, Func<TSource> factory)
+        public static void ToLazySingleton<TSource>(this IGenericDiBinder<TSource> binder, IFactory<TSource> factory)
         {
             if (factory is null)
             {
@@ -16,7 +16,7 @@ namespace AreYouFruits.DependencyInjection
             binder.To(new LazySingletonResolver<TSource>(factory));
         }
         
-        public static void ToLazySingleton(this IDiBinder binder, Func<object> factory)
+        public static void ToLazySingleton(this IDiBinder binder, IFactory<object> factory)
         {
             if (factory is null)
             {

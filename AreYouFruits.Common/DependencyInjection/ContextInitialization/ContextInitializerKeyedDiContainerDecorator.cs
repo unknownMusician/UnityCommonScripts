@@ -1,14 +1,16 @@
-using System;
+﻿using System;
 using AreYouFruits.DependencyInjection.Binders;
 
 namespace AreYouFruits.DependencyInjection.ContextInitialization
 {
-    public sealed class ContextInitializerDiContainerDecorator : IDiContainer
+    public sealed class ContextInitializerKeyedDiContainerDecorator : IKeyedDiContainer
     {
-        private readonly IDiContainer container;
-        private readonly Action<IDiContainer>? initializer;
+        private readonly IKeyedDiContainer container;
+        private readonly Action<IKeyedDiContainer>? initializer;
 
-        public ContextInitializerDiContainerDecorator(IDiContainer container, Action<IDiContainer>? initializer = null)
+        public ContextInitializerKeyedDiContainerDecorator(
+            IKeyedDiContainer container, Action<IKeyedDiContainer>? initializer = null
+        )
         {
             if (container is null)
             {
@@ -39,6 +41,15 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
         public void Clear(Type type)
         {
             container.Clear(type);
+        }
+
+        public IDiContainer For(object key)
+        {
+            Action<IDiContainer>? initializer = this.initializer is null ?
+                (Action<IDiContainer>?)null :
+                _ => this.initializer(container);
+
+            return new ContextInitializerDiContainerDecorator(container.For(key), initializer);
         }
     }
 }

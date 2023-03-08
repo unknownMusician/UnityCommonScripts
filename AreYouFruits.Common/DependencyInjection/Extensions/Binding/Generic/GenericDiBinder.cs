@@ -7,7 +7,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Generic
 {
     public sealed class GenericDiBinder<TSource> : IGenericDiBinder<TSource>
     {
-        private readonly IDiBinder _binder;
+        private readonly IDiBinder binder;
 
         public GenericDiBinder(IDiBinder binder)
         {
@@ -16,18 +16,18 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Generic
                 throw new ArgumentNullException(nameof(binder));
             }
 
-            _binder = binder;
+            this.binder = binder;
         }
 
         public void To(IResolver<TSource> resolver)
         {
-            _binder.To(new ResolverObjectWrapper<TSource>(resolver));
+            binder.To(new ResolverObjectWrapper<TSource>(resolver));
         }
 
         public void To<TDestination>()
             where TDestination : TSource
         {
-            _binder.To(new TypeTransitionResolver<TSource, TDestination>());
+            binder.To(new TypeTransitionResolver<TSource, TDestination>());
         }
     }
 }

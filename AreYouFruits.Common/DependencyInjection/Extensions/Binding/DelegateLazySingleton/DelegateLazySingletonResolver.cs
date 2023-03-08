@@ -1,16 +1,16 @@
 ﻿using System;
 using AreYouFruits.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.LazySingleton
+namespace AreYouFruits.DependencyInjection.Extensions.Binding.DelegateLazySingleton
 {
-    public sealed class LazySingletonResolver<TDestination> : IResolver<TDestination>
+    public sealed class DelegateLazySingletonResolver<TDestination> : IResolver<TDestination>
     {
-        private readonly IFactory<TDestination> factory;
+        private readonly Func<TDestination> factory;
         
         private bool containsValue;
         private TDestination singleton;
 
-        public LazySingletonResolver(IFactory<TDestination> factory)
+        public DelegateLazySingletonResolver(Func<TDestination> factory)
         {
             if (factory is null)
             {
@@ -30,7 +30,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.LazySingleton
 
             if (!containsValue)
             {
-                singleton = factory.Get();
+                singleton = factory();
                 containsValue = true;
             }
             

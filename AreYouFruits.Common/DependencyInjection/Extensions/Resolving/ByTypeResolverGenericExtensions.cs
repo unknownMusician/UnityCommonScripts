@@ -11,5 +11,17 @@
         {
             value = resolver.Resolve<T>();
         }
+
+        public static bool TryResolve<T>(this IDiByTypeResolver resolver, out T value)
+        {
+            if (resolver.TryResolve(typeof(T), out object potentialValue))
+            {
+                value = (T)potentialValue;
+                return true;
+            }
+
+            value = default!;
+            return false;
+        }
     }
 }
