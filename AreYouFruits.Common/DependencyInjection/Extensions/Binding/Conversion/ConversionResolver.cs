@@ -1,7 +1,9 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Extensions.Resolving;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.Conversion
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Conversion
 {
     public sealed class ConversionResolver<TSource, TDestination> : IResolver<TSource>
     {

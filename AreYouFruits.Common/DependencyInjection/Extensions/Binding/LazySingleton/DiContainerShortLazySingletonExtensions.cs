@@ -1,4 +1,8 @@
-﻿namespace AreYouFruits.DependencyInjection
+﻿using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Factory;
+using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Generic;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
+
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.LazySingleton
 {
     public static class DiContainerShortLazySingletonExtensions
     {

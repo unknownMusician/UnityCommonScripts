@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Exceptions;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Exceptions;
 
-namespace AreYouFruits.DependencyInjection.BinderProviders
+namespace AreYouFruits.Common.DependencyInjection.BinderProviders
 {
     public sealed class BindingsHolder : IBindingsHolder
     {
-        private readonly object locker = new object();
-        private readonly Dictionary<Type, IDiBinding> binders = new Dictionary<Type, IDiBinding>();
+        private readonly object locker = new();
+        private readonly Dictionary<Type, IDiBinding> binders = new();
 
         public void Add(IDiBinding binding)
         {

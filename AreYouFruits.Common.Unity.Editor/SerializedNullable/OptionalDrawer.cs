@@ -1,22 +1,23 @@
+using AreYouFruits.Utils;
 using UnityEditor;
 using UnityEngine;
 
 namespace AreYouFruits.Common
 {
-    [CustomPropertyDrawer(typeof(SerializedNullable<>))]
-    public sealed class SerializedNullableDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(Optional<>))]
+    public sealed class OptionalDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("Value"), label);
+            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("value"), label);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            SerializedProperty valueProperty = property.FindPropertyRelative("Value");
-            SerializedProperty nullProperty = property.FindPropertyRelative("HasValue");
+            SerializedProperty valueProperty = property.FindPropertyRelative("value");
+            SerializedProperty nullProperty = property.FindPropertyRelative("isInitialized");
 
             position = EditorGUI.PrefixLabel(position, label);
 

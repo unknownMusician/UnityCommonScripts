@@ -1,12 +1,12 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.Binders
+namespace AreYouFruits.Common.DependencyInjection.Binders
 {
     public sealed class DiBinder : IDiBinder, IDiBinding
     {
         public Type SourceType { get; }
-        public IResolver<object>? Resolver { get; private set; }
+        public IResolver<object> Resolver { get; private set; }
 
         public DiBinder(Type source)
         {
@@ -20,7 +20,7 @@ namespace AreYouFruits.DependencyInjection.Binders
                 throw new ArgumentNullException(nameof(resolver), "Cannot bind to null IResolver.");
             }
 
-            if (!(Resolver is null))
+            if (Resolver is not null)
             {
                 throw new InvalidOperationException("This IDiBinder is already bound.");
             }

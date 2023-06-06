@@ -9,7 +9,7 @@ namespace AreYouFruits.Common
             float min;
             float max;
 
-            if (range.IsBounded)
+            if (range.IsBound)
             {
                 (min, max) = range;
             }
@@ -27,7 +27,7 @@ namespace AreYouFruits.Common
             float min;
             float max;
 
-            if (range.IsBounded)
+            if (range.IsBound)
             {
                 (int minInt, int maxInt) = range;
                 min = minInt;
@@ -47,7 +47,7 @@ namespace AreYouFruits.Common
             int min;
             int max;
 
-            if (range.IsBounded)
+            if (range.IsBound)
             {
                 (min, max) = range;
             }

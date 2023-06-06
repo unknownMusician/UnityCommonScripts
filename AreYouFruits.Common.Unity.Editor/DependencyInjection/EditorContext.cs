@@ -1,5 +1,5 @@
-﻿using AreYouFruits.DependencyInjection;
-using AreYouFruits.DependencyInjection.ContextInitialization;
+﻿using AreYouFruits.Common.DependencyInjection.ContextInitialization;
+using AreYouFruits.Common.DependencyInjection.KeyedTypeResolvers;
 
 namespace AreYouFruits.Common.DependencyInjection
 {

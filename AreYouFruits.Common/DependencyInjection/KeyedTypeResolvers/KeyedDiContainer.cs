@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using AreYouFruits.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.KeyedTypeResolvers
 {
     public sealed class KeyedDiContainer : IKeyedDiContainer
     {

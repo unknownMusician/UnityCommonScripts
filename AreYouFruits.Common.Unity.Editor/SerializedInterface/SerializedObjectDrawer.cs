@@ -18,7 +18,7 @@ namespace AreYouFruits.Common.ComponentGeneration
 
         private SerializeType _serializeType = SerializeType.Interface;
 
-        private GameObject? _choosingGameObject;
+        private GameObject _choosingGameObject;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -74,7 +74,7 @@ namespace AreYouFruits.Common.ComponentGeneration
 
         public static void OnGuiAsObjectField(
             Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType,
-            ref GameObject? choosingGameObject
+            ref GameObject choosingGameObject
         )
         {
             position = EditorGUI.PrefixLabel(position, label);
@@ -128,7 +128,7 @@ namespace AreYouFruits.Common.ComponentGeneration
 
             TrySetObjectReferenceValue(obj, objectProperty, interfaceType);
 
-            static void TrySetObjectReferenceValue(Object? value, SerializedProperty objectProperty, Type interfaceType)
+            static void TrySetObjectReferenceValue(Object value, SerializedProperty objectProperty, Type interfaceType)
             {
                 if (value is null || interfaceType.IsInstanceOfType(value))
                 {
@@ -171,10 +171,10 @@ namespace AreYouFruits.Common.ComponentGeneration
                     c.ToString();
         }
 
-        public static object? GetTargetObjectOfProperty(SerializedProperty prop)
+        public static object GetTargetObjectOfProperty(SerializedProperty prop)
         {
             string path = prop.propertyPath.Replace(".Array.data[", "[");
-            object? obj = prop.serializedObject.targetObject;
+            object obj = prop.serializedObject.targetObject;
 
             foreach (string element in path.Split('.'))
             {
@@ -197,7 +197,7 @@ namespace AreYouFruits.Common.ComponentGeneration
             return obj;
         }
 
-        private static object? GetValueImp(object? source, string name, int index)
+        private static object GetValueImp(object source, string name, int index)
         {
             if (!(GetValueImp(source, name) is IEnumerable enumerable))
             {
@@ -217,18 +217,18 @@ namespace AreYouFruits.Common.ComponentGeneration
             return enm.Current;
         }
 
-        private static object? GetValueImp(object? source, string name)
+        private static object GetValueImp(object source, string name)
         {
             if (source == null)
             {
                 return null;
             }
 
-            Type? type = source.GetType();
+            Type type = source.GetType();
 
             while (type != null)
             {
-                FieldInfo? f = type.GetField(name,
+                FieldInfo f = type.GetField(name,
                     BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
                 if (f != null)
@@ -236,7 +236,7 @@ namespace AreYouFruits.Common.ComponentGeneration
                     return f.GetValue(source);
                 }
 
-                PropertyInfo? p = type.GetProperty(name,
+                PropertyInfo p = type.GetProperty(name,
                     BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
 
                 if (p != null)

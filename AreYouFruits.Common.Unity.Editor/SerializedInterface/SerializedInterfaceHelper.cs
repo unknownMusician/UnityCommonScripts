@@ -35,7 +35,7 @@ namespace AreYouFruits.Common.ComponentGeneration
                         BindingFlags.Instance | BindingFlags.NonPublic
                     )!;
 
-                    Component? foundReference = TryGetReferenceFromScene(
+                    Component foundReference = TryGetReferenceFromScene(
                         serializedInterfaceType.GenericTypeArguments[0],
                         behaviour,
                         field
@@ -46,8 +46,8 @@ namespace AreYouFruits.Common.ComponentGeneration
                         continue;
                     }
 
-                    Object? oldObjectValue =
-                        (Object?)serializedInterfaceTypeObjectField.GetValue(serializedInterface);
+                    Object oldObjectValue =
+                        (Object)serializedInterfaceTypeObjectField.GetValue(serializedInterface);
 
                     if (oldObjectValue == null)
                     {
@@ -59,8 +59,8 @@ namespace AreYouFruits.Common.ComponentGeneration
             }
         }
 
-        private static Component? TryGetReferenceFromScene(
-            Type type, Object? inspectedObject = null, FieldInfo? inspectedField = null
+        private static Component TryGetReferenceFromScene(
+            Type type, Object inspectedObject = null, FieldInfo inspectedField = null
         )
         {
             Component[] references = Object.FindObjectsOfType<Component>().Where(type.IsInstanceOfType).ToArray();

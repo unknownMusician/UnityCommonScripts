@@ -1,4 +1,6 @@
-namespace AreYouFruits.DependencyInjection
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
+
+namespace AreYouFruits.Common.DependencyInjection.KeyedTypeResolvers
 {
     public interface IKeyedDiContainer : IDiContainer
     {

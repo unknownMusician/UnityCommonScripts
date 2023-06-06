@@ -1,8 +1,10 @@
-﻿namespace AreYouFruits.DependencyInjection.ContextInitialization
+﻿using AreYouFruits.Common.DependencyInjection.KeyedTypeResolvers;
+
+namespace AreYouFruits.Common.DependencyInjection.ContextInitialization
 {
     public static class ContextInitializer
     {
-        private static readonly object Locker = new object();
+        private static readonly object Locker = new();
 
         private static volatile bool isInitialized;
 

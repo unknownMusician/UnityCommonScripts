@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
-using AreYouFruits.DependencyInjection;
-using AreYouFruits.DependencyInjection.ContextInitialization;
-using Starfish.Utils;
+using AreYouFruits.Common.DependencyInjection.ContextInitialization;
+using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Singleton;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
+using AreYouFruits.Common.Unity.DependencyInjection.Settings;
+using AreYouFruits.Utils;
 using UnityEngine;
 
-namespace Starfish.TempDi.Settings
+namespace AreYouFruits.TempDi.Settings
 {
     public static class EditorDiSettingsHolder
         // todo: repeating class
@@ -13,7 +15,7 @@ namespace Starfish.TempDi.Settings
         private const string SettingsLocalPath = "Assets/Resources/DiSettings.asset";
         private static readonly string SettingsPath = Application.dataPath + "/Resources/DiSettings.asset";
 
-        private static DiSettings? settings;
+        private static DiSettings settings;
 
         public static Optional<DiSettings> Settings
         {
@@ -69,7 +71,7 @@ namespace Starfish.TempDi.Settings
                     throw new InvalidProgramException();
                 }
 
-                container.Bind(type).To(binding.Object);
+                container.Bind(type).ToSingleton(binding.Object);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AreYouFruits.DependencyInjection.Exceptions
+namespace AreYouFruits.Common.DependencyInjection.Exceptions
 {
     public sealed class UnfinishedBindingException : InvalidOperationException
     {

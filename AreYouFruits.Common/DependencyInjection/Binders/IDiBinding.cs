@@ -1,11 +1,11 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.Binders
+namespace AreYouFruits.Common.DependencyInjection.Binders
 {
     public interface IDiBinding
     {
         public Type SourceType { get; }
-        public IResolver<object>? Resolver { get; }
+        public IResolver<object> Resolver { get; }
     }
 }

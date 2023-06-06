@@ -1,17 +1,9 @@
 using UnityEngine;
 
-namespace Starfish.TempDi.Settings
+namespace AreYouFruits.Common.Unity.DependencyInjection.Settings
 {
     public sealed class DiSettings : ScriptableObject
     {
-    #nullable disable
-        [SerializeField] private Binding[] bindings;
-    #nullable enable
-
-        public Binding[] Bindings
-        {
-            get => bindings;
-            set => bindings = value;
-        }
+        [field: SerializeField] public Binding[] Bindings { get; set; }
     }
 }

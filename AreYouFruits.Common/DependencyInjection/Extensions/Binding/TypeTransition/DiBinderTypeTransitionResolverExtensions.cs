@@ -1,8 +1,7 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Extensions.Binding.TypeTransition;
+using AreYouFruits.Common.DependencyInjection.Binders;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.TypeTransition
 {
     public static class DiBinderTypeTransitionResolverExtensions
     {

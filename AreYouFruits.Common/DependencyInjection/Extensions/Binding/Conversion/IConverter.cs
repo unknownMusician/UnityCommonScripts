@@ -1,4 +1,4 @@
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Conversion
 {
     public interface IConverter<in TSource, out TDestination>
     {

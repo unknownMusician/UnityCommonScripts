@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AreYouFruits.Common.Assertions
 {
@@ -8,16 +9,14 @@ namespace AreYouFruits.Common.Assertions
         private const string DirectiveName = "ASSERTIONS_ENABLED";
 
         [Conditional(DirectiveName)]
-        public static void AssertNotNull(this object? nullable, string? name = "")
+        public static void ThrowIfNull([MaybeNull] this object nullable)
         {
-            if (nullable != null)
+            ThrowIf(nullable is null, () => new ArgumentNullException());
+            ThrowIf<ArgumentNullException>(nullable is null);
+            if (nullable is null)
             {
-                return;
+                throw new ArgumentNullException();
             }
-
-            string valueName = string.IsNullOrEmpty(name) ? "value" : name!;
-
-            throw new ArgumentNullException($"{valueName} should not be null");
         }
 
         [Conditional(DirectiveName)]
@@ -26,6 +25,15 @@ namespace AreYouFruits.Common.Assertions
             if (condition)
             {
                 throw exceptionProvider();
+            }
+        }
+
+        [Conditional(DirectiveName)]
+        public static void ThrowIf(bool condition, Exception exception)
+        {
+            if (condition)
+            {
+                throw exception;
             }
         }
 

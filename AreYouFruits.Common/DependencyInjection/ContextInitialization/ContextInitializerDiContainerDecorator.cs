@@ -1,14 +1,15 @@
 using System;
-using AreYouFruits.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.ContextInitialization
+namespace AreYouFruits.Common.DependencyInjection.ContextInitialization
 {
     public sealed class ContextInitializerDiContainerDecorator : IDiContainer
     {
         private readonly IDiContainer container;
-        private readonly Action<IDiContainer>? initializer;
+        private readonly Action<IDiContainer> initializer;
 
-        public ContextInitializerDiContainerDecorator(IDiContainer container, Action<IDiContainer>? initializer = null)
+        public ContextInitializerDiContainerDecorator(IDiContainer container, Action<IDiContainer> initializer = null)
         {
             if (container is null)
             {

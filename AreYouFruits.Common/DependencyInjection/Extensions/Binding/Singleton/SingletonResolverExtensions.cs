@@ -1,13 +1,12 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Extensions.Binding.Singleton;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Generic;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Singleton
 {
     public static class SingletonResolverExtensions
     {
-        public static void To(this IDiBinder binder, object obj)
+        public static void ToSingleton(this IDiBinder binder, object obj)
         {
             if (obj is null)
             {
@@ -17,7 +16,7 @@ namespace AreYouFruits.DependencyInjection
             binder.To(new SingletonResolver<object>(obj));
         }
         
-        public static void To<TSource, TDestination>(this IGenericDiBinder<TSource> binder, TDestination value)
+        public static void ToSingleton<TSource, TDestination>(this IGenericDiBinder<TSource> binder, TDestination value)
             where TDestination : TSource
         {
             if (value is null)

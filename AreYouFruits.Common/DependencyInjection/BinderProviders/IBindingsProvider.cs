@@ -1,7 +1,7 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Binders;
 
-namespace AreYouFruits.DependencyInjection.BinderProviders
+namespace AreYouFruits.Common.DependencyInjection.BinderProviders
 {
     public interface IBindingsProvider
     {

@@ -1,6 +1,8 @@
 ﻿using System;
+using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Generic;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.DelegateConversion
 {
     public static class DiContainerShortDelegateConversionExtensions
     {

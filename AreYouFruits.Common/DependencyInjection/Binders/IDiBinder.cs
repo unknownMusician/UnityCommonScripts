@@ -1,6 +1,6 @@
-﻿using AreYouFruits.DependencyInjection.Resolvers;
+﻿using AreYouFruits.Common.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.Binders
+namespace AreYouFruits.Common.DependencyInjection.Binders
 {
     public interface IDiBinder
     {

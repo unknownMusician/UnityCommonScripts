@@ -1,4 +1,6 @@
-﻿namespace AreYouFruits.DependencyInjection.Resolvers
+﻿using AreYouFruits.Common.DependencyInjection.TypeResolvers;
+
+namespace AreYouFruits.Common.DependencyInjection.Resolvers
 {
     public sealed class ResolverObjectWrapper<TSource> : IResolver<object>
     {
@@ -11,7 +13,7 @@
         
         public object Resolve(IDiByTypeResolver resolver)
         {
-            return (object)this.resolver.Resolve(resolver)!;
+            return this.resolver.Resolve(resolver)!;
         }
     }
 }

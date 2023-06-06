@@ -8,13 +8,13 @@ namespace AreYouFruits.Common
     {
         public T Min;
         public T Max;
-        public bool IsBounded;
+        public bool IsBound;
 
         public UnmanagedRange(in T min, in T max)
         {
             Min = min;
             Max = max;
-            IsBounded = true;
+            IsBound = true;
         }
 
         public readonly void Deconstruct(out T min, out T max)
@@ -24,7 +24,7 @@ namespace AreYouFruits.Common
 
         public readonly void Deconstruct(out T min, out T max, out bool isBounded)
         {
-            (min, max, isBounded) = (Min, Max, IsBounded);
+            (min, max, isBounded) = (Min, Max, IsBound);
         }
 
         public readonly bool Equals(UnmanagedRange<T> other)
@@ -32,7 +32,7 @@ namespace AreYouFruits.Common
             return UnmanagedEqualityComparer.Equals(this, other);
         }
 
-        public readonly override bool Equals(object? obj)
+        public readonly override bool Equals(object obj)
         {
             return obj is UnmanagedRange<T> other && Equals(other);
         }

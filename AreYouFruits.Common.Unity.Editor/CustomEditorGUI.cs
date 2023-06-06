@@ -41,7 +41,7 @@ namespace AreYouFruits.Common
             );
         }
 
-        public static Rect PrefixLabel(Rect position, float labelWidth, GUIContent label, GUIStyle? style = null)
+        public static Rect PrefixLabel(Rect position, float labelWidth, GUIContent label, GUIStyle style = null)
         {
             Rect labelPosition = position;
             labelPosition.width = labelWidth;

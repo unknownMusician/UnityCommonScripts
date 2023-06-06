@@ -1,7 +1,8 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.Singleton
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Singleton
 {
     public sealed class SingletonResolver<TSource> : IResolver<TSource>
     {

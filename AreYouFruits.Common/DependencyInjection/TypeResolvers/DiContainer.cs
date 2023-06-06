@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using AreYouFruits.DependencyInjection.BinderProviders;
-using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Exceptions;
+using AreYouFruits.Common.DependencyInjection.BinderProviders;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Exceptions;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.TypeResolvers
 {
     public sealed class DiContainer : IDiContainer
     {
-        private readonly Dictionary<int, RecursiveDiByTypeResolver> aliveThreadResolvers = new Dictionary<int, RecursiveDiByTypeResolver>();
+        private readonly Dictionary<int, RecursiveDiByTypeResolver> aliveThreadResolvers = new();
         
-        private BindingsHolder bindingsHolder = new BindingsHolder();
+        private BindingsHolder bindingsHolder = new();
 
         public IDiBinder Bind(Type type)
         {

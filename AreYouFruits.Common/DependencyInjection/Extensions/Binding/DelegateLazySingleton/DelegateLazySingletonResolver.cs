@@ -1,7 +1,8 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.DelegateLazySingleton
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.DelegateLazySingleton
 {
     public sealed class DelegateLazySingletonResolver<TDestination> : IResolver<TDestination>
     {

@@ -1,6 +1,7 @@
-﻿using AreYouFruits.DependencyInjection.ContextInitialization;
+﻿using AreYouFruits.Common.DependencyInjection.ContextInitialization;
+using AreYouFruits.Common.DependencyInjection.KeyedTypeResolvers;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection
 {
     public static class Context
     {

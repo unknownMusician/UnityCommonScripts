@@ -1,7 +1,6 @@
-﻿using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Extensions.Binding.Generic;
+﻿using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Generic
 {
     public static class DiContainerGenericExtensions
     {

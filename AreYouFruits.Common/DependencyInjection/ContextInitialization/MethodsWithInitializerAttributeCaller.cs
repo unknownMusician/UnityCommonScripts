@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AreYouFruits.Common.DependencyInjection.KeyedTypeResolvers;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.ContextInitialization
+namespace AreYouFruits.Common.DependencyInjection.ContextInitialization
 {
     public static class MethodsWithInitializerAttributeCaller
     {
@@ -49,7 +51,7 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
                 return false;
             }
 
-            ContextInitializerAttribute? attribute = method.GetCustomAttribute<ContextInitializerAttribute>();
+            ContextInitializerAttribute attribute = method.GetCustomAttribute<ContextInitializerAttribute>();
 
             if (attribute is null || (attribute.ContextType != contextType))
             {
@@ -87,7 +89,7 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
 
         private static bool IsUnityType(Type type)
         {
-            string? typeNamespace = type.Namespace;
+            string typeNamespace = type.Namespace;
 
             if (typeNamespace is null)
             {

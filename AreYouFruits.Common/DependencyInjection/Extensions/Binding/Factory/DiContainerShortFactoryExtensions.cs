@@ -1,4 +1,7 @@
-﻿namespace AreYouFruits.DependencyInjection
+﻿using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Generic;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
+
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Factory
 {
     public static class DiContainerShortFactoryExtensions
     {

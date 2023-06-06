@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AreYouFruits.DependencyInjection.BinderProviders;
-using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Exceptions;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.BinderProviders;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Exceptions;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.TypeResolvers
 {
     public sealed class RecursiveDiByTypeResolver : IDiByTypeResolver
     {
@@ -66,7 +66,7 @@ namespace AreYouFruits.DependencyInjection
             return true;
         }
 
-        private object Resolve(IResolver<object>? resolver)
+        private object Resolve(IResolver<object> resolver)
         {
             if (resolver is null)
             {

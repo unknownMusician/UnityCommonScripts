@@ -1,7 +1,9 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Extensions.Resolving;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.TypeTransition
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.TypeTransition
 {
     public sealed class TypeTransitionResolver<TSource, TDestination> : IResolver<TSource>
         where TDestination : TSource

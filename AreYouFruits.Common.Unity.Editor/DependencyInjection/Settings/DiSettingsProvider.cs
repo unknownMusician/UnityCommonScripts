@@ -1,6 +1,7 @@
+using AreYouFruits.Common.Unity.DependencyInjection.Settings;
 using UnityEditor;
 
-namespace Starfish.TempDi.Settings
+namespace AreYouFruits.TempDi.Settings
 {
     public sealed class DiSettingsProvider : SettingsProvider
     {

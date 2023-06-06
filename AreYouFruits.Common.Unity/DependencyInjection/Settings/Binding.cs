@@ -1,7 +1,7 @@
 using System;
 using Object = UnityEngine.Object;
 
-namespace Starfish.TempDi.Settings
+namespace AreYouFruits.Common.Unity.DependencyInjection.Settings
 {
     [Serializable]
     public struct Binding

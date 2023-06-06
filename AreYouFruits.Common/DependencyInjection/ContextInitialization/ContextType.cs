@@ -1,4 +1,4 @@
-namespace AreYouFruits.DependencyInjection.ContextInitialization
+namespace AreYouFruits.Common.DependencyInjection.ContextInitialization
 {
     public enum ContextType : byte
     {

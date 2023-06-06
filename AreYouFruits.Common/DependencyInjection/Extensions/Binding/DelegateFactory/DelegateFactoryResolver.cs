@@ -1,7 +1,8 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.DelegateFactory
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.DelegateFactory
 {
     public sealed class DelegateFactoryResolver<TSource> : IResolver<TSource>
     {

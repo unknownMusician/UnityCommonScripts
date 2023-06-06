@@ -281,7 +281,7 @@ namespace {type.Namespace}
                     type => (type.Name == typeName) && (type.Namespace == typeNamespace)
                 );
 
-                HasComponentAttribute? attribute = type.GetCustomAttribute<HasComponentAttribute>();
+                HasComponentAttribute attribute = type.GetCustomAttribute<HasComponentAttribute>();
 
                 if (!(attribute is null))
                 {

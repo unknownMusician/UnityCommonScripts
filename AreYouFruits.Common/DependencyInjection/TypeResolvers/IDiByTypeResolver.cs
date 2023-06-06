@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.TypeResolvers
 {
     public interface IDiByTypeResolver
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Binders;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.TypeResolvers
 {
     public interface IDiContainer : IDiByTypeResolver
     {

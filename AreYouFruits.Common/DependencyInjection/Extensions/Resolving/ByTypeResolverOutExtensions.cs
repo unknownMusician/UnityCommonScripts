@@ -1,6 +1,7 @@
 ﻿using System;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
 
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Resolving
 {
     public static class ByTypeResolverOutExtensions
     {

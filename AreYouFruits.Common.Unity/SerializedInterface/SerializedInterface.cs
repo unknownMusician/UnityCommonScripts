@@ -10,9 +10,7 @@ namespace AreYouFruits.Common.ComponentGeneration
     public struct SerializedInterface<TInterface>
         where TInterface : class
     {
-    #nullable disable
         [SerializeField] private Object _object;
-    #nullable enable
 
         public SerializedInterface(TInterface value)
         {

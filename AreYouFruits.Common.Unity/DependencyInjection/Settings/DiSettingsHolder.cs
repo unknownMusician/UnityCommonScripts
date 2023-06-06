@@ -1,10 +1,11 @@
 using System;
-using AreYouFruits.DependencyInjection;
-using AreYouFruits.DependencyInjection.ContextInitialization;
-using Starfish.Utils;
+using AreYouFruits.Common.DependencyInjection.ContextInitialization;
+using AreYouFruits.Common.DependencyInjection.Extensions.Binding.Singleton;
+using AreYouFruits.Common.DependencyInjection.TypeResolvers;
+using AreYouFruits.Utils;
 using UnityEngine;
 
-namespace Starfish.TempDi.Settings
+namespace AreYouFruits.Common.Unity.DependencyInjection.Settings
 {
     public static class DiSettingsHolder
         // todo: repeating class
@@ -49,7 +50,7 @@ namespace Starfish.TempDi.Settings
                     throw new InvalidProgramException();
                 }
 
-                container.Bind(type).To(binding.Object);
+                container.Bind(type).ToSingleton(binding.Object);
             }
         }
     }

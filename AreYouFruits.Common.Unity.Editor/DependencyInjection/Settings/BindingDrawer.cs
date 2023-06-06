@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AreYouFruits.Common.Unity.DependencyInjection.Settings;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Starfish.TempDi.Settings
+namespace AreYouFruits.TempDi.Settings
 {
     [CustomPropertyDrawer(typeof(Binding))]
     public sealed class BindingDrawer : PropertyDrawer

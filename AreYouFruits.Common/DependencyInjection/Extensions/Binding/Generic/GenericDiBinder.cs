@@ -1,9 +1,9 @@
 ﻿using System;
-using AreYouFruits.DependencyInjection.Binders;
-using AreYouFruits.DependencyInjection.Extensions.Binding.TypeTransition;
-using AreYouFruits.DependencyInjection.Resolvers;
+using AreYouFruits.Common.DependencyInjection.Binders;
+using AreYouFruits.Common.DependencyInjection.Extensions.Binding.TypeTransition;
+using AreYouFruits.Common.DependencyInjection.Resolvers;
 
-namespace AreYouFruits.DependencyInjection.Extensions.Binding.Generic
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Generic
 {
     public sealed class GenericDiBinder<TSource> : IGenericDiBinder<TSource>
     {
@@ -27,7 +27,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.Generic
         public void To<TDestination>()
             where TDestination : TSource
         {
-            binder.To(new TypeTransitionResolver<TSource, TDestination>());
+            binder.To(new TypeTransitionResolver(typeof(TDestination)));
         }
     }
 }

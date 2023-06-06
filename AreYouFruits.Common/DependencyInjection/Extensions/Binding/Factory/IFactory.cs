@@ -1,4 +1,4 @@
-namespace AreYouFruits.DependencyInjection
+namespace AreYouFruits.Common.DependencyInjection.Extensions.Binding.Factory
 {
     public interface IFactory<out T>
     {

@@ -1,8 +1,8 @@
-using AreYouFruits.DependencyInjection;
-using AreYouFruits.DependencyInjection.ContextInitialization;
+using AreYouFruits.Common.DependencyInjection;
+using AreYouFruits.Common.DependencyInjection.ContextInitialization;
 using UnityEngine;
 
-namespace AreYouFruits.Common.DependencyInjection
+namespace AreYouFruits.Common.Unity.DependencyInjection
 {
     public static class ContextClearer
     {

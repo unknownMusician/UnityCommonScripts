@@ -1,6 +1,6 @@
 using System;
 
-namespace Starfish.Utils
+namespace AreYouFruits.Utils
 {
     public static class Optional
     {
@@ -38,27 +38,48 @@ namespace Starfish.Utils
 
         public static T GetOrDefault<T>(this Optional<T> optional)
         {
-            return optional.TryGet(out T value) ? value : default!;
+            return optional.GetOr(default);
+        }
+
+        public static T GetOr<T>(this Optional<T> optional, T defaultValue)
+        {
+            if (!optional.TryGet(out T value))
+            {
+                return defaultValue;
+            }
+
+            return value;
+        }
+
+        public static T GetOrThrow<T>(this Optional<T> optional)
+        {
+            if (!optional.TryGet(out T value))
+            {
+                throw new NullReferenceException();
+            }
+
+            return value;
         }
     }
 
-    public readonly struct Optional<T> : IEquatable<Optional<T>>, IEquatable<T>
+    public struct Optional<T> : IEquatable<Optional<T>>, IEquatable<T>
     {
-        private readonly T value;
-        public bool IsInitialized { get; }
+        private T value;
+        private bool isInitialized;
+        public bool IsInitialized => isInitialized;
 
         public Optional(T value)
         {
             if (value is null)
             {
                 this.value = default!;
-                IsInitialized = false;
+                isInitialized = false;
 
                 return;
             }
 
             this.value = value;
-            IsInitialized = true;
+            isInitialized = true;
         }
 
         public bool TryGet(out T value)
