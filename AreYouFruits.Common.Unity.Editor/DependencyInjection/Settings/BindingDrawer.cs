@@ -34,7 +34,7 @@ namespace Starfish.TempDi.Settings
                 return;
             }
 
-            List<Type> types = GetTypes(objectReference);
+            List<Type> types = GetTypes(objectReference).ToList();
 
             int index = types.IndexOf(Type.GetType(typeNameProperty.stringValue));
 
@@ -43,34 +43,44 @@ namespace Starfish.TempDi.Settings
                 index = 0;
             }
 
-            index = EditorGUI.Popup(typeNameRect, index, types.Select(type => type.Name).ToArray());
+            index = EditorGUI.Popup(typeNameRect, index, types.Select(GetDisplayedName).ToArray());
             typeNameProperty.stringValue = types[index].AssemblyQualifiedName;
         }
 
-        private List<Type> GetTypes(object value)
+        private static string GetDisplayedName(Type type)
         {
-            var result = new List<Type>();
+            if (type.Namespace == nameof(System))
+            {
+                return type.FullName;
+            }
+            
+            return type.Name;
+        }
 
+        private static IEnumerable<Type> GetTypes(object value)
+        {
             if (value is null)
             {
-                return result;
+                yield break;
             }
 
             Type type = value.GetType();
 
-            while (true)
+            yield return type;
+
+            foreach (Type interfaceType in type.GetInterfaces())
             {
-                result.Add(type);
-
-                if (type == typeof(object))
-                {
-                    break;
-                }
-
-                type = type.BaseType;
+                yield return interfaceType;
             }
 
-            return result;
+            type = type.BaseType;
+
+            while (type != null)
+            {
+                yield return type;
+                
+                type = type.BaseType;
+            }
         }
     }
 }
