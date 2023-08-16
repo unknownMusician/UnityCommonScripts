@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>9.0</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="UnityEditor.CoreModule">
+            <HintPath>..\..\..\..\Apps\Unity\Versions\2022.3.5f1\Editor\Data\Managed\UnityEngine\UnityEditor.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\..\..\..\Apps\Unity\Versions\2022.3.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>..\..\..\..\Apps\Unity\Versions\2022.3.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AreYouFruits.EditorGuiUtils.Unity.Editor\AreYouFruits.EditorGuiUtils.Unity.Editor.csproj" />
+      <ProjectReference Include="..\AreYouFruits.Ranges\AreYouFruits.Ranges.csproj" />
+    </ItemGroup>
+
+</Project>
