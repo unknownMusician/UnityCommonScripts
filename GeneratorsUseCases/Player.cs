@@ -1,4 +1,4 @@
-using AreYouFruits.ToStringGenerator;
+using AreYouFruits.ToStringGeneration;
 
 namespace GeneratorsUseCases
 {

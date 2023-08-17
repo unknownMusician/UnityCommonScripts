@@ -1,4 +1,4 @@
-﻿namespace AreYouFruits.VectorsSwizzling
+﻿namespace AreYouFruits.VectorsSwizzling.Generator
 {
     public sealed class Source
     {

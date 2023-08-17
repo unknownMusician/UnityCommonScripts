@@ -4,11 +4,14 @@
         <TargetFramework>net7.0</TargetFramework>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <ProjectReference 
-              Include="..\AreYouFruits.ToStringGenerator\AreYouFruits.ToStringGenerator.csproj"    
-              OutputItemType="Analyzer" 
-              ReferenceOutputAssembly="false"/>
+        <ProjectReference Include="../AreYouFruits.ToStringGeneration/AreYouFruits.ToStringGeneration.csproj" />
+        
+        <ProjectReference
+            Include="../AreYouFruits.ToStringGeneration.Generator/AreYouFruits.ToStringGeneration.Generator.csproj"
+            OutputItemType="Analyzer"
+            ReferenceOutputAssembly="false" />
+                          
     </ItemGroup>
 </Project>

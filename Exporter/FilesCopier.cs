@@ -9,7 +9,14 @@ public static class FilesCopier
     {
         foreach (ProjectExport projectExport in projectExports)
         {
-            string projectDirectory = Path.Combine(CommonInfo.ExportDirectoryPath, projectExport.ProjectName);
+            string projectName = projectExport.ProjectName;
+            
+            if (projectName.StartsWith("AreYouFruits") && Properties.RemoveAreYouFruitsPrefixInExportFolders)
+            {
+                projectName = projectName.Substring("AreYouFruits.".Length);
+            }
+            
+            string projectDirectory = Path.Combine(CommonInfo.ExportDirectoryPath, projectName);
 
             Directory.CreateDirectory(projectDirectory);
 

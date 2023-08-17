@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace AreYouFruits.ToStringGenerator
+namespace AreYouFruits.ToStringGeneration.Generator
 {
     [Generator]
     public class ToStringSourceGenerator : ISourceGenerator
@@ -18,9 +18,6 @@ namespace AreYouFruits.ToStringGenerator
         {
             try
             {
-                GenerateToStringUtils(context);
-                GenerateAttribute(context);
-
                 foreach (SyntaxTree syntaxTree in context.Compilation.SyntaxTrees)
                 {
                     foreach (SyntaxNode syntaxNode in syntaxTree.GetRoot().DescendantNodes())
@@ -37,7 +34,7 @@ namespace AreYouFruits.ToStringGenerator
             catch (Exception exception)
             {
                 context.AddSource($"{nameof(ToStringSourceGenerator)}.Error.g.cs", $@"
-namespace AreYouFruits.ToStringGenerator
+namespace AreYouFruits.ToStringGeneration.Generator
 {{
     public static class ToStringSourceGeneratorError
     {{
@@ -45,33 +42,6 @@ namespace AreYouFruits.ToStringGenerator
     }}
 }}");
             }
-        }
-
-        private void GenerateToStringUtils(GeneratorExecutionContext context)
-        {
-            context.AddSource("ToStringExtensions.g.cs", @"
-namespace AreYouFruits.ToStringGenerator
-{
-    public static class ToStringExtensions
-    {
-        public static string ToStringUniversal<T>(this T value)
-        {
-            return value?.ToString() ?? ""Null"";
-        }
-    }
-}");
-        }
-
-        private void GenerateAttribute(GeneratorExecutionContext context)
-        {
-            context.AddSource("GenerateToStringAttribute.g.cs", 
-@"using System;
-
-namespace AreYouFruits.ToStringGenerator
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public sealed class GenerateToStringAttribute : Attribute { }
-}");
         }
 
         private void GenerateFor(TypeDeclarationSyntax typeDeclarationSyntax, GeneratorExecutionContext context)
@@ -99,7 +69,7 @@ namespace AreYouFruits.ToStringGenerator
                 _ => throw new NotSupportedException(),
             };
 
-            sourceBuilder.AppendLine("using AreYouFruits.ToStringGenerator;");
+            sourceBuilder.AppendLine("using AreYouFruits.ToStringGeneration;");
             sourceBuilder.AppendLine("");
             
             if (typeDeclarationSyntax.Parent is NamespaceDeclarationSyntax namespaceDeclarationSyntax)
@@ -198,8 +168,7 @@ namespace AreYouFruits.ToStringGenerator
 
                 foreach (AttributeData attributeData in symbol.GetAttributes())
                 {
-                    if ((attributeData.AttributeClass!.Name == "GenerateToStringAttribute")
-                     || (attributeData.AttributeClass!.Name == "GenerateToString"))
+                    if (attributeData.AttributeClass!.Name == "GenerateToStringAttribute")
                     {
                         return true;
                     }

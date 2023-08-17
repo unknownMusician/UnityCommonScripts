@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
-namespace AreYouFruits.VectorsSwizzling
+namespace AreYouFruits.VectorsSwizzling.Generator
 {
     [Generator]
     public class VectorsSwizzlingGenerator : ISourceGenerator
