@@ -12,7 +12,7 @@ namespace AreYouFruits.DependencyInjection.Unity.Settings
         private const string SettingsLocalPath = "Assets/Resources/DiSettings.asset";
         private static readonly string SettingsPath = Application.dataPath + "/Resources/DiSettings.asset";
 
-        private static DiSettings? settings;
+        private static DiSettings settings;
 
         public static Optional<DiSettings> Settings
         {
