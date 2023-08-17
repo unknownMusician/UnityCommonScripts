@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AreYouFruits.Common.Math
+namespace AreYouFruits.Math.Unity
 {
     public static class VectorDeconstructionExtensions
     {

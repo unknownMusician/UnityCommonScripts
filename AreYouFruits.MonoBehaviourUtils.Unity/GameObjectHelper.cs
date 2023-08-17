@@ -1,7 +1,7 @@
 ﻿using AreYouFruits.Nullability;
 using UnityEngine;
 
-namespace AreYouFruits.Common
+namespace AreYouFruits.MonoBehaviourUtils.Unity
 {
     public struct GameObjectCreationInfo
     {

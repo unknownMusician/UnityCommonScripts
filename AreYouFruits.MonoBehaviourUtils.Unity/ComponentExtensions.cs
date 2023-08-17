@@ -3,7 +3,7 @@ using System.Linq;
 using AreYouFruits.Nullability;
 using UnityEngine;
 
-namespace AreYouFruits.Common
+namespace AreYouFruits.MonoBehaviourUtils.Unity
 {
     public static class ComponentExtensions
         // todo: check for covariance to optimize

@@ -47,7 +47,7 @@ namespace AreYouFruits.Nullability
             {
                 this.value = default!;
                 isInitialized = false;
-
+                
                 return;
             }
 
@@ -60,12 +60,10 @@ namespace AreYouFruits.Nullability
             if (IsInitialized)
             {
                 value = this.value;
-
                 return true;
             }
             
             value = default;
-            
             return false;
         }
 
@@ -96,18 +94,13 @@ namespace AreYouFruits.Nullability
 
         public void Switch(Action<T> valueHandler, Action emptyHandler)
         {
-            switch (isInitialized)
+            if (isInitialized)
             {
-                case true:
-                {
-                    valueHandler(value);
-                    break;
-                }
-                case false:
-                {
-                    emptyHandler();
-                    break;
-                }
+                valueHandler(value);
+            }
+            else
+            {
+                emptyHandler();
             }
         }
 
@@ -132,13 +125,13 @@ namespace AreYouFruits.Nullability
 
         public override string ToString()
         {
-            string stringValue = (isInitialized, value) switch
+            string valueString = (isInitialized, value) switch
             {
                 (true, not null) => value.ToString(),
                 _ => "Null",
             };
 
-            return $"Optional {{ {stringValue} }}";
+            return $"Optional {{ {valueString} }}";
         }
 
         public override bool Equals(object obj)

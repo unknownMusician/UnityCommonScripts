@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AreYouFruits.Common.Physics
+namespace AreYouFruits.Physics.Unity
 {
     public sealed class Trigger2DListener : MonoBehaviour
     {

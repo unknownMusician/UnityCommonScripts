@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace AreYouFruits.Common
+namespace AreYouFruits.MonoBehaviourUtils.Unity
 {
     public static class TransformExtensions
     {

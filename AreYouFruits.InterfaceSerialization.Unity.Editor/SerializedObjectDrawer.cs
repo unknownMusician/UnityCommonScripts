@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Linq;
 using System.Reflection;
-using AreYouFruits.Common;
 using AreYouFruits.EditorGuiUtils.Unity.Editor;
+using AreYouFruits.MonoBehaviourUtils.Unity;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
