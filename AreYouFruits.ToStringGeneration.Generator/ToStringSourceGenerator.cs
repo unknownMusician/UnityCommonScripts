@@ -18,6 +18,11 @@ namespace AreYouFruits.ToStringGeneration.Generator
         {
             try
             {
+                if (!ReferencesGeneratorAssembly(context))
+                {
+                    return;
+                }
+                
                 foreach (SyntaxTree syntaxTree in context.Compilation.SyntaxTrees)
                 {
                     foreach (SyntaxNode syntaxNode in syntaxTree.GetRoot().DescendantNodes())
@@ -44,7 +49,21 @@ namespace AreYouFruits.ToStringGeneration.Generator
             }
         }
 
-        private void GenerateFor(TypeDeclarationSyntax typeDeclarationSyntax, GeneratorExecutionContext context)
+        private bool ReferencesGeneratorAssembly(in GeneratorExecutionContext context)
+        {
+            foreach (IAssemblySymbol sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
+                .ReferencedAssemblySymbols)
+            {
+                if (sourceModuleReferencedAssemblySymbol.Name is "AreYouFruits.ToStringGeneration")
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void GenerateFor(TypeDeclarationSyntax typeDeclarationSyntax, in GeneratorExecutionContext context)
         {
             if (!ShouldGenerateToStringFor(typeDeclarationSyntax, context)
              || !CanGenerateToStringFor(typeDeclarationSyntax, context))
@@ -61,13 +80,6 @@ namespace AreYouFruits.ToStringGeneration.Generator
             StringBuilder sourceBuilder = new();
 
             string indent = string.Empty;
-
-            string typeType = typeDeclarationSyntax switch
-            {
-                ClassDeclarationSyntax => "class",
-                StructDeclarationSyntax => "struct",
-                _ => throw new NotSupportedException(),
-            };
 
             sourceBuilder.AppendLine("using AreYouFruits.ToStringGeneration;");
             sourceBuilder.AppendLine("");
@@ -106,7 +118,10 @@ namespace AreYouFruits.ToStringGeneration.Generator
             return $"$\"{typeDeclarationSyntax.Identifier} {{{{{members}}}}}\"";
         }
 
-        private List<string> GetToStringMembers(TypeDeclarationSyntax typeDeclarationSyntax, GeneratorExecutionContext context)
+        private List<string> GetToStringMembers(
+            TypeDeclarationSyntax typeDeclarationSyntax,
+            in GeneratorExecutionContext context
+        )
         {
             var results = new List<string>();
             
@@ -160,7 +175,10 @@ namespace AreYouFruits.ToStringGeneration.Generator
             throw new NotSupportedException();
         }
 
-        private bool ShouldGenerateToStringFor(TypeDeclarationSyntax typeDeclarationSyntax, GeneratorExecutionContext context)
+        private bool ShouldGenerateToStringFor(
+            TypeDeclarationSyntax typeDeclarationSyntax,
+            in GeneratorExecutionContext context
+        )
         {
             foreach (AttributeListSyntax attributeListSyntax in typeDeclarationSyntax.AttributeLists)
             {
@@ -178,7 +196,10 @@ namespace AreYouFruits.ToStringGeneration.Generator
             return false;
         }
 
-        private bool CanGenerateToStringFor(TypeDeclarationSyntax typeDeclarationSyntax, GeneratorExecutionContext context)
+        private bool CanGenerateToStringFor(
+            TypeDeclarationSyntax typeDeclarationSyntax,
+            in GeneratorExecutionContext context
+        )
         {
             if (!typeDeclarationSyntax.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword)))
             {
