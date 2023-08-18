@@ -28,8 +28,35 @@ namespace AreYouFruits.Nullability
             };
         }
 
+        public readonly Optional<T> GetOr(Optional<T> defaultValue)
+        {
+            return isInitialized switch
+            {
+                true => value,
+                false => defaultValue,
+            };
+        }
+
+        public readonly T GetOr(Func<T> defaultValueProvider)
+        {
+            return isInitialized switch
+            {
+                true => value,
+                false => defaultValueProvider(),
+            };
+        }
+
+        public readonly Optional<T> GetOr(Func<Optional<T>> defaultValueProvider)
+        {
+            return isInitialized switch
+            {
+                true => value,
+                false => defaultValueProvider(),
+            };
+        }
+
         [return: MaybeNull]
-        public readonly T GetOrDefault() => GetOr(default);
+        public readonly T GetOrDefault() => GetOr(default(T));
 
         public readonly T GetOrThrow()
         {
