@@ -7,11 +7,15 @@ namespace AreYouFruits.Nullability
         public T Set(Func<T> emptyProvider, Func<T, T> valueProvider) => Set(valueProvider, emptyProvider);
         public T Set(Func<T, T> valueProvider, Func<T> emptyProvider)
         {
-            return value = isInitialized switch
+            T value = isInitialized switch
             {
-                true => valueProvider(value),
+                true => valueProvider(this.value),
                 false => emptyProvider(),
             };
+
+            this = new Optional<T>(value);
+
+            return value;
         }
 
         public Optional<T> Set(Func<Optional<T>> emptyProvider, Func<T, Optional<T>> valueProvider)
@@ -31,7 +35,7 @@ namespace AreYouFruits.Nullability
         {
             if (!isInitialized)
             {
-                this.value = value;
+                this = new Optional<T>(value);
             }
 
             return this.value;
@@ -61,20 +65,17 @@ namespace AreYouFruits.Nullability
         {
             if (!isInitialized)
             {
-                value = valueProvider();
+                this = new Optional<T>(valueProvider());
             }
 
             return value;
         }
         
-        
-        
-        
         public T SetIfInitialized(T value)
         {
             if (isInitialized)
             {
-                this.value = value;
+                this = new Optional<T>(value);
             }
 
             return this.value;
@@ -104,7 +105,7 @@ namespace AreYouFruits.Nullability
         {
             if (isInitialized)
             {
-                value = valueProvider();
+                this = new Optional<T>(valueProvider());
             }
 
             return value;
