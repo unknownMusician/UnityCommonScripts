@@ -32,6 +32,11 @@ namespace AreYouFruits.Nullability
             }
         }
 
+        public readonly TResult Match<TResult>(Func<TResult> emptyHandler, Func<T, TResult> valueHandler)
+        {
+            return Match(valueHandler, emptyHandler);
+        }
+        
         public readonly TResult Match<TResult>(Func<T, TResult> valueHandler, Func<TResult> emptyHandler)
         {
             return isInitialized switch
