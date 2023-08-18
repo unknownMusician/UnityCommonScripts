@@ -2,7 +2,7 @@
 {
     public partial struct Optional<T>
     {
-        public override string ToString()
+        public readonly override string ToString()
         {
             string valueString = (isInitialized, value) switch
             {
@@ -10,7 +10,7 @@
                 _ => "Null",
             };
 
-            return $"Optional {{ {valueString} }}";
+            return $"Optional<{typeof(T).Name}> {{ {valueString} }}";
         }
     }
 }

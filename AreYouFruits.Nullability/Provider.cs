@@ -5,9 +5,9 @@ namespace AreYouFruits.Nullability
 {
     public partial struct Optional<T>
     {
-        public bool IsInitialized => isInitialized;
+        public readonly bool IsInitialized => isInitialized;
 
-        public bool TryGet([MaybeNullWhen(false)] out T value)
+        public readonly bool TryGet([MaybeNullWhen(false)] out T value)
         {
             if (isInitialized)
             {
@@ -19,7 +19,7 @@ namespace AreYouFruits.Nullability
             return false;
         }
 
-        public T GetOr(T defaultValue)
+        public readonly T GetOr(T defaultValue)
         {
             return isInitialized switch
             {
@@ -29,9 +29,9 @@ namespace AreYouFruits.Nullability
         }
 
         [return: MaybeNull]
-        public T GetOrDefault() => GetOr(default);
+        public readonly T GetOrDefault() => GetOr(default);
 
-        public T GetOrThrow()
+        public readonly T GetOrThrow()
         {
             return isInitialized switch
             {
@@ -40,8 +40,8 @@ namespace AreYouFruits.Nullability
             };
         }
 
-        public void GetOrThrow(out T value) => value = GetOrThrow();
+        public readonly void GetOrThrow(out T value) => value = GetOrThrow();
         
-        public void GetOrDefault([MaybeNull] out T value) => value = GetOrDefault();
+        public readonly void GetOrDefault([MaybeNull] out T value) => value = GetOrDefault();
     }
 }

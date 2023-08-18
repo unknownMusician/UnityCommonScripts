@@ -4,7 +4,23 @@ namespace AreYouFruits.Nullability
 {
     public partial struct Optional<T>
     {
-        public void Switch(Action<T> valueHandler, Action emptyHandler)
+        public readonly void Switch(Action<T> valueHandler)
+        {
+            if (isInitialized)
+            {
+                valueHandler(value);
+            }
+        }
+        public readonly void Switch(Action emptyHandler)
+        {
+            if (!isInitialized)
+            {
+                emptyHandler();
+            }
+        }
+
+        public readonly void Switch(Action emptyHandler, Action<T> valueHandler) => Switch(valueHandler, emptyHandler);
+        public readonly void Switch(Action<T> valueHandler, Action emptyHandler)
         {
             if (isInitialized)
             {
@@ -16,7 +32,7 @@ namespace AreYouFruits.Nullability
             }
         }
 
-        public TResult Match<TResult>(Func<T, TResult> valueHandler, Func<TResult> emptyHandler)
+        public readonly TResult Match<TResult>(Func<T, TResult> valueHandler, Func<TResult> emptyHandler)
         {
             return isInitialized switch
             {
@@ -24,6 +40,5 @@ namespace AreYouFruits.Nullability
                 false => emptyHandler(),
             };
         }
-
     }
 }

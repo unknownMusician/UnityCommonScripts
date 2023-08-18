@@ -6,7 +6,7 @@ namespace AreYouFruits.Nullability
     [Serializable]
     public partial struct Optional<T> : IEquatable<Optional<T>>, IEquatable<T>
     {
-        public override int GetHashCode()
+        public readonly override int GetHashCode()
         {
             return isInitialized switch
             {
@@ -15,7 +15,7 @@ namespace AreYouFruits.Nullability
             };
         }
         
-        public override bool Equals(object obj)
+        public readonly override bool Equals(object obj)
         {
             return obj switch
             {
@@ -25,7 +25,7 @@ namespace AreYouFruits.Nullability
             };
         }
         
-        public bool Equals(Optional<T> other)
+        public readonly bool Equals(Optional<T> other)
         {
             if (other.TryGet(out T otherValue))
             {
@@ -35,7 +35,7 @@ namespace AreYouFruits.Nullability
             return !isInitialized;
         }
 
-        public bool Equals(T other)
+        public readonly bool Equals(T other)
         {
             bool otherIsNull = other is null;
             
