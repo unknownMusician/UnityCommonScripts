@@ -1,12 +1,13 @@
 using AreYouFruits.ConstructorGeneration;
+using AreYouFruits.InitializerGeneration;
 using AreYouFruits.ToStringGeneration;
 
 namespace GeneratorsUseCases
 {
-    [GenerateToString]
+    [GenerateToString, GeneratedInitializerName("Injeeeeeeeect")]
     public partial struct Player
     {
         [GenerateConstructor] public string Name;
-        [GenerateConstructor] public int Age;
+        [GenerateInitializer] public int Age;
     }
 }

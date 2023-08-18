@@ -129,11 +129,12 @@ namespace AreYouFruits.InitializerGeneration.Generator
                 return;
             }
 
+            string initializerMethodName = GetInitializerMethodName(type);
             string initializersParameters = string.Join(", ", GetInitializerParameters(fields));
 
             source.AppendLine($"{indent}{type.Modifiers.ToString()} {type.Keyword.ToString()} {type.Identifier.ToString()}");
             source.AppendLine($"{indent}{{");
-            source.AppendLine($"{indent}    public void Initialize({initializersParameters})");
+            source.AppendLine($"{indent}    public void {initializerMethodName}({initializersParameters})");
             source.AppendLine($"{indent}    {{");
             
             foreach (string initializationExpression in GetInitializationExpressions(fields))
@@ -150,6 +151,46 @@ namespace AreYouFruits.InitializerGeneration.Generator
             }
 
             context.AddSource($"InitializerGenerator.{type.Identifier.ToString()}.g.cs", source.ToString());
+        }
+
+        private string GetInitializerMethodName(TypeDeclarationSyntax type)
+        {
+            foreach (AttributeListSyntax attributeListSyntax in type.AttributeLists)
+            {
+                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                {
+                    if (attributeSyntax.Name.ToString() is not ("GeneratedInitializerNameAttribute" or "GeneratedInitializerName"))
+                    {
+                        continue;
+                    }
+
+                    if (attributeSyntax.ArgumentList is not { } argumentList)
+                    {
+                        continue;
+                    }
+
+                    if (argumentList.Arguments.Count is not 1)
+                    {
+                        continue;
+                    }
+
+                    AttributeArgumentSyntax attributeArgumentSyntax = argumentList.Arguments[0];
+                    
+                    if (attributeArgumentSyntax.Expression is not LiteralExpressionSyntax literalExpressionSyntax)
+                    {
+                        continue;
+                    }
+
+                    if (!literalExpressionSyntax.IsKind(SyntaxKind.StringLiteralExpression))
+                    {
+                        continue;
+                    }
+                    
+                    return literalExpressionSyntax.Token.ValueText;
+                }
+            }
+
+            return "Initialize";
         }
 
         private CompilationUnitSyntax GetRoot(SyntaxNode syntaxNode)
@@ -215,6 +256,11 @@ namespace AreYouFruits.InitializerGeneration.Generator
             }
 
             return false;
+        }
+
+        private static ISymbol GetDeclaredSymbol(SyntaxNode node, Compilation compilation)
+        {
+            return compilation.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
         }
     }
 }

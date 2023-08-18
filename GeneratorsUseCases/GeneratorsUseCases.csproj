@@ -8,10 +8,22 @@
     <ItemGroup>
         <ProjectReference Include="../AreYouFruits.ToStringGeneration/AreYouFruits.ToStringGeneration.csproj" />
         <ProjectReference Include="../AreYouFruits.ConstructorGeneration/AreYouFruits.ConstructorGeneration.csproj" />
+        <ProjectReference Include="../AreYouFruits.InitializerGeneration/AreYouFruits.InitializerGeneration.csproj" />
         
-        <ProjectReference Include="../AreYouFruits.ToStringGeneration.Generator/AreYouFruits.ToStringGeneration.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-                          
-        <ProjectReference Include="../AreYouFruits.ConstructorGeneration.Generator/AreYouFruits.ConstructorGeneration.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-                          
+        <ProjectReference 
+                Include="../AreYouFruits.ToStringGeneration.Generator/AreYouFruits.ToStringGeneration.Generator.csproj" 
+                OutputItemType="Analyzer" 
+                ReferenceOutputAssembly="false"/>
+        
+        <ProjectReference 
+                Include="../AreYouFruits.ConstructorGeneration.Generator/AreYouFruits.ConstructorGeneration.Generator.csproj"
+                OutputItemType="Analyzer" 
+                ReferenceOutputAssembly="false"/>
+
+        <ProjectReference 
+                Include="../AreYouFruits.InitializerGeneration.Generator/AreYouFruits.InitializerGeneration.Generator.csproj"
+                OutputItemType="Analyzer" 
+                ReferenceOutputAssembly="false"/>
+
     </ItemGroup>
 </Project>
