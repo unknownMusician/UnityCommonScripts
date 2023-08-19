@@ -64,13 +64,6 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
         private void GenerateFor(TypeDeclarationSyntax typeDeclarationSyntax, in GeneratorExecutionContext context)
         {
-            int suitableFields = 0;
-            
-            if (!CanGenerateForType(typeDeclarationSyntax))
-            {
-                return;
-            }
-
             var fields = new List<FieldDeclarationSyntax>();
 
             foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
@@ -85,8 +78,6 @@ namespace AreYouFruits.ConstructorGeneration.Generator
                     continue;
                 }
 
-                suitableFields++;
-                
                 fields.Add(fieldDeclarationSyntax);
             }
 
@@ -95,6 +86,11 @@ namespace AreYouFruits.ConstructorGeneration.Generator
                 return;
             }
             
+            if (!CanGenerateForType(typeDeclarationSyntax))
+            {
+                return;
+            }
+
             GenerateFor(typeDeclarationSyntax, fields, context);
         }
 
@@ -239,6 +235,11 @@ namespace AreYouFruits.ConstructorGeneration.Generator
             }
 
             return false;
+        }
+
+        private static ISymbol GetDeclaredSymbol(SyntaxNode node, Compilation compilation)
+        {
+            return compilation.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
         }
     }
 }
