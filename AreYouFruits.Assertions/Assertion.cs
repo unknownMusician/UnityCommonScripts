@@ -5,6 +5,16 @@ namespace AreYouFruits.Assertions
 {
     public static class Assertion
     {
+        public static T ExpectLike<T>(this T value, Func<T, bool> predicate)
+        {
+            if (!predicate(value))
+            {
+                throw new ArgumentOutOfRangeException($"Value failed the predicate and is {value.ToString()}.");
+            }
+
+            return value;
+        }
+        
         public static T Expect<T>(this T value, T expectedValue)
         {
             if (!EqualityComparer<T>.Default.Equals(value, expectedValue))
