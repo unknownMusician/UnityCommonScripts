@@ -127,7 +127,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
             string constructorParameters = string.Join(", ", GetConstructorParameters(fields));
 
-            source.AppendLine($"{indent}{type.Modifiers.ToString()} {type.Keyword.ToString()} {type.Identifier.ToString()}");
+            source.AppendLine($"{indent}{type.Modifiers.ToString()} {type.Keyword.ToString()} {type.Identifier.ToString()}{type.TypeParameterList?.ToString()}");
             source.AppendLine($"{indent}{{");
             source.AppendLine($"{indent}    public {type.Identifier.ToString()}({constructorParameters})");
 
