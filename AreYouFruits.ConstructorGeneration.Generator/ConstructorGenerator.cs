@@ -151,7 +151,14 @@ namespace AreYouFruits.ConstructorGeneration.Generator
                 source.AppendLine("}");
             }
 
-            context.AddSource($"ConstructorGenerator.{type.Identifier.ToString()}.g.cs", source.ToString());
+            string genericParametersPrefix = string.Empty;
+            
+            if (type.TypeParameterList is { } typeParameterList)
+            {
+                genericParametersPrefix = $".{typeParameterList.Parameters.Count}";
+            }
+
+            context.AddSource($"ConstructorGenerator.{type.Identifier.ToString()}{genericParametersPrefix}.g.cs", source.ToString());
         }
 
         private bool ContainsParameterlessConstructor(TypeDeclarationSyntax typeDeclarationSyntax)
