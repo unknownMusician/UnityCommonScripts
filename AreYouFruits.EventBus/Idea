@@ -1,0 +1,16 @@
+﻿There are Events.
+The event can be raised by anyone.
+There are Event handlers.
+Each event can have 0+ handlers by the time of the fire.
+Every event handler has it's own order.
+Once the event fired, all the event handlers are executed with respect to their order.
+
+There are Requests.
+Every Request has it's respected Response.
+Response and response handler work the same as event and event handler respectfully.
+There are Response Handlers.
+They work the same as Event handlers.
+There are Response Providers.
+They should always provide the Response as the answer on the Request.
+Every Request should have 0+ handlers and 1 request provider at the time of fire.
+Every Response can have 0+ handlers at the time of fire.
