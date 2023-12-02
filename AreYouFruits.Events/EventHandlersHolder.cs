@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AreYouFruits.EventBus
+namespace AreYouFruits.Events
 {
     public sealed class EventHandlersHolder
     {

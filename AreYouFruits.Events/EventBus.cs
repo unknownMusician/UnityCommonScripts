@@ -2,7 +2,7 @@
 using System.Linq;
 using AreYouFruits.Nullability;
 
-namespace AreYouFruits.EventBus
+namespace AreYouFruits.Events
 {
     public sealed class EventBus
         // todo: Make ordering optional for user.

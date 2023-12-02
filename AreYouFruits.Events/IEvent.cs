@@ -1,4 +1,4 @@
-namespace AreYouFruits.EventBus
+namespace AreYouFruits.Events
 {
     public interface IEvent { }
 }

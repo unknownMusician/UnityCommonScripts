@@ -1,7 +1,7 @@
 using System;
 using AreYouFruits.Nullability;
 
-namespace AreYouFruits.EventBus
+namespace AreYouFruits.Events
 {
     public readonly struct EventBusAccess
     {

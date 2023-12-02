@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AreYouFruits.Nullability;
 
-namespace AreYouFruits.EventBus
+namespace AreYouFruits.Events
 {
     public sealed class TypedDictionary
     {

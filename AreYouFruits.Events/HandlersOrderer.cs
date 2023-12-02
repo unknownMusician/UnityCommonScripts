@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AreYouFruits.EventBus
+namespace AreYouFruits.Events
 {
     public sealed class HandlersOrderer
     {
