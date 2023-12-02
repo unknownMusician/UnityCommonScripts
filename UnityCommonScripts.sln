@@ -64,7 +64,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.InitializerGen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.InitializerGeneration.Generator", "AreYouFruits.InitializerGeneration.Generator\AreYouFruits.InitializerGeneration.Generator.csproj", "{C2E57CE9-C654-41E8-B68A-0DB4B4A481B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.EventBus", "AreYouFruits.EventBus\AreYouFruits.EventBus.csproj", "{42F4EE72-7188-4510-B563-9813D7B44267}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Events", "AreYouFruits.Events\AreYouFruits.Events.csproj", "{B4DE09A3-BD55-4ED1-A857-4B534085B123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,9 +200,9 @@ Global
 		{C2E57CE9-C654-41E8-B68A-0DB4B4A481B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E57CE9-C654-41E8-B68A-0DB4B4A481B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E57CE9-C654-41E8-B68A-0DB4B4A481B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42F4EE72-7188-4510-B563-9813D7B44267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42F4EE72-7188-4510-B563-9813D7B44267}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42F4EE72-7188-4510-B563-9813D7B44267}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42F4EE72-7188-4510-B563-9813D7B44267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

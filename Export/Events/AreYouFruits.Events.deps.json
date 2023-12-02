@@ -7,12 +7,12 @@
   "targets": {
     ".NETStandard,Version=v2.1": {},
     ".NETStandard,Version=v2.1/": {
-      "AreYouFruits.EventBus/1.0.0": {
+      "AreYouFruits.Events/1.0.0": {
         "dependencies": {
           "AreYouFruits.Nullability": "1.0.0"
         },
         "runtime": {
-          "AreYouFruits.EventBus.dll": {}
+          "AreYouFruits.Events.dll": {}
         }
       },
       "AreYouFruits.Nullability/1.0.0": {
@@ -23,7 +23,7 @@
     }
   },
   "libraries": {
-    "AreYouFruits.EventBus/1.0.0": {
+    "AreYouFruits.Events/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

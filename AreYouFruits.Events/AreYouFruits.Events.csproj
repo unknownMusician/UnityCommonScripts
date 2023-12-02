@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AreYouFruits.Nullability\AreYouFruits.Nullability.csproj" />
+        <ProjectReference Include="..\AreYouFruits.Nullability\AreYouFruits.Nullability.csproj" />
     </ItemGroup>
 
 
