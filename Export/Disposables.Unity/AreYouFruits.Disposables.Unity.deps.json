@@ -18,7 +18,10 @@
       },
       "AreYouFruits.Disposables/1.0.0": {
         "runtime": {
-          "AreYouFruits.Disposables.dll": {}
+          "AreYouFruits.Disposables.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "UnityEngine.CoreModule/0.0.0.0": {

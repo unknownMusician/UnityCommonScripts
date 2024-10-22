@@ -21,12 +21,18 @@
       },
       "AreYouFruits.EditorGuiUtils.Unity.Editor/1.0.0": {
         "runtime": {
-          "AreYouFruits.EditorGuiUtils.Unity.Editor.dll": {}
+          "AreYouFruits.EditorGuiUtils.Unity.Editor.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AreYouFruits.Ranges/1.0.0": {
         "runtime": {
-          "AreYouFruits.Ranges.dll": {}
+          "AreYouFruits.Ranges.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "UnityEditor.CoreModule/0.0.0.0": {

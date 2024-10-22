@@ -19,17 +19,26 @@
       },
       "AreYouFruits.Collections/1.0.0": {
         "runtime": {
-          "AreYouFruits.Collections.dll": {}
+          "AreYouFruits.Collections.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AreYouFruits.Disposables/1.0.0": {
         "runtime": {
-          "AreYouFruits.Disposables.dll": {}
+          "AreYouFruits.Disposables.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AreYouFruits.Nullability/1.0.0": {
         "runtime": {
-          "AreYouFruits.Nullability.dll": {}
+          "AreYouFruits.Nullability.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

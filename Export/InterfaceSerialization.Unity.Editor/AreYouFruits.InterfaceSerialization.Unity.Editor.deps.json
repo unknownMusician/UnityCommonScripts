@@ -22,12 +22,18 @@
       },
       "AreYouFruits.EditorGuiUtils.Unity.Editor/1.0.0": {
         "runtime": {
-          "AreYouFruits.EditorGuiUtils.Unity.Editor.dll": {}
+          "AreYouFruits.EditorGuiUtils.Unity.Editor.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AreYouFruits.InterfaceSerialization.Unity/1.0.0": {
         "runtime": {
-          "AreYouFruits.InterfaceSerialization.Unity.dll": {}
+          "AreYouFruits.InterfaceSerialization.Unity.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AreYouFruits.MonoBehaviourUtils.Unity/1.0.0": {
@@ -35,12 +41,18 @@
           "AreYouFruits.Nullability": "1.0.0"
         },
         "runtime": {
-          "AreYouFruits.MonoBehaviourUtils.Unity.dll": {}
+          "AreYouFruits.MonoBehaviourUtils.Unity.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "AreYouFruits.Nullability/1.0.0": {
         "runtime": {
-          "AreYouFruits.Nullability.dll": {}
+          "AreYouFruits.Nullability.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "UnityEditor.CoreModule/0.0.0.0": {
