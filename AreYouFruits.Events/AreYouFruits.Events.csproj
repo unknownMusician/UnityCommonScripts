@@ -6,6 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\AreYouFruits.Collections\AreYouFruits.Collections.csproj" />
+        <ProjectReference Include="..\AreYouFruits.Disposables\AreYouFruits.Disposables.csproj" />
         <ProjectReference Include="..\AreYouFruits.Nullability\AreYouFruits.Nullability.csproj" />
     </ItemGroup>
 

@@ -27,7 +27,7 @@ namespace AreYouFruits.Nullability
         
         public readonly bool Equals(Optional<T> other)
         {
-            if (other.TryGet(out T otherValue))
+            if (other.TryGet(out var otherValue))
             {
                 return Equals(otherValue);
             }
@@ -37,7 +37,7 @@ namespace AreYouFruits.Nullability
 
         public readonly bool Equals(T other)
         {
-            bool otherIsNull = other is null;
+            var otherIsNull = other is null;
             
             if (otherIsNull && !isInitialized)
             {

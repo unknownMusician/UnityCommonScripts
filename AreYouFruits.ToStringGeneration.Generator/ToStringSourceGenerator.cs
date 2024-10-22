@@ -23,9 +23,9 @@ namespace AreYouFruits.ToStringGeneration.Generator
                     return;
                 }
                 
-                foreach (SyntaxTree syntaxTree in context.Compilation.SyntaxTrees)
+                foreach (var syntaxTree in context.Compilation.SyntaxTrees)
                 {
-                    foreach (SyntaxNode syntaxNode in syntaxTree.GetRoot().DescendantNodes())
+                    foreach (var syntaxNode in syntaxTree.GetRoot().DescendantNodes())
                     {
                         if (syntaxNode is not TypeDeclarationSyntax typeDeclarationSyntax)
                         {
@@ -51,7 +51,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
 
         private bool ReferencesGeneratorAssembly(in GeneratorExecutionContext context)
         {
-            foreach (IAssemblySymbol sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
+            foreach (var sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
                 .ReferencedAssemblySymbols)
             {
                 if (sourceModuleReferencedAssemblySymbol.Name is "AreYouFruits.ToStringGeneration")
@@ -79,7 +79,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
 
             StringBuilder sourceBuilder = new();
 
-            string indent = string.Empty;
+            var indent = string.Empty;
 
             sourceBuilder.AppendLine("using AreYouFruits.ToStringGeneration;");
             sourceBuilder.AppendLine("");
@@ -109,7 +109,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
 
         private string GenerateToString(IEnumerable<string> toStringClassMembers, TypeDeclarationSyntax typeDeclarationSyntax)
         {
-            string members = toStringClassMembers.Any() switch
+            var members = toStringClassMembers.Any() switch
             {
                 true => ' ' + string.Join("; ", toStringClassMembers.Select(t => $"{t}: {{{t}.ToStringUniversal()}}")) + ' ',
                 false => " ",
@@ -125,7 +125,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
         {
             var results = new List<string>();
             
-            foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
+            foreach (var memberDeclarationSyntax in typeDeclarationSyntax.Members)
             {
                 if (!IsMemberPublic(memberDeclarationSyntax, typeDeclarationSyntax))
                 {
@@ -134,7 +134,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
                 
                 if (memberDeclarationSyntax is FieldDeclarationSyntax fieldDeclarationSyntax)
                 {
-                    foreach (VariableDeclaratorSyntax variableDeclaratorSyntax in fieldDeclarationSyntax.Declaration.Variables)
+                    foreach (var variableDeclaratorSyntax in fieldDeclarationSyntax.Declaration.Variables)
                     {
                         results.Add(variableDeclaratorSyntax.Identifier.ToString());
                     }
@@ -147,7 +147,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
                     if (propertyDeclarationSyntax.AccessorList is not { } accessorList
                      || accessorList.Accessors.Any(a => a.Keyword.IsKind(SyntaxKind.GetKeyword)))
                     {
-                        string identifier = propertyDeclarationSyntax.Identifier.ToString();
+                        var identifier = propertyDeclarationSyntax.Identifier.ToString();
                         
                         results.Add(identifier);
                     }
@@ -180,11 +180,11 @@ namespace AreYouFruits.ToStringGeneration.Generator
             in GeneratorExecutionContext context
         )
         {
-            foreach (AttributeListSyntax attributeListSyntax in typeDeclarationSyntax.AttributeLists)
+            foreach (var attributeListSyntax in typeDeclarationSyntax.AttributeLists)
             {
-                ISymbol symbol = GetDeclaredSymbol(attributeListSyntax.Parent!, context.Compilation);
+                var symbol = GetDeclaredSymbol(attributeListSyntax.Parent!, context.Compilation);
 
-                foreach (AttributeData attributeData in symbol.GetAttributes())
+                foreach (var attributeData in symbol.GetAttributes())
                 {
                     if (attributeData.AttributeClass!.Name == "GenerateToStringAttribute")
                     {
@@ -206,7 +206,7 @@ namespace AreYouFruits.ToStringGeneration.Generator
                 return false;
             }
 
-            foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
+            foreach (var memberDeclarationSyntax in typeDeclarationSyntax.Members)
             {
                 if (memberDeclarationSyntax is not MethodDeclarationSyntax methodDeclarationSyntax)
                 {

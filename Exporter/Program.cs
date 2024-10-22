@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Exporter;
 
-List<ProjectExport> projectExports = ExportScanner.GetExportInfo();
+var projectExports = ExportScanner.GetExportInfo();
 
 ExportDirectoryPreparer.PrepareExportDirectory();
 
@@ -12,12 +13,14 @@ AdditionalDirectoriesCopier.CopyAdditionalDirectories();
 
 Console.WriteLine($"Copied into {CommonInfo.ExportDirectoryPath}:");
 
-foreach (ProjectExport projectExport in projectExports)
+foreach (var projectExport in projectExports)
 {
     Console.WriteLine("- " + projectExport.ProjectName);
 }
 
-foreach (string additionalDirectory in Properties.AdditionalDirectoryNames)
+foreach (var additionalDirectory in Properties.AdditionalDirectoryNames)
 {
     Console.WriteLine("- [additional] " + additionalDirectory);
 }
+
+Process.Start("explorer.exe", CommonInfo.ExportDirectoryPath);

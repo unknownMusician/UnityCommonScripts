@@ -31,7 +31,7 @@ namespace AreYouFruits.DependencyInjection.Unity.Editor.Settings
 
         private static DiSettings Load()
         {
-            DiSettings settings = UnityEditor.AssetDatabase.LoadAssetAtPath<DiSettings>(SettingsLocalPath);
+            var settings = UnityEditor.AssetDatabase.LoadAssetAtPath<DiSettings>(SettingsLocalPath);
 
             if (settings != null)
             {
@@ -41,7 +41,7 @@ namespace AreYouFruits.DependencyInjection.Unity.Editor.Settings
             settings = ScriptableObject.CreateInstance<DiSettings>();
             settings.Bindings = Array.Empty<Binding>();
             
-            string directory = Path.GetDirectoryName(SettingsPath) + '\\';
+            var directory = Path.GetDirectoryName(SettingsPath) + '\\';
                 
             if (!Directory.Exists(directory))
             {
@@ -56,14 +56,14 @@ namespace AreYouFruits.DependencyInjection.Unity.Editor.Settings
         [ContextInitializer]
         private static void TryBind(IDiContainer container)
         {
-            if (!Settings.TryGet(out DiSettings settings))
+            if (!Settings.TryGet(out var settings))
             {
                 return;
             }
 
-            bool containsUnassigned = false;
+            var containsUnassigned = false;
             
-            foreach (Binding binding in settings.Bindings)
+            foreach (var binding in settings.Bindings)
             {
                 if (binding.Object is null)
                 {

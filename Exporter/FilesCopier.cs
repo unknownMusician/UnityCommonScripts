@@ -7,22 +7,22 @@ public static class FilesCopier
 {
     public static void CopyFiles(IEnumerable<ProjectExport> projectExports)
     {
-        foreach (ProjectExport projectExport in projectExports)
+        foreach (var projectExport in projectExports)
         {
-            string projectName = projectExport.ProjectName;
+            var projectName = projectExport.ProjectName;
             
             if (projectName.StartsWith("AreYouFruits") && Properties.RemoveAreYouFruitsPrefixInExportFolders)
             {
                 projectName = projectName.Substring("AreYouFruits.".Length);
             }
             
-            string projectDirectory = Path.Combine(CommonInfo.ExportDirectoryPath, projectName);
+            var projectDirectory = Path.Combine(CommonInfo.ExportDirectoryPath, projectName);
 
             Directory.CreateDirectory(projectDirectory);
 
-            foreach (string filePath in projectExport.FilePaths)
+            foreach (var filePath in projectExport.FilePaths)
             {
-                string destinationFilePath = Path.Combine(projectDirectory, Path.GetFileName(filePath));
+                var destinationFilePath = Path.Combine(projectDirectory, Path.GetFileName(filePath));
                 
                 File.Copy(filePath, destinationFilePath);
             }

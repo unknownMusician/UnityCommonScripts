@@ -2,7 +2,7 @@
 
 namespace AreYouFruits.Ranges.Unity
 {
-    public static class RangeExtensions
+    public static class RangeLerpExtensions
     {
         public static float Lerp(this Range<float> range, float t) => Mathf.Lerp(range.Min, range.Max, t);
         public static Color Lerp(this Range<Color> range, float t) => Color.Lerp(range.Min, range.Max, t);

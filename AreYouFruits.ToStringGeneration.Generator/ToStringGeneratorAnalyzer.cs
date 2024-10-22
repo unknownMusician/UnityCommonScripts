@@ -36,9 +36,9 @@ namespace AreYouFruits.ToStringGeneration.Generator
 
         private bool ShouldGenerateConstructorFor(TypeDeclarationSyntax typeDeclarationSyntax)
         {
-            foreach (AttributeListSyntax attributeListSyntax in typeDeclarationSyntax.AttributeLists)
+            foreach (var attributeListSyntax in typeDeclarationSyntax.AttributeLists)
             {
-                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                foreach (var attributeSyntax in attributeListSyntax.Attributes)
                 {
                     if (attributeSyntax.Name.ToString() is "GenerateToString" or "GenerateToStringAttribute")
                     {

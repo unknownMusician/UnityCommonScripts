@@ -13,7 +13,7 @@ namespace AreYouFruits.VectorsSwizzling.Generator
 
         public void Execute(GeneratorExecutionContext context)
         {
-            foreach (Source source in sources)
+            foreach (var source in sources)
             {
                 context.AddSource(source.Name, source.Content);
             }

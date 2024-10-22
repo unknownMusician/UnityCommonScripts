@@ -17,7 +17,7 @@ namespace AreYouFruits.ToStringGeneration
 
         private static string ToStringUniversal(IEnumerable enumerable)
         {
-            IEnumerator enumerator = enumerable.GetEnumerator();
+            var enumerator = enumerable.GetEnumerator();
 
             if (!enumerator.MoveNext())
             {

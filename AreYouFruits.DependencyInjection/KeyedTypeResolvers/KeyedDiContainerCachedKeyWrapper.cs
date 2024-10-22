@@ -37,7 +37,7 @@ namespace AreYouFruits.DependencyInjection.KeyedTypeResolvers
 
         public bool TryResolve(Type type, out object result)
         {
-            if (!containers.TryGetValue(key, out IDiContainer container))
+            if (!containers.TryGetValue(key, out var container))
             {
                 container = globalContainer;
             }
@@ -52,7 +52,7 @@ namespace AreYouFruits.DependencyInjection.KeyedTypeResolvers
 
         public void Clear()
         {
-            if (containers.TryGetValue(key, out IDiContainer container))
+            if (containers.TryGetValue(key, out var container))
             {
                 container.Clear();
             }
@@ -60,7 +60,7 @@ namespace AreYouFruits.DependencyInjection.KeyedTypeResolvers
 
         public void Clear(Type type)
         {
-            if (containers.TryGetValue(key, out IDiContainer container))
+            if (containers.TryGetValue(key, out var container))
             {
                 container.Clear(type);
             }
@@ -68,7 +68,7 @@ namespace AreYouFruits.DependencyInjection.KeyedTypeResolvers
         
         private IDiContainer GetOrCreateContainer()
         {
-            if (!containers.TryGetValue(key, out IDiContainer container))
+            if (!containers.TryGetValue(key, out var container))
             {
                 container = new DiContainer();
                 containers.Add(key, container);

@@ -66,6 +66,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.InitializerGen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Events", "AreYouFruits.Events\AreYouFruits.Events.csproj", "{B4DE09A3-BD55-4ED1-A857-4B534085B123}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Disposables", "AreYouFruits.Disposables\AreYouFruits.Disposables.csproj", "{F0969939-5447-4DDC-9501-19DDF59517E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Disposables.Unity", "AreYouFruits.Disposables.Unity\AreYouFruits.Disposables.Unity.csproj", "{4F493FCC-AB86-4B3C-BB7A-2B1403F0DA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.ExternalPolymorphism", "AreYouFruits.ExternalPolymorphism\AreYouFruits.ExternalPolymorphism.csproj", "{57518989-6FC1-4013-87C4-84E4EF65D870}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -204,5 +210,17 @@ Global
 		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4DE09A3-BD55-4ED1-A857-4B534085B123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0969939-5447-4DDC-9501-19DDF59517E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0969939-5447-4DDC-9501-19DDF59517E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0969939-5447-4DDC-9501-19DDF59517E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0969939-5447-4DDC-9501-19DDF59517E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F493FCC-AB86-4B3C-BB7A-2B1403F0DA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F493FCC-AB86-4B3C-BB7A-2B1403F0DA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F493FCC-AB86-4B3C-BB7A-2B1403F0DA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F493FCC-AB86-4B3C-BB7A-2B1403F0DA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57518989-6FC1-4013-87C4-84E4EF65D870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57518989-6FC1-4013-87C4-84E4EF65D870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57518989-6FC1-4013-87C4-84E4EF65D870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57518989-6FC1-4013-87C4-84E4EF65D870}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -35,12 +35,12 @@ namespace AreYouFruits.DependencyInjection.Unity.Settings
         [ContextInitializer]
         private static void TryBind(IDiContainer container)
         {
-            if (!Settings.TryGet(out DiSettings settings))
+            if (!Settings.TryGet(out var settings))
             {
                 return;
             }
 
-            foreach (Binding binding in settings.Bindings)
+            foreach (var binding in settings.Bindings)
             {
                 var type = Type.GetType(binding.TypeName);
 

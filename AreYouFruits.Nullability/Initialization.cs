@@ -7,7 +7,7 @@ namespace AreYouFruits.Nullability
         public T Set(Func<T> emptyProvider, Func<T, T> valueProvider) => Set(valueProvider, emptyProvider);
         public T Set(Func<T, T> valueProvider, Func<T> emptyProvider)
         {
-            T value = isInitialized switch
+            var value = isInitialized switch
             {
                 true => valueProvider(this.value),
                 false => emptyProvider(),
@@ -107,6 +107,30 @@ namespace AreYouFruits.Nullability
             {
                 this = new Optional<T>(valueProvider());
             }
+
+            return value;
+        }
+
+        public T SetOrThrow(T value)
+        {
+            if (isInitialized)
+            {
+                throw new InvalidOperationException("The Option is already initialized.");
+            }
+            
+            this = new Optional<T>(value);
+
+            return value;
+        }
+
+        public Optional<T> SetOrThrow(Optional<T> value)
+        {
+            if (isInitialized)
+            {
+                throw new InvalidOperationException("The Option is already initialized.");
+            }
+            
+            this = value;
 
             return value;
         }

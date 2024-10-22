@@ -36,16 +36,16 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private bool ShouldGenerateConstructorFor(TypeDeclarationSyntax typeDeclarationSyntax)
         {
-            foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
+            foreach (var memberDeclarationSyntax in typeDeclarationSyntax.Members)
             {
                 if (memberDeclarationSyntax is not FieldDeclarationSyntax fieldDeclarationSyntax)
                 {
                     continue;
                 }
                 
-                foreach (AttributeListSyntax attributeListSyntax in fieldDeclarationSyntax.AttributeLists)
+                foreach (var attributeListSyntax in fieldDeclarationSyntax.AttributeLists)
                 {
-                    foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                    foreach (var attributeSyntax in attributeListSyntax.Attributes)
                     {
                         if (attributeSyntax.Name.ToString() is "GenerateInitializer" or "GenerateInitializerAttribute")
                         {

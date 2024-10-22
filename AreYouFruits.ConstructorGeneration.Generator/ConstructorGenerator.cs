@@ -22,9 +22,9 @@ namespace AreYouFruits.ConstructorGeneration.Generator
                     return;
                 }
                 
-                foreach (SyntaxTree syntaxTree in context.Compilation.SyntaxTrees)
+                foreach (var syntaxTree in context.Compilation.SyntaxTrees)
                 {
-                    foreach (SyntaxNode syntaxNode in syntaxTree.GetRoot().DescendantNodes())
+                    foreach (var syntaxNode in syntaxTree.GetRoot().DescendantNodes())
                     {
                         if (syntaxNode is not TypeDeclarationSyntax typeDeclarationSyntax)
                         {
@@ -50,7 +50,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
         private bool ReferencesGeneratorAssembly(in GeneratorExecutionContext context)
         {
-            foreach (IAssemblySymbol sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
+            foreach (var sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
                 .ReferencedAssemblySymbols)
             {
                 if (sourceModuleReferencedAssemblySymbol.Name is "AreYouFruits.ConstructorGeneration")
@@ -66,7 +66,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
         {
             var fields = new List<FieldDeclarationSyntax>();
 
-            foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
+            foreach (var memberDeclarationSyntax in typeDeclarationSyntax.Members)
             {
                 if (memberDeclarationSyntax is not FieldDeclarationSyntax fieldDeclarationSyntax)
                 {
@@ -102,11 +102,11 @@ namespace AreYouFruits.ConstructorGeneration.Generator
         {
             var source = new StringBuilder();
 
-            bool hasNamespace = false;
+            var hasNamespace = false;
 
-            string indent = string.Empty;
+            var indent = string.Empty;
             
-            foreach (UsingDirectiveSyntax usingDirectiveSyntax in GetRoot(type).Usings)
+            foreach (var usingDirectiveSyntax in GetRoot(type).Usings)
             {
                 source.AppendLine(usingDirectiveSyntax.ToString());
             }
@@ -125,7 +125,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
                 return;
             }
 
-            string constructorParameters = string.Join(", ", GetConstructorParameters(fields));
+            var constructorParameters = string.Join(", ", GetConstructorParameters(fields));
 
             source.AppendLine($"{indent}{type.Modifiers.ToString()} {type.Keyword.ToString()} {type.Identifier.ToString()}{type.TypeParameterList?.ToString()}");
             source.AppendLine($"{indent}{{");
@@ -138,7 +138,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
             
             source.AppendLine($"{indent}    {{");
             
-            foreach (string initializationExpression in GetInitializationExpressions(fields))
+            foreach (var initializationExpression in GetInitializationExpressions(fields))
             {
                 source.AppendLine($"{indent}        {initializationExpression}");
             }
@@ -151,7 +151,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
                 source.AppendLine("}");
             }
 
-            string genericParametersPrefix = string.Empty;
+            var genericParametersPrefix = string.Empty;
             
             if (type.TypeParameterList is { } typeParameterList)
             {
@@ -163,7 +163,7 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
         private bool ContainsParameterlessConstructor(TypeDeclarationSyntax typeDeclarationSyntax)
         {
-            foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
+            foreach (var memberDeclarationSyntax in typeDeclarationSyntax.Members)
             {
                 if (memberDeclarationSyntax is not ConstructorDeclarationSyntax constructorDeclarationSyntax)
                 {
@@ -191,15 +191,15 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
         private IEnumerable<string> GetConstructorParameters(IEnumerable<FieldDeclarationSyntax> fields)
         {
-            foreach (FieldDeclarationSyntax fieldDeclarationSyntax in fields)
+            foreach (var fieldDeclarationSyntax in fields)
             {
-                VariableDeclarationSyntax declaration = fieldDeclarationSyntax.Declaration;
+                var declaration = fieldDeclarationSyntax.Declaration;
 
-                foreach (VariableDeclaratorSyntax variableDeclaratorSyntax in declaration.Variables)
+                foreach (var variableDeclaratorSyntax in declaration.Variables)
                 {
-                    string identifier = variableDeclaratorSyntax.Identifier.ToString();
+                    var identifier = variableDeclaratorSyntax.Identifier.ToString();
 
-                    string parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
+                    var parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
 
                     yield return $"{declaration.Type} {parameterName}";
                 }
@@ -208,15 +208,15 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
         private IEnumerable<string> GetInitializationExpressions(IEnumerable<FieldDeclarationSyntax> fields)
         {
-            foreach (FieldDeclarationSyntax fieldDeclarationSyntax in fields)
+            foreach (var fieldDeclarationSyntax in fields)
             {
-                VariableDeclarationSyntax declaration = fieldDeclarationSyntax.Declaration;
+                var declaration = fieldDeclarationSyntax.Declaration;
 
-                foreach (VariableDeclaratorSyntax variableDeclaratorSyntax in declaration.Variables)
+                foreach (var variableDeclaratorSyntax in declaration.Variables)
                 {
-                    string identifier = variableDeclaratorSyntax.Identifier.ToString();
+                    var identifier = variableDeclaratorSyntax.Identifier.ToString();
 
-                    string parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
+                    var parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
 
                     yield return $"this.{identifier} = {parameterName};";
                 }
@@ -230,9 +230,9 @@ namespace AreYouFruits.ConstructorGeneration.Generator
 
         private bool ShouldGenerateForField(FieldDeclarationSyntax fieldDeclarationSyntax)
         {
-            foreach (AttributeListSyntax attributeListSyntax in fieldDeclarationSyntax.AttributeLists)
+            foreach (var attributeListSyntax in fieldDeclarationSyntax.AttributeLists)
             {
-                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                foreach (var attributeSyntax in attributeListSyntax.Attributes)
                 {
                     if (attributeSyntax.ToString() is "GenerateConstructor" or "GenerateConstructorAttribute")
                     {

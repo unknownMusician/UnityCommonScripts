@@ -15,19 +15,19 @@ namespace AreYouFruits.Nullability
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            SerializedProperty valueProperty = property.FindPropertyRelative("value");
-            SerializedProperty nullProperty = property.FindPropertyRelative("isInitialized");
+            var valueProperty = property.FindPropertyRelative("value");
+            var nullProperty = property.FindPropertyRelative("isInitialized");
 
             position = EditorGUI.PrefixLabel(position, label);
 
-            Rect nullPosition = position;
+            var nullPosition = position;
             nullPosition.x += position.width - position.height;
             nullPosition.width = position.height;
 
-            Rect propertyPosition = position;
+            var propertyPosition = position;
             propertyPosition.width -= nullPosition.height + EditorGUIUtility.standardVerticalSpacing * 2;
 
-            bool hasValue = EditorGUI.Toggle(nullPosition, nullProperty.boolValue);
+            var hasValue = EditorGUI.Toggle(nullPosition, nullProperty.boolValue);
 
             nullProperty.boolValue = hasValue;
 

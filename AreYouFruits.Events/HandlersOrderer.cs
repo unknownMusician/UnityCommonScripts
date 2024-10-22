@@ -22,11 +22,11 @@ namespace AreYouFruits.Events
             var finalOrders = new Dictionary<Type, Dictionary<Type, long>>();
             var finalDefaultOrders = new Dictionary<Type, long>();
 
-            foreach ((var messageType, var orders) in messageOrders)
+            foreach (var (messageType, orders) in messageOrders)
             {
                 var newOrders = new Dictionary<Type, long>();
 
-                foreach ((long order, var callerType) in orders)
+                foreach (var (order, callerType) in orders)
                 {
                     newOrders.Add(callerType, order);
                 }
@@ -34,7 +34,7 @@ namespace AreYouFruits.Events
                 finalOrders.Add(messageType, newOrders);
             }
 
-            foreach ((long order, var callerType) in defaultOrders)
+            foreach (var (order, callerType) in defaultOrders)
             {
                 finalDefaultOrders.Add(callerType, order);
             }
@@ -45,7 +45,7 @@ namespace AreYouFruits.Events
         public long GetOrder(Type callerType, Type messageType)
         {
             if (orders.TryGetValue(messageType, out var messageOrders)
-            && messageOrders. TryGetValue(callerType, out var order))
+            && messageOrders.TryGetValue(callerType, out var order))
             {
                 return order;
             }

@@ -25,7 +25,7 @@ namespace AreYouFruits.DependencyInjection.Extensions.Binding.DelegateConversion
                 throw new ArgumentNullException(nameof(resolver));
             }
 
-            TDestination destination = resolver.Resolve<TDestination>();
+            var destination = resolver.Resolve<TDestination>();
 
             return converter(destination);
         }

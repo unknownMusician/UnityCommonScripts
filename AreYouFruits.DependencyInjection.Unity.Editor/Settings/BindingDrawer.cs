@@ -15,29 +15,29 @@ namespace AreYouFruits.DependencyInjection.Unity.Editor.Settings
         {
             rect = EditorGUI.PrefixLabel(rect, label);
 
-            SerializedProperty objectProperty = property.FindPropertyRelative(nameof(Binding.Object));
-            SerializedProperty typeNameProperty = property.FindPropertyRelative(nameof(Binding.TypeName));
+            var objectProperty = property.FindPropertyRelative(nameof(Binding.Object));
+            var typeNameProperty = property.FindPropertyRelative(nameof(Binding.TypeName));
 
-            Rect objectRect = rect;
+            var objectRect = rect;
             objectRect.width = (objectRect.width / 2) - 1;
 
-            Rect typeNameRect = objectRect;
-            Vector2 typeNamePosition = typeNameRect.position;
+            var typeNameRect = objectRect;
+            var typeNamePosition = typeNameRect.position;
             typeNamePosition.x += objectRect.width + 2;
             typeNameRect.position = typeNamePosition;
             
             EditorGUI.ObjectField(objectRect, objectProperty, GUIContent.none);
 
-            Object objectReference = objectProperty.objectReferenceValue;
+            var objectReference = objectProperty.objectReferenceValue;
 
             if (objectReference is null)
             {
                 return;
             }
 
-            List<Type> types = GetTypes(objectReference).ToList();
+            var types = GetTypes(objectReference).ToList();
 
-            int index = types.IndexOf(Type.GetType(typeNameProperty.stringValue));
+            var index = types.IndexOf(Type.GetType(typeNameProperty.stringValue));
 
             if (index is -1)
             {
@@ -65,11 +65,11 @@ namespace AreYouFruits.DependencyInjection.Unity.Editor.Settings
                 yield break;
             }
 
-            Type type = value.GetType();
+            var type = value.GetType();
 
             yield return type;
 
-            foreach (Type interfaceType in type.GetInterfaces())
+            foreach (var interfaceType in type.GetInterfaces())
             {
                 yield return interfaceType;
             }

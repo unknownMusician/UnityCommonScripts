@@ -21,7 +21,7 @@ namespace AreYouFruits.DependencyInjection.Unity.Editor.Settings
 
         public override void OnGUI(string searchContext)
         {
-            if (EditorDiSettingsHolder.Settings.TryGet(out DiSettings settings))
+            if (EditorDiSettingsHolder.Settings.TryGet(out var settings))
             {
                 if (settings != lastSettings)
                 {

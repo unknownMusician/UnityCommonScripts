@@ -16,9 +16,9 @@ namespace AreYouFruits.VectorsSwizzling.Generator
 
             int[] counts = { 2, 3, 4 };
 
-            foreach (int input in counts)
+            foreach (var input in counts)
             {
-                foreach (int output in counts)
+                foreach (var output in counts)
                 {
                     results.Add(new Source(
                         name: $"SwizzlingVector{input}To{output}Extensions.g.cs",
@@ -40,7 +40,7 @@ namespace AreYouFruits.VectorsSwizzling.Generator
             result.AppendLine($"    public static class SwizzlingVector{inputCount}To{outputCount}Extensions");
             result.AppendLine("    {");
             
-            foreach (string s in GenerateVectorSwizzling(outputCount, Parameters.AsSpan().Slice(0, inputCount)))
+            foreach (var s in GenerateVectorSwizzling(outputCount, Parameters.AsSpan().Slice(0, inputCount)))
             {
                 result.AppendLine("        " + s);
             }
@@ -53,27 +53,27 @@ namespace AreYouFruits.VectorsSwizzling.Generator
 
         private static List<string> GenerateVectorSwizzling(int outputParametersCount, ReadOnlySpan<string> parameters)
         {
-            HashSet<int?[]> swizzlingIndices = GenerateSwizzlingsWithZeros(outputParametersCount, parameters.Length);
+            var swizzlingIndices = GenerateSwizzlingsWithZeros(outputParametersCount, parameters.Length);
 
-            string[] lower = parameters.ToArray().Select(p => p.ToLower()).ToArray();
-            string[] upper = parameters.ToArray().Select(p => p.ToUpper()).ToArray();
+            var lower = parameters.ToArray().Select(p => p.ToLower()).ToArray();
+            var upper = parameters.ToArray().Select(p => p.ToUpper()).ToArray();
 
             var results = new List<string>();
 
             var zeroName = ZeroParameterName.ToUpper();
 
-            foreach (int?[] indices in swizzlingIndices)
+            foreach (var indices in swizzlingIndices)
             {
                 if (indices.All(i => !i.HasValue))
                 {
                     continue;
                 }
                 
-                string name = string.Join(string.Empty, indices.Select(i => i is { } j ? upper[j] : zeroName));
+                var name = string.Join(string.Empty, indices.Select(i => i is { } j ? upper[j] : zeroName));
             
-                string constructorArguments = string.Join(", ", indices.Select((i, position) => i is { } j ? $"v.{lower[j]}" : Parameters[position]));
+                var constructorArguments = string.Join(", ", indices.Select((i, position) => i is { } j ? $"v.{lower[j]}" : Parameters[position]));
 
-                string additionalParameters = ToAdditionalParameters(indices);
+                var additionalParameters = ToAdditionalParameters(indices);
                 
                 results.Add($"public static Vector{outputParametersCount} {name}(this Vector{parameters.Length} v{additionalParameters}) => new({constructorArguments});");
             }
@@ -85,7 +85,7 @@ namespace AreYouFruits.VectorsSwizzling.Generator
         {
             var result = new StringBuilder();
 
-            for (int position = 0; position < indices.Length; position++)
+            for (var position = 0; position < indices.Length; position++)
             {
                 if (indices[position] is not { } index)
                 {
@@ -100,18 +100,18 @@ namespace AreYouFruits.VectorsSwizzling.Generator
         {
             var swizzlings = new HashSet<int[]>();
 
-            for (int i = 0; i < parametersCount; i++)
+            for (var i = 0; i < parametersCount; i++)
             {
                 swizzlings.Add(new[] { i });
             }
 
-            for (int i = 1; i < outputParametersCount; i++)
+            for (var i = 1; i < outputParametersCount; i++)
             {
-                foreach (int[] indices in swizzlings.ToArray())
+                foreach (var indices in swizzlings.ToArray())
                 {
                     swizzlings.Remove(indices);
 
-                    for (int j = 0; j < parametersCount; j++)
+                    for (var j = 0; j < parametersCount; j++)
                     {
                         swizzlings.Add(indices.Prepend(j).ToArray());
                     }
@@ -128,7 +128,7 @@ namespace AreYouFruits.VectorsSwizzling.Generator
         {
             var result = new HashSet<int?[]>();
 
-            foreach (int[] swizzlingsIndices in GenerateSwizzlingsIndices(outputParametersCount, parametersCount + 1))
+            foreach (var swizzlingsIndices in GenerateSwizzlingsIndices(outputParametersCount, parametersCount + 1))
             {
                 result.Add(swizzlingsIndices.Select(i => i == parametersCount ? (int?)null : i).ToArray());
             }

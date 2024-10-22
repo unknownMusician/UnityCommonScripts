@@ -6,10 +6,10 @@ namespace Exporter
     {
         public static void CopyAdditionalDirectories()
         {
-            foreach (string additionalFolderName in Properties.AdditionalDirectoryNames)
+            foreach (var additionalFolderName in Properties.AdditionalDirectoryNames)
             {
-                string sourceDirectory = Path.Combine(CommonInfo.SolutionDirectory, additionalFolderName);
-                string destinationDirectory = Path.Combine(CommonInfo.ExportDirectoryPath, additionalFolderName);
+                var sourceDirectory = Path.Combine(CommonInfo.SolutionDirectory, additionalFolderName);
+                var destinationDirectory = Path.Combine(CommonInfo.ExportDirectoryPath, additionalFolderName);
 
                 CopyDirectory(sourceDirectory, destinationDirectory, recursive: true);
             }
@@ -24,21 +24,21 @@ namespace Exporter
                 throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
             }
 
-            DirectoryInfo[] dirs = dir.GetDirectories();
+            var dirs = dir.GetDirectories();
 
             Directory.CreateDirectory(destinationDir);
 
-            foreach (FileInfo file in dir.GetFiles())
+            foreach (var file in dir.GetFiles())
             {
-                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                var targetFilePath = Path.Combine(destinationDir, file.Name);
                 file.CopyTo(targetFilePath);
             }
 
             if (recursive)
             {
-                foreach (DirectoryInfo subDir in dirs)
+                foreach (var subDir in dirs)
                 {
-                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    var newDestinationDir = Path.Combine(destinationDir, subDir.Name);
                     CopyDirectory(subDir.FullName, newDestinationDir, true);
                 }
             }

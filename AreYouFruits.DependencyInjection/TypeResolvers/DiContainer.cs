@@ -49,9 +49,9 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
                 throw new ArgumentNullException(nameof(type));
             }
 
-            int threadId = Thread.CurrentThread.ManagedThreadId;
+            var threadId = Thread.CurrentThread.ManagedThreadId;
             
-            if (!aliveThreadResolvers.TryGetValue(threadId, out RecursiveDiByTypeResolver recursiveTypeResolver))
+            if (!aliveThreadResolvers.TryGetValue(threadId, out var recursiveTypeResolver))
             {
                 recursiveTypeResolver = new RecursiveDiByTypeResolver(bindingsHolder);
                 aliveThreadResolvers.Add(threadId, recursiveTypeResolver);
@@ -69,7 +69,7 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
 
         private bool ResolveThreadIndependent(Type type, IDiByTypeResolver diByTypeResolver, out object result)
         {
-            if (!diByTypeResolver.TryResolve(type, out object potentialResult))
+            if (!diByTypeResolver.TryResolve(type, out var potentialResult))
             {
                 result = null!;
                 return false;

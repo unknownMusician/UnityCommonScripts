@@ -39,7 +39,7 @@ namespace AreYouFruits.DependencyInjection.TypeResolvers
 
             try
             {
-                if (!bindingsProvider.TryGet(type, out IDiBinding binding))
+                if (!bindingsProvider.TryGet(type, out var binding))
                 {
                     result = null!;
                     return false;

@@ -26,7 +26,7 @@ namespace AreYouFruits.Tasks
         {
             cancellation.ThrowIfCancellationRequested();
             
-            Task resultTask = await Task.WhenAny(task, Task.Delay(-1, cancellation));
+            var resultTask = await Task.WhenAny(task, Task.Delay(-1, cancellation));
 
             return ((Task<T>)resultTask).Result;
         }

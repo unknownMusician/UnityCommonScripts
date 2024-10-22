@@ -9,10 +9,22 @@
     ".NETStandard,Version=v2.1/": {
       "AreYouFruits.Events/1.0.0": {
         "dependencies": {
+          "AreYouFruits.Collections": "1.0.0",
+          "AreYouFruits.Disposables": "1.0.0",
           "AreYouFruits.Nullability": "1.0.0"
         },
         "runtime": {
           "AreYouFruits.Events.dll": {}
+        }
+      },
+      "AreYouFruits.Collections/1.0.0": {
+        "runtime": {
+          "AreYouFruits.Collections.dll": {}
+        }
+      },
+      "AreYouFruits.Disposables/1.0.0": {
+        "runtime": {
+          "AreYouFruits.Disposables.dll": {}
         }
       },
       "AreYouFruits.Nullability/1.0.0": {
@@ -24,6 +36,16 @@
   },
   "libraries": {
     "AreYouFruits.Events/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AreYouFruits.Collections/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AreYouFruits.Disposables/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

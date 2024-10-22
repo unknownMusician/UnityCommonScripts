@@ -100,7 +100,7 @@ namespace AreYouFruits.MonoBehaviourUtils.Unity
         public static Optional<T> GetVarianceComponent<T>(this GameObject gameObject)
             where T : class
         {
-            if (!gameObject.GetVarianceComponent(typeof(T)).TryGet(out Component component))
+            if (!gameObject.GetVarianceComponent(typeof(T)).TryGet(out var component))
             {
                 return default;
             }
@@ -112,7 +112,7 @@ namespace AreYouFruits.MonoBehaviourUtils.Unity
         {
             Optional<Component> result = default;
 
-            foreach (Component component in gameObject.GetAllComponents())
+            foreach (var component in gameObject.GetAllComponents())
             {
                 if (!type.IsInstanceOfType(component))
                 {

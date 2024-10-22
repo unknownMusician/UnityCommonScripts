@@ -26,20 +26,20 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            SerializedProperty objectProperty = property.FindPropertyRelative("_object");
+            var objectProperty = property.FindPropertyRelative("_object");
 
-            object serializedInterface = GetTargetObjectOfProperty(property)!;
+            var serializedInterface = GetTargetObjectOfProperty(property)!;
 
-            Type[] genericArguments = serializedInterface.GetType().GenericTypeArguments;
+            var genericArguments = serializedInterface.GetType().GenericTypeArguments;
 
             if (genericArguments.Length != 1)
             {
                 throw new NotImplementedException();
             }
 
-            Type interfaceType = genericArguments.First();
+            var interfaceType = genericArguments.First();
 
-            Rect popupPosition = new Rect(new Vector2(position.max.x - PopupWidth, position.position.y),
+            var popupPosition = new Rect(new Vector2(position.max.x - PopupWidth, position.position.y),
                 new Vector2(PopupWidth, position.size.y));
 
             position = new Rect(position.position, position.size - (PopupWidth + GapWidth) * Vector2.right);
@@ -103,7 +103,7 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
 
                 if (obj is GameObject gameObject)
                 {
-                    Component[] interfaceComponents = gameObject.GetVarianceComponents(interfaceType);
+                    var interfaceComponents = gameObject.GetVarianceComponents(interfaceType);
 
                     if (interfaceComponents.Length == 1)
                     {
@@ -111,10 +111,10 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
                     }
                     else if (interfaceComponents.Length > 1)
                     {
-                        Component[] allComponents = gameObject.GetAllComponents();
-                        int count = 0;
+                        var allComponents = gameObject.GetAllComponents();
+                        var count = 0;
 
-                        int index = CustomEditorGUI.Popup(componentPosition, -1,
+                        var index = CustomEditorGUI.Popup(componentPosition, -1,
                             allComponents.Select(c => new GUIContent(count++ + " " + GetName(c))).ToArray(),
                             i => interfaceComponents.Contains(allComponents[i]));
 
@@ -143,13 +143,13 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
             Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType
         )
         {
-            GameObject[] gameObjects = Object.FindObjectsOfType<GameObject>();
+            var gameObjects = Object.FindObjectsOfType<GameObject>();
 
-            Component[] components = gameObjects.SelectMany(g => g.GetVarianceComponents(interfaceType)).ToArray();
+            var components = gameObjects.SelectMany(g => g.GetVarianceComponents(interfaceType)).ToArray();
 
-            GUIContent[] variants = components.Select(c =>
+            var variants = components.Select(c =>
                 {
-                    string index =
+                    var index =
                         c.gameObject.GetVarianceComponents(interfaceType).Count() <= 1 ?
                             string.Empty :
                             $"[{Array.IndexOf(c.gameObject.GetAllComponents(), c)}] ";
@@ -158,7 +158,7 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
                 })
                 .ToArray();
 
-            int index = Array.IndexOf(components, (Component)objectProperty.objectReferenceValue);
+            var index = Array.IndexOf(components, (Component)objectProperty.objectReferenceValue);
 
             index = EditorGUI.Popup(position, label, index, variants);
 
@@ -175,16 +175,16 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
 
         public static object GetTargetObjectOfProperty(SerializedProperty prop)
         {
-            string path = prop.propertyPath.Replace(".Array.data[", "[");
+            var path = prop.propertyPath.Replace(".Array.data[", "[");
             object obj = prop.serializedObject.targetObject;
 
-            foreach (string element in path.Split('.'))
+            foreach (var element in path.Split('.'))
             {
                 if (element.Contains("["))
                 {
-                    string elementName = element.Substring(0, element.IndexOf("[", StringComparison.Ordinal));
+                    var elementName = element.Substring(0, element.IndexOf("[", StringComparison.Ordinal));
 
-                    int index = Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.Ordinal))
+                    var index = Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.Ordinal))
                         .Replace("[", "")
                         .Replace("]", ""));
 
@@ -206,9 +206,9 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
                 return null;
             }
 
-            IEnumerator enm = enumerable.GetEnumerator();
+            var enm = enumerable.GetEnumerator();
 
-            for (int i = 0; i <= index; i++)
+            for (var i = 0; i <= index; i++)
             {
                 if (!enm.MoveNext())
                 {
@@ -226,11 +226,11 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
                 return null;
             }
 
-            Type type = source.GetType();
+            var type = source.GetType();
 
             while (type != null)
             {
-                FieldInfo f = type.GetField(name,
+                var f = type.GetField(name,
                     BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
                 if (f != null)
@@ -238,7 +238,7 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
                     return f.GetValue(source);
                 }
 
-                PropertyInfo p = type.GetProperty(name,
+                var p = type.GetProperty(name,
                     BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
 
                 if (p != null)

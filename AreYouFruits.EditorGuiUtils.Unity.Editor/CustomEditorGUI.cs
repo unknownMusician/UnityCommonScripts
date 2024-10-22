@@ -42,7 +42,7 @@ namespace AreYouFruits.EditorGuiUtils.Unity.Editor
 
         public static Rect PrefixLabel(Rect position, float labelWidth, GUIContent label, GUIStyle style = null)
         {
-            Rect labelPosition = position;
+            var labelPosition = position;
             labelPosition.width = labelWidth;
 
             if (style == null)

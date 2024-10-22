@@ -45,5 +45,14 @@ namespace AreYouFruits.Nullability
                 false => emptyHandler(),
             };
         }
+        
+        public readonly Optional<TResult> Match<TResult>(Func<T, TResult> valueHandler)
+        {
+            return isInitialized switch
+            {
+                true => valueHandler(value),
+                false => Optional.None(),
+            };
+        }
     }
 }

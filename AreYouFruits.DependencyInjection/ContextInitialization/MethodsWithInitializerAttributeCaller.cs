@@ -15,14 +15,14 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
         {
             var exceptions = new List<Exception>();
 
-            IEnumerable<MethodInfo> potentialMethodInfos = AppDomain.CurrentDomain.GetAssemblies()
+            var potentialMethodInfos = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(assembly => assembly.GetTypes())
                 .Where(type => !IsUnityType(type))
                 .SelectMany(type => type.GetMethods(Flags));
 
-            foreach (MethodInfo methodInfo in potentialMethodInfos)
+            foreach (var methodInfo in potentialMethodInfos)
             {
-                if (!IsValid(methodInfo, out Action<IKeyedDiContainer> caller, contextType))
+                if (!IsValid(methodInfo, out var caller, contextType))
                 {
                     continue;
                 }
@@ -51,7 +51,7 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
                 return false;
             }
 
-            ContextInitializerAttribute attribute = method.GetCustomAttribute<ContextInitializerAttribute>();
+            var attribute = method.GetCustomAttribute<ContextInitializerAttribute>();
 
             if (attribute is null || (attribute.ContextType != contextType))
             {
@@ -59,7 +59,7 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
                 return false;
             }
 
-            ParameterInfo[] parameters = method.GetParameters();
+            var parameters = method.GetParameters();
             
             if (parameters.Length > 1)
             {
@@ -67,9 +67,9 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
                 return true;
             }
 
-            Type parameterType = parameters[0].ParameterType;
+            var parameterType = parameters[0].ParameterType;
 
-            bool keyIsNull = attribute.Key is null;
+            var keyIsNull = attribute.Key is null;
 
             if (!keyIsNull && (parameterType == typeof(IDiContainer)))
             {
@@ -89,7 +89,7 @@ namespace AreYouFruits.DependencyInjection.ContextInitialization
 
         private static bool IsUnityType(Type type)
         {
-            string typeNamespace = type.Namespace;
+            var typeNamespace = type.Namespace;
 
             if (typeNamespace is null)
             {

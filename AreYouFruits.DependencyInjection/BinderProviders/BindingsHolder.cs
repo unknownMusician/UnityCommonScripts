@@ -17,7 +17,7 @@ namespace AreYouFruits.DependencyInjection.BinderProviders
                 throw new ArgumentNullException(nameof(binding));
             }
 
-            Type type = binding.SourceType;
+            var type = binding.SourceType;
 
             if (type is null)
             {

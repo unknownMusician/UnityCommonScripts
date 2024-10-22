@@ -16,9 +16,9 @@ namespace AreYouFruits.MonoBehaviourUtils.Unity
     {
         public static GameObject Create(GameObjectCreationInfo info)
         {
-            GameObject gameObject = info.Prefab.Match(Object.Instantiate, () => new GameObject());
+            var gameObject = info.Prefab.Match(Object.Instantiate, () => new GameObject());
 
-            if (info.Name.TryGet(out string name))
+            if (info.Name.TryGet(out var name))
             {
                 gameObject.name = name;
             }

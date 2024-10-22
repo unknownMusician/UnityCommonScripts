@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace AreYouFruits.Ranges
 {
+    public static class Range
+    {
+        public static Range<T> From<T>(T min, T max)
+        {
+            return new Range<T>(min, max);
+        }
+    }
+    
     [Serializable]
     public struct Range<T> : IEquatable<Range<T>>
     {

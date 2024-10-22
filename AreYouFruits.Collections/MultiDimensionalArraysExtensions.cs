@@ -20,11 +20,11 @@ namespace AreYouFruits.Collections
         // todo: Check.
         private static void For(Array array, int[] indices, Action<object> action, int dimension = 0)
         {
-            Action nextAction = dimension == indices.Length - 1
+            var nextAction = dimension == indices.Length - 1
                 ? () => action.Invoke(array.GetValue(indices)!)
                 : (Action)(() => For(array, indices, action, dimension + 1));
 
-            for (int i = 0; i < array.GetLength(dimension); i++)
+            for (var i = 0; i < array.GetLength(dimension); i++)
             {
                 indices[dimension] = i;
                 nextAction();

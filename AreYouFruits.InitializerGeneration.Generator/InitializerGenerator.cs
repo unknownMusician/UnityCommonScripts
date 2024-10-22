@@ -22,9 +22,9 @@ namespace AreYouFruits.InitializerGeneration.Generator
                     return;
                 }
                 
-                foreach (SyntaxTree syntaxTree in context.Compilation.SyntaxTrees)
+                foreach (var syntaxTree in context.Compilation.SyntaxTrees)
                 {
-                    foreach (SyntaxNode syntaxNode in syntaxTree.GetRoot().DescendantNodes())
+                    foreach (var syntaxNode in syntaxTree.GetRoot().DescendantNodes())
                     {
                         if (syntaxNode is not TypeDeclarationSyntax typeDeclarationSyntax)
                         {
@@ -50,7 +50,7 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private bool ReferencesGeneratorAssembly(in GeneratorExecutionContext context)
         {
-            foreach (IAssemblySymbol sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
+            foreach (var sourceModuleReferencedAssemblySymbol in context.Compilation.SourceModule
                 .ReferencedAssemblySymbols)
             {
                 if (sourceModuleReferencedAssemblySymbol.Name is "AreYouFruits.InitializerGeneration")
@@ -64,7 +64,7 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private void GenerateFor(TypeDeclarationSyntax typeDeclarationSyntax, in GeneratorExecutionContext context)
         {
-            int suitableFields = 0;
+            var suitableFields = 0;
             
             if (!CanGenerateForType(typeDeclarationSyntax))
             {
@@ -73,7 +73,7 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
             var fields = new List<FieldDeclarationSyntax>();
 
-            foreach (MemberDeclarationSyntax memberDeclarationSyntax in typeDeclarationSyntax.Members)
+            foreach (var memberDeclarationSyntax in typeDeclarationSyntax.Members)
             {
                 if (memberDeclarationSyntax is not FieldDeclarationSyntax fieldDeclarationSyntax)
                 {
@@ -106,11 +106,11 @@ namespace AreYouFruits.InitializerGeneration.Generator
         {
             var source = new StringBuilder();
 
-            bool hasNamespace = false;
+            var hasNamespace = false;
 
-            string indent = string.Empty;
+            var indent = string.Empty;
             
-            foreach (UsingDirectiveSyntax usingDirectiveSyntax in GetRoot(type).Usings)
+            foreach (var usingDirectiveSyntax in GetRoot(type).Usings)
             {
                 source.AppendLine(usingDirectiveSyntax.ToString());
             }
@@ -129,15 +129,15 @@ namespace AreYouFruits.InitializerGeneration.Generator
                 return;
             }
 
-            string initializerMethodName = GetInitializerMethodName(type);
-            string initializersParameters = string.Join(", ", GetInitializerParameters(fields));
+            var initializerMethodName = GetInitializerMethodName(type);
+            var initializersParameters = string.Join(", ", GetInitializerParameters(fields));
 
             source.AppendLine($"{indent}{type.Modifiers.ToString()} {type.Keyword.ToString()} {type.Identifier.ToString()}");
             source.AppendLine($"{indent}{{");
             source.AppendLine($"{indent}    public void {initializerMethodName}({initializersParameters})");
             source.AppendLine($"{indent}    {{");
             
-            foreach (string initializationExpression in GetInitializationExpressions(fields))
+            foreach (var initializationExpression in GetInitializationExpressions(fields))
             {
                 source.AppendLine($"{indent}        {initializationExpression}");
             }
@@ -155,9 +155,9 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private string GetInitializerMethodName(TypeDeclarationSyntax type)
         {
-            foreach (AttributeListSyntax attributeListSyntax in type.AttributeLists)
+            foreach (var attributeListSyntax in type.AttributeLists)
             {
-                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                foreach (var attributeSyntax in attributeListSyntax.Attributes)
                 {
                     if (attributeSyntax.Name.ToString() is not ("GeneratedInitializerNameAttribute" or "GeneratedInitializerName"))
                     {
@@ -174,7 +174,7 @@ namespace AreYouFruits.InitializerGeneration.Generator
                         continue;
                     }
 
-                    AttributeArgumentSyntax attributeArgumentSyntax = argumentList.Arguments[0];
+                    var attributeArgumentSyntax = argumentList.Arguments[0];
                     
                     if (attributeArgumentSyntax.Expression is not LiteralExpressionSyntax literalExpressionSyntax)
                     {
@@ -205,15 +205,15 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private IEnumerable<string> GetInitializerParameters(IEnumerable<FieldDeclarationSyntax> fields)
         {
-            foreach (FieldDeclarationSyntax fieldDeclarationSyntax in fields)
+            foreach (var fieldDeclarationSyntax in fields)
             {
-                VariableDeclarationSyntax declaration = fieldDeclarationSyntax.Declaration;
+                var declaration = fieldDeclarationSyntax.Declaration;
 
-                foreach (VariableDeclaratorSyntax variableDeclaratorSyntax in declaration.Variables)
+                foreach (var variableDeclaratorSyntax in declaration.Variables)
                 {
-                    string identifier = variableDeclaratorSyntax.Identifier.ToString();
+                    var identifier = variableDeclaratorSyntax.Identifier.ToString();
 
-                    string parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
+                    var parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
 
                     yield return $"{declaration.Type} {parameterName}";
                 }
@@ -222,15 +222,15 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private IEnumerable<string> GetInitializationExpressions(IEnumerable<FieldDeclarationSyntax> fields)
         {
-            foreach (FieldDeclarationSyntax fieldDeclarationSyntax in fields)
+            foreach (var fieldDeclarationSyntax in fields)
             {
-                VariableDeclarationSyntax declaration = fieldDeclarationSyntax.Declaration;
+                var declaration = fieldDeclarationSyntax.Declaration;
 
-                foreach (VariableDeclaratorSyntax variableDeclaratorSyntax in declaration.Variables)
+                foreach (var variableDeclaratorSyntax in declaration.Variables)
                 {
-                    string identifier = variableDeclaratorSyntax.Identifier.ToString();
+                    var identifier = variableDeclaratorSyntax.Identifier.ToString();
 
-                    string parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
+                    var parameterName = char.ToLower(identifier[0]) + identifier.Substring(1);
 
                     yield return $"this.{identifier} = {parameterName};";
                 }
@@ -244,9 +244,9 @@ namespace AreYouFruits.InitializerGeneration.Generator
 
         private bool ShouldGenerateForField(FieldDeclarationSyntax fieldDeclarationSyntax)
         {
-            foreach (AttributeListSyntax attributeListSyntax in fieldDeclarationSyntax.AttributeLists)
+            foreach (var attributeListSyntax in fieldDeclarationSyntax.AttributeLists)
             {
-                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                foreach (var attributeSyntax in attributeListSyntax.Attributes)
                 {
                     if (attributeSyntax.ToString() is "GenerateInitializer" or "GenerateInitializerAttribute")
                     {
