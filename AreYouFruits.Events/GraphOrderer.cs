@@ -7,45 +7,6 @@ using AreYouFruits.Nullability;
 
 namespace AreYouFruits.Events
 {
-    // todo: Add HandlerGroups
-    // internal readonly struct HandlersGroupIdentifier
-    // {
-    //     public object HandlersGroup { get; }
-    //
-    //     public HandlersGroupIdentifier(object handlersGroup)
-    //     {
-    //         HandlersGroup = handlersGroup;
-    //     }
-    // }
-    //
-    // public sealed class HandlersGroupInfo
-    // {
-    //     public HashSet<object> Children { get; } = new();
-    //     public HashSet<object> Next { get; } = new();
-    //     public HashSet<object> Previous { get; } = new();
-    // }
-    //
-    // public sealed class HandlersOrderer
-    // {
-    //     private readonly HashSet<(Type Min, Type Max)> relations = new();
-    //     private readonly Dictionary<object, HandlersGroupInfo> groups = new();
-    //     
-    //     public void Order(Type previousHandler, Type nextHandler)
-    //     {
-    //         relations.Add((previousHandler, nextHandler));
-    //     }
-    //     
-    //     public void Order(Type previousHandler, object nextGroup)
-    //     {
-    //         relations.Add((previousHandler, nextGroup));
-    //     }
-    //     
-    //     public void AssignToGroup(Type handler, object handlerGroup)
-    //     {
-    //         groups.GetOrInsertNew(handlerGroup).Children.Add(handler);
-    //     }
-    // }
-    
     public sealed class GraphOrderer
     {
         private readonly HashSet<(Type Min, Type Max)> relations = new();
@@ -69,13 +30,14 @@ namespace AreYouFruits.Events
         }
         
         [Pure]
-        public GraphOrderingHelper<TEvent> ForEvent<TEvent>()
+        public GraphOrdererHelper<TEvent> ForEvent<TEvent>()
             where TEvent : IEvent
         {
-            return new GraphOrderingHelper<TEvent>(this);
+            return new GraphOrdererHelper<TEvent>(this);
         }
         
         public CachedOrderProvider ToCached(Optional<int> defaultOrder)
+            // todo: use Graph instead
         {
             var maxToMin = new Dictionary<Type, List<Type>>();
 
