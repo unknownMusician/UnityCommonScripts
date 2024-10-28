@@ -117,7 +117,7 @@ public class EventHandlerSourceGenerator : IIncrementalGenerator
             
             foreach (var (resourceType, resourceName) in resources)
             {
-                variables += $"            var @{resourceName} = AreYouFruits.Events.ResourcesLocator.Get<{resourceType}>();\n";
+                variables += $"            var @{resourceName} = global::AreYouFruits.Events.ResourcesLocator.Get<{resourceType}>();\n";
             }
             
             // Build up the source code
