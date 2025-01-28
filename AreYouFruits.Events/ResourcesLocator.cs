@@ -15,6 +15,11 @@ namespace AreYouFruits.Events
 
         public static TResource Get<TResource>()
         {
+            return TryGet<TResource>().GetOrThrow();
+        }
+
+        public static Optional<TResource> TryGet<TResource>()
+        {
             var resource = Resourses.Get<TResource>();
 
             if (resource.TryGet(out var notNullResource) && Debugger.TryGet(out var debugger))
@@ -26,7 +31,7 @@ namespace AreYouFruits.Events
                 );
             }
             
-            return resource.GetOrThrow();
+            return resource;
         }
         
         public static bool Add(object resource)
@@ -64,6 +69,12 @@ namespace AreYouFruits.Events
             }
             
             return true;
+        }
+
+        public static void Clear()
+        {
+            ReadonlyTypes.Clear();
+            Resourses.Clear();
         }
     }
 }

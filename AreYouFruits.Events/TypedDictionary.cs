@@ -86,6 +86,11 @@ namespace AreYouFruits.Events
         {
             return values.Remove(type);
         }
+
+        public void Clear()
+        {
+            values.Clear();
+        }
         
         public IEnumerator<object> GetEnumerator()
         {
@@ -180,6 +185,11 @@ namespace AreYouFruits.Events
             return values.Remove(type);
         }
         
+        public void Clear()
+        {
+            values.Clear();
+        }
+
         public IEnumerator<TBase> GetEnumerator()
         {
             return values.Values.GetEnumerator();
