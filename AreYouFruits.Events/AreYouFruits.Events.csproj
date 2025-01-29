@@ -9,6 +9,7 @@
         <ProjectReference Include="..\AreYouFruits.Collections\AreYouFruits.Collections.csproj" />
         <ProjectReference Include="..\AreYouFruits.Disposables\AreYouFruits.Disposables.csproj" />
         <ProjectReference Include="..\AreYouFruits.Nullability\AreYouFruits.Nullability.csproj" />
+        <ProjectReference Include="..\AreYouFruits.Ordering\AreYouFruits.Ordering.csproj" />
     </ItemGroup>
 
 

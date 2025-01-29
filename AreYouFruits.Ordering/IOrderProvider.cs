@@ -1,4 +1,4 @@
-﻿namespace AreYouFruits.Events
+﻿namespace AreYouFruits.Ordering
 {
     public interface IOrderProvider<in T>
     {

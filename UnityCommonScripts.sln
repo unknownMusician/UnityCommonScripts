@@ -68,6 +68,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.ExternalPolymo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Events.Generator", "AreYouFruits.Events.Generator\AreYouFruits.Events.Generator.csproj", "{CC072A40-405F-4697-A392-DF9919965F47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Ecs", "AreYouFruits.Ecs\AreYouFruits.Ecs.csproj", "{ADA4A698-F182-44F9-A16F-A1B60A054746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.Ordering", "AreYouFruits.Ordering\AreYouFruits.Ordering.csproj", "{6D1BA9A0-B5B8-437C-8DCC-2D83BA26C3BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -210,5 +214,13 @@ Global
 		{CC072A40-405F-4697-A392-DF9919965F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC072A40-405F-4697-A392-DF9919965F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC072A40-405F-4697-A392-DF9919965F47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADA4A698-F182-44F9-A16F-A1B60A054746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADA4A698-F182-44F9-A16F-A1B60A054746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADA4A698-F182-44F9-A16F-A1B60A054746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADA4A698-F182-44F9-A16F-A1B60A054746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1BA9A0-B5B8-437C-8DCC-2D83BA26C3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1BA9A0-B5B8-437C-8DCC-2D83BA26C3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1BA9A0-B5B8-437C-8DCC-2D83BA26C3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1BA9A0-B5B8-437C-8DCC-2D83BA26C3BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

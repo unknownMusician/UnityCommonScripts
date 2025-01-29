@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AreYouFruits.Collections;
 
-namespace AreYouFruits.Events
+namespace AreYouFruits.Ordering
 {
     public sealed class Graph<T>
     {
