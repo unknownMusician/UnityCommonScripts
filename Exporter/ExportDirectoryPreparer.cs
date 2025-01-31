@@ -8,11 +8,9 @@ public static class ExportDirectoryPreparer
     {
         string exportDirectoryPath = CommonInfo.ExportDirectoryPath;
         
-        if (Directory.Exists(exportDirectoryPath))
+        if (!Directory.Exists(exportDirectoryPath))
         {
-            Directory.Delete(exportDirectoryPath, recursive: true);
+            Directory.CreateDirectory(exportDirectoryPath);
         }
-
-        Directory.CreateDirectory(exportDirectoryPath);
     }
 }
