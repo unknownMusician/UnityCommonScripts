@@ -1,37 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using AreYouFruits.Nullability;
 using AreYouFruits.Ordering;
 
 namespace AreYouFruits.Ecs
 {
     public sealed class EcsApp
     {
-        private readonly ISystem[] systems;
+        private readonly Dictionary<object, SystemScheduler> schedulers = new();
 
         public ResourcesHolder Resources { get; } = new();
         public EventsHolder Events { get; } = new();
 
-        public EcsApp(IOrderProvider<Type> orderer, IEnumerable<ISystem> systems)
+        public Optional<SystemScheduler> CreateScheduler(
+            object schedule,
+            IOrderProvider<Type> orderer,
+            IEnumerable<ISystem> systems
+        )
         {
-            this.systems = systems.ToArray();
-            Array.Sort(this.systems, new SystemOrderComparer(orderer));
+            if (schedulers.ContainsKey(schedule))
+            {
+                return Optional.None();
+            }
+            
+            var scheduler = new SystemScheduler(orderer, systems, Resources, Events);
+            schedulers.Add(schedule, scheduler);
+            
+            return scheduler;
         }
 
-        public void ExecuteIteration()
+        public Optional<SystemScheduler> GetScheduler(object schedule)
         {
-            Events.Clear();
-
-            foreach (var system in systems)
+            if (!schedulers.TryGetValue(schedule, out var scheduler))
             {
-                var ctx = new SystemContext
-                {
-                    Resources = Resources,
-                    Events = Events,
-                };
-
-                system.Execute(ctx);
+                return Optional.None();
             }
+
+            return scheduler;
         }
     }
 }
