@@ -8,10 +8,9 @@ namespace AreYouFruits.Ecs
     {
         private readonly Dictionary<Type, IResource> resources = new();
     
-        public void Set<T>(T resource)
-            where T : IResource
+        public void Set(IResource resource)
         {
-            resources[typeof(T)] = resource;
+            resources[resource.GetType()] = resource;
         }
 
         public Optional<T> TryGet<T>()
