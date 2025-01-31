@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace Exporter;
 
@@ -11,7 +12,7 @@ public static class Properties
         "deps.json",
     };
 
-    public static string ExportDirectoryName { get; } = "Export";
+    public static string ExportDirectoryName { get; } = Path.Combine("package", "Source");
 
     public static bool RemoveAreYouFruitsPrefixInExportFolders { get; } = true;
 
