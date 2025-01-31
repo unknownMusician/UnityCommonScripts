@@ -31,6 +31,12 @@ namespace Exporter
             foreach (var file in dir.GetFiles())
             {
                 var targetFilePath = Path.Combine(destinationDir, file.Name);
+
+                if (File.Exists(targetFilePath))
+                {
+                    File.Delete(targetFilePath);
+                }
+                
                 file.CopyTo(targetFilePath);
             }
 

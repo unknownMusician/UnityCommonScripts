@@ -24,6 +24,11 @@ public static class FilesCopier
             {
                 var destinationFilePath = Path.Combine(projectDirectory, Path.GetFileName(filePath));
                 
+                if (File.Exists(destinationFilePath))
+                {
+                    File.Delete(destinationFilePath);
+                }
+                
                 File.Copy(filePath, destinationFilePath);
             }
         }
