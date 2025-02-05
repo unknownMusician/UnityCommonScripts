@@ -8,9 +8,17 @@ namespace AreYouFruits.Ecs
     public sealed class EcsApp
     {
         private readonly Dictionary<object, SystemScheduler> schedulers = new();
-
+        private readonly Action<Exception> exceptionLogger;
+        
         public ResourcesHolder Resources { get; } = new();
         public EventsHolder Events { get; } = new();
+
+        public EcsApp(Action<Exception> exceptionLogger)
+        {
+            this.exceptionLogger = exceptionLogger ?? (_ => { });
+        }
+
+        public EcsApp() : this(null) { }
 
         public Optional<SystemScheduler> CreateScheduler(
             object schedule,
@@ -23,7 +31,7 @@ namespace AreYouFruits.Ecs
                 return Optional.None();
             }
             
-            var scheduler = new SystemScheduler(orderer, systems, Resources, Events);
+            var scheduler = new SystemScheduler(exceptionLogger, orderer, systems, Resources, Events);
             schedulers.Add(schedule, scheduler);
             
             return scheduler;

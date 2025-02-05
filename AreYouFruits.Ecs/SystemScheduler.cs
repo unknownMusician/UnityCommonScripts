@@ -7,18 +7,21 @@ namespace AreYouFruits.Ecs
 {
     public sealed class SystemScheduler
     {
+        private readonly Action<Exception> exceptionLogger;
         private readonly ISystem[] systems;
         
         private readonly ResourcesHolder resources;
         private readonly EventsHolder events;
         
         public SystemScheduler(
+            Action<Exception> exceptionLogger,
             IOrderProvider<Type> orderer,
             IEnumerable<ISystem> systems,
             ResourcesHolder resources,
             EventsHolder events
         )
         {
+            this.exceptionLogger = exceptionLogger;
             this.resources = resources;
             this.events = events;
             this.systems = systems.ToArray();
@@ -36,7 +39,14 @@ namespace AreYouFruits.Ecs
 
             foreach (var system in systems)
             {
-                system.Execute(ctx);
+                try
+                {
+                    system.Execute(ctx);
+                }
+                catch (Exception exception)
+                {
+                    exceptionLogger(exception);
+                }
             }
 
             events.Clear();
