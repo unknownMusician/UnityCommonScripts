@@ -100,7 +100,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
                         VariableCreationExpression = $"ctx.Resources.Get<{fullTypeName}>()",
                     });
                 }
-                else if (fullTypeName.StartsWith("global::AreYouFruits.Ecs.EventsHolderAccess<"))
+                else if (fullTypeName == "global::AreYouFruits.Ecs.EventsHolderAccess")
                 {
                     var typeArgumentName = GetFullTypeName(namedTypeSymbol.TypeArguments[0]);
 
