@@ -86,7 +86,7 @@ public class UnusedSystemAnalyzer : DiagnosticAnalyzer
             var references = root.DescendantNodes()
                 .Select(node => semanticModel.GetSymbolInfo(node).Symbol)
                 .Where(symbol =>
-                    symbol != null && SymbolEqualityComparer.Default.Equals(symbol.ContainingType, typeSymbol));
+                    symbol != null && SymbolEqualityComparer.Default.Equals(symbol, typeSymbol));
 
             if (references.Any())
             {
