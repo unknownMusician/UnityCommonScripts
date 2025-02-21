@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -55,15 +56,23 @@ public class UnusedSystemAnalyzer : DiagnosticAnalyzer
             return;
         }
 
-        // Check references
-        if (IsSymbolReferenced(namedTypeSymbol, context.Compilation))
+        try
         {
-            return;
-        }
+            // Check references
+            if (IsSymbolReferenced(namedTypeSymbol, context.Compilation))
+            {
+                return;
+            }
 
-        // If not used, report a diagnostic
-        var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
-        context.ReportDiagnostic(diagnostic);
+            // If not used, report a diagnostic
+            var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+            context.ReportDiagnostic(diagnostic);
+        }
+        catch (Exception exception)
+        {
+            var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], exception.ToString());
+            context.ReportDiagnostic(diagnostic);
+        }
     }
 
     private static bool IsSymbolReferenced(INamedTypeSymbol typeSymbol, Compilation compilation)
