@@ -4,11 +4,11 @@ using AreYouFruits.Nullability;
 
 namespace AreYouFruits.Ecs
 {
-    public readonly struct EventsHolderAccess<TEvent>
+    public struct EventsHolderAccess<TEvent>
         where TEvent : IEcsEvent
     {
         private readonly EventsHolder eventsHolder;
-        private readonly Optional<List<TEvent>> events;
+        private Optional<List<TEvent>> events;
 
         public EventsHolderAccess(EventsHolder eventsHolder)
         {
@@ -16,11 +16,12 @@ namespace AreYouFruits.Ecs
             events = eventsHolder.GetRaw<TEvent>();
         }
     
-        public readonly void Write(TEvent e)
+        public void Write(TEvent e)
         {
             if (!events.TryGet(out var genericEvents))
             {
-                genericEvents = eventsHolder.CreateRaw<TEvent>();
+                genericEvents = eventsHolder.GetOrCreateRaw<TEvent>();
+                events = genericEvents;
             }
         
             genericEvents.Add(e);

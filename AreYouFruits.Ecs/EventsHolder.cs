@@ -25,10 +25,15 @@ namespace AreYouFruits.Ecs
             return Optional.None();
         }
 
-        internal List<TEvent> CreateRaw<TEvent>()
+        internal List<TEvent> GetOrCreateRaw<TEvent>()
             where TEvent : IEcsEvent
         {
-            var genericEvents = new List<TEvent>();
+            if (GetRaw<TEvent>().TryGet(out var genericEvents))
+            {
+                return genericEvents;
+            }
+            
+            genericEvents = new List<TEvent>();
         
             events[typeof(TEvent)] = genericEvents;
         
