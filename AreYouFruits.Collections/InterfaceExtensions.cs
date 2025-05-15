@@ -105,9 +105,14 @@ namespace AreYouFruits.Collections
             return GenericExtensions.LastIndexOf(collection, element);
         }
         
-        public static T GetRandomElement<T>(this IReadOnlyList<T> array)
+        public static T GetRandomListElement<T>(this IReadOnlyList<T> list)
         {
-            return GenericExtensions.GetRandomElement<T, IReadOnlyList<T>>(array);
+            return GenericExtensions.GetRandomListElement<T, IReadOnlyList<T>>(list);
+        }
+        
+        public static T GetRandomCollectionElement<T>(this IReadOnlyCollection<T> collection)
+        {
+            return GenericExtensions.GetRandomCollectionElement<T, IReadOnlyCollection<T>>(collection);
         }
 
         public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> dictionary)

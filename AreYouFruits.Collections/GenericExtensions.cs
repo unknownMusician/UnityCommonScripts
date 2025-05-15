@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AreYouFruits.Collections
 {
@@ -204,11 +205,19 @@ namespace AreYouFruits.Collections
             return -1;
         }
 
-        public static T GetRandomElement<T, TReadOnlyList>(this TReadOnlyList list)
+        public static T GetRandomListElement<T, TReadOnlyList>(this TReadOnlyList list)
             where TReadOnlyList : IReadOnlyList<T>
         {
             var randomIndex = Random.Next(0, list.Count);
             return list[randomIndex];
+        }
+
+        public static T GetRandomCollectionElement<T, TReadOnlyCollection>(this TReadOnlyCollection collection)
+            where TReadOnlyCollection : IReadOnlyCollection<T>
+        {
+            var randomIndex = Random.Next(0, collection.Count);
+            
+            return collection.ElementAt(randomIndex);
         }
 
         public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue, TEnumerable>(this TEnumerable dictionary)
