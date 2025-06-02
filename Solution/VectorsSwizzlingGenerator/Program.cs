@@ -2,7 +2,7 @@
 
 var dir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.FullName;
 
-var vectorsSwizzlingDir = Path.Combine(dir, "Assets", "package", "Scripts", "VectorsSwizzling");
+var vectorsSwizzlingDir = Path.Combine(dir, "Assets", "package", "Runtime", "VectorsSwizzling");
 
 if (!Directory.Exists(vectorsSwizzlingDir))
 {
