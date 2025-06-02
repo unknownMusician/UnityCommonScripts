@@ -13,7 +13,7 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
         [MenuItem("Are You Fruits?/Try fix all Inspector dependencies")]
         public static void TryFixInspectorDependencies()
         {
-            IEnumerable<MonoBehaviour> components = Object.FindObjectsOfType<MonoBehaviour>();
+            IEnumerable<MonoBehaviour> components = Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
             foreach (var behaviour in components)
             {
@@ -63,7 +63,7 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
             Type type, Object inspectedObject = null, FieldInfo inspectedField = null
         )
         {
-            var references = Object.FindObjectsOfType<Component>().Where(type.IsInstanceOfType).ToArray();
+            var references = Object.FindObjectsByType<Component>(FindObjectsInactive.Include, FindObjectsSortMode.None).Where(type.IsInstanceOfType).ToArray();
 
             if (references.Length > 1)
             {

@@ -143,7 +143,7 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
             Rect position, SerializedProperty objectProperty, GUIContent label, Type interfaceType
         )
         {
-            var gameObjects = Object.FindObjectsOfType<GameObject>();
+            var gameObjects = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
             var components = gameObjects.SelectMany(g => g.GetVarianceComponents(interfaceType)).ToArray();
 
