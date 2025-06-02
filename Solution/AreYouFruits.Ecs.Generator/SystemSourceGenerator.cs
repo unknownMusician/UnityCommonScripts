@@ -153,7 +153,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
             code.AppendLine("{");
             code.IncrementIndent();
             
-            code.AppendLine($"return new global::AreYouFruits.Ecs.SystemDataUsage(){dataUsageQuery}");
+            code.AppendLine($"return new global::AreYouFruits.Ecs.SystemDataUsage(){dataUsageQuery};");
             
             code.DecrementIndent();
             code.AppendLine("}");
