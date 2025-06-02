@@ -3,11 +3,6 @@ using Exporter;
 
 var projectExports = ExportScanner.GetExportInfo();
 
-Console.WriteLine(CommonInfo.SolutionDirectory);
-Console.WriteLine(CommonInfo.ExportDirectoryPath);
-
-return;
-
 ExportDirectoryPreparer.PrepareExportDirectory();
 
 FilesCopier.CopyFiles(projectExports);
