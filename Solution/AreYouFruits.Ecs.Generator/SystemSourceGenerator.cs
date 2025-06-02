@@ -75,6 +75,18 @@ public class SystemSourceGenerator : IIncrementalGenerator
 
             var containingType = methodSymbol.ContainingType;
 
+            string? namespaceName;
+            
+            if (containingType.ContainingNamespace is { } containingNamespace &&
+                containingNamespace.ToDisplayString() != "<global namespace>")
+            {
+                namespaceName = containingNamespace.ToDisplayString();
+            }
+            else
+            {
+                namespaceName = null;
+            }
+
             var className = containingType.Name;
 
             var systemParamDatas = new List<SystemParamData>();
@@ -138,9 +150,9 @@ public class SystemSourceGenerator : IIncrementalGenerator
             code.AppendLine($"// test: '{containingType.ContainingNamespace.ToDisplayString()}'");
             code.AppendLine();
             
-            if (false && containingType.ContainingNamespace is { } containingNamespace)
+            if (namespaceName is { } notNullNamespaceName)
             {
-                code.AppendLine($"namespace {containingNamespace.ToDisplayString()}");
+                code.AppendLine($"namespace {notNullNamespaceName}");
                 code.AppendLine("{");
                 code.IncrementIndent();
             }
@@ -171,7 +183,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
             code.DecrementIndent();
             code.AppendLine("}");
             
-            if (false && containingType.ContainingNamespace is not null)
+            if (namespaceName is not null)
             {
                 code.DecrementIndent();
                 code.AppendLine("}");
