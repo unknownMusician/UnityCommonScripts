@@ -216,7 +216,14 @@ namespace AreYouFruits.InterfaceSerialization.Unity.Editor
                 }
             }
 
-            return enm.Current;
+            var result = enm.Current;
+            
+            if (enm is IDisposable disposableEnm)
+            {
+                disposableEnm.Dispose();
+            }
+
+            return result;
         }
 
         private static object GetValueImp(object source, string name)
