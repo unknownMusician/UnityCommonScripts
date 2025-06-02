@@ -7,16 +7,9 @@ ExportDirectoryPreparer.PrepareExportDirectory();
 
 FilesCopier.CopyFiles(projectExports);
 
-AdditionalDirectoriesCopier.CopyAdditionalDirectories();
-
 Console.WriteLine($"Copied into {CommonInfo.ExportDirectoryPath}:");
 
 foreach (var projectExport in projectExports)
 {
     Console.WriteLine("- " + projectExport.ProjectName);
-}
-
-foreach (var additionalDirectory in Properties.AdditionalDirectoryNames)
-{
-    Console.WriteLine("- [additional] " + additionalDirectory);
 }

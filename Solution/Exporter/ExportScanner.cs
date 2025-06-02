@@ -22,11 +22,6 @@ public static class ExportScanner
                 continue;
             }
 
-            if (Properties.ExcludedProjectNames.Contains(projectName))
-            {
-                continue;
-            }
-
             string releaseDirectory = Path.Combine(directory, "bin", "Release");
 
             string frameworkDirectory = GetFrameworkDirectory(releaseDirectory);

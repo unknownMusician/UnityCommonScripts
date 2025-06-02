@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace AreYouFruits.Unmanaged
 {
@@ -7,45 +9,33 @@ namespace AreYouFruits.Unmanaged
         public static bool Equals<T>(T x, T y)
             where T : unmanaged
         {
-            unsafe
-            {
-                int sizeOfT = sizeof(T);
-
-                byte* xPtr = (byte*)&x;
-                byte* yPtr = (byte*)&y;
-
-                for (int i = 0; i < sizeOfT; i++)
-                {
-                    if (xPtr[i] != yPtr[i])
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
+            var xSpan = MemoryMarshal.AsBytes(stackalloc[] { x });
+            var ySpan = MemoryMarshal.AsBytes(stackalloc[] { y });
+            
+            return xSpan.SequenceEqual(ySpan);
         }
 
         public static int GetHashCode<T>(T value)
             where T : unmanaged
         {
-            unsafe
+            Span<int> hashCode = stackalloc[] { 0 };
+            
+            var valueSpan = MemoryMarshal.AsBytes(stackalloc[] { value });
+            var hashCodeSpan = MemoryMarshal.AsBytes(hashCode);
+            
+            for (var i = 0; i < valueSpan.Length; i++)
             {
-                int hashCode = 0;
-
-                int sizeOfT = sizeof(T);
-                const int sizeOfInt = sizeof(int);
-
-                byte* valuePtr = (byte*)&value;
-                byte* hashCodePtr = (byte*)&hashCode;
-
-                for (int i = 0; i < sizeOfT; i++)
+                var index = i % sizeof(int);
+                
+                if (index is 0)
                 {
-                    hashCodePtr[i % sizeOfInt] ^= valuePtr[i];
+                    hashCode[0] *= 137;
                 }
-
-                return hashCode;
+                
+                hashCodeSpan[index] ^= valueSpan[i];
             }
+
+            return hashCode[0];
         }
 
         public static int GetHashCode<T1, T2>(T1 t1, T2 t2)

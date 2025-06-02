@@ -21,14 +21,4 @@ public static class Properties
         "netstandard2.1",
         "netstandard2.0",
     };
-    
-    public static IReadOnlyList<string> AdditionalDirectoryNames { get; } = new[]
-    {
-        "Shaders",
-    };
-    
-    public static IReadOnlyList<string> ExcludedProjectNames { get; } = new[]
-    {
-        "AreYouFruits.VectorsSwizzling.Generator",
-    };
 }
