@@ -1,0 +1,16 @@
+{
+    "name": "AreYouFruits.UnityCommonScripts.Editor",
+    "rootNamespace": "AreYouFruits",
+    "references": [
+        "GUID:e1bb0a9666271494388e6b77eae25a64"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
