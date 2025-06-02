@@ -171,6 +171,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
                 code.AppendLine();
             }
 
+            code.IncrementIndent();
             for (var i = 0; i < dataUsageQueryEntries.Count; i++)
             {
                 code.Append(dataUsageQueryEntries[i]);
@@ -180,6 +181,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
                     code.AppendLine();
                 }
             }
+            code.DecrementIndent();
             
             code.AppendLine(";");
             
