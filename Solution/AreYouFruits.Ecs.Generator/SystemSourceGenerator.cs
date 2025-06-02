@@ -138,7 +138,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
             code.AppendLine($"// test: '{containingType.ContainingNamespace.ToDisplayString()}'");
             code.AppendLine();
             
-            if (containingType.ContainingNamespace is { } containingNamespace)
+            if (false && containingType.ContainingNamespace is { } containingNamespace)
             {
                 code.AppendLine($"namespace {containingNamespace.ToDisplayString()}");
                 code.AppendLine("{");
@@ -171,7 +171,7 @@ public class SystemSourceGenerator : IIncrementalGenerator
             code.DecrementIndent();
             code.AppendLine("}");
             
-            if (containingType.ContainingNamespace is not null)
+            if (false && containingType.ContainingNamespace is not null)
             {
                 code.DecrementIndent();
                 code.AppendLine("}");
