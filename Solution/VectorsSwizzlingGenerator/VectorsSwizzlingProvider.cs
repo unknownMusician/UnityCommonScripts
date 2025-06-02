@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace AreYouFruits.VectorsSwizzling.Generator
 {
@@ -21,7 +18,7 @@ namespace AreYouFruits.VectorsSwizzling.Generator
                 foreach (var output in counts)
                 {
                     results.Add(new Source(
-                        name: $"SwizzlingVector{input}To{output}Extensions.g.cs",
+                        name: $"SwizzlingVector{input}To{output}Extensions.cs",
                         content: GenerateVectorSwizzling(input, output)));
                 }
             }
@@ -42,6 +39,7 @@ namespace AreYouFruits.VectorsSwizzling.Generator
             
             foreach (var s in GenerateVectorSwizzling(outputCount, Parameters.AsSpan().Slice(0, inputCount)))
             {
+                result.AppendLine("        // ReSharper disable once InconsistentNaming");
                 result.AppendLine("        " + s);
             }
 
