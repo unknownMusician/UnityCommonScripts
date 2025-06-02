@@ -29,7 +29,7 @@ namespace AreYouFruits.Ecs
             Array.Sort(this.systems, new SystemOrderComparer(orderer));
         }
 
-        public void ExecuteIteration()
+        public void ExecuteIteration(bool shouldPreserveEvents = false)
         {
             var ctx = new SystemContext
             {
@@ -49,7 +49,10 @@ namespace AreYouFruits.Ecs
                 }
             }
 
-            events.Clear();
+            if (!shouldPreserveEvents)
+            {
+                events.Clear();
+            }
         }
     }
 }
