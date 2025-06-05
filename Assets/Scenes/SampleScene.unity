@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   someNumber:
-    value: 0
+    value: 123
     isInitialized: 1
   someInterface:
     _object: {fileID: 0}

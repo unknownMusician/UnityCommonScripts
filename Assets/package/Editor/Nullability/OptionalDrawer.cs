@@ -6,6 +6,8 @@ namespace AreYouFruits.Nullability
     [CustomPropertyDrawer(typeof(Optional<>))]
     public sealed class OptionalDrawer : PropertyDrawer
     {
+        private GUIContent nullGuiContent;
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("value"), label);
@@ -13,6 +15,8 @@ namespace AreYouFruits.Nullability
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            nullGuiContent ??= new GUIContent("null");
+            
             EditorGUI.BeginProperty(position, label, property);
 
             var valueProperty = property.FindPropertyRelative("value");
@@ -27,17 +31,15 @@ namespace AreYouFruits.Nullability
             var propertyPosition = position;
             propertyPosition.width -= nullPosition.height + EditorGUIUtility.standardVerticalSpacing * 2;
 
-            var hasValue = EditorGUI.Toggle(nullPosition, nullProperty.boolValue);
+            EditorGUI.PropertyField(nullPosition, nullProperty, GUIContent.none, true);
 
-            nullProperty.boolValue = hasValue;
-
-            if (hasValue)
+            if (nullProperty.boolValue)
             {
                 EditorGUI.PropertyField(propertyPosition, valueProperty, GUIContent.none, true);
             }
             else
             {
-                EditorGUI.LabelField(position, GUIContent.none, new GUIContent("null"));
+                EditorGUI.LabelField(position, GUIContent.none, nullGuiContent);
             }
 
             EditorGUI.EndProperty();
