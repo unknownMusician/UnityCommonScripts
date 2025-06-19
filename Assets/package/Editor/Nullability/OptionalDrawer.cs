@@ -10,7 +10,14 @@ namespace AreYouFruits.Nullability
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("value"), label);
+            var valueProperty = property.FindPropertyRelative("value");
+
+            if (valueProperty == null)
+            {
+                return 0;
+            }
+            
+            return EditorGUI.GetPropertyHeight(valueProperty, label);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -21,6 +28,12 @@ namespace AreYouFruits.Nullability
 
             var valueProperty = property.FindPropertyRelative("value");
             var nullProperty = property.FindPropertyRelative("isInitialized");
+
+            if (valueProperty == null || nullProperty == null)
+            {
+                EditorGUI.EndProperty();
+                return;
+            }
 
             position = EditorGUI.PrefixLabel(position, label);
 
