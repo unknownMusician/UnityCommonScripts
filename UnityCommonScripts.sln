@@ -143,8 +143,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.InputSystem.ForUI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.InputSystem.TestFramework", "Unity.InputSystem.TestFramework.Player.csproj", "{b9e84319-a94c-64f9-df3c-abb341523ef0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AreYouFruits.UnityCommonScripts.Editor", "AreYouFruits.UnityCommonScripts.Editor.Player.csproj", "{1bd2389c-5d58-b382-1bcf-ca3eb09cdcc8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.RenderPipelines.Universal.Config.Runtime", "Unity.RenderPipelines.Universal.Config.Runtime.Player.csproj", "{4c1d6518-1c45-4fe2-e427-fbc6a405769e}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary", "Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.Player.csproj", "{fede44cf-6b40-bd84-1ada-efb496744d3e}"
@@ -352,8 +350,6 @@ Global
 		{24d299ee-2768-0280-312a-cf93a412fecd}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{b9e84319-a94c-64f9-df3c-abb341523ef0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{b9e84319-a94c-64f9-df3c-abb341523ef0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1bd2389c-5d58-b382-1bcf-ca3eb09cdcc8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1bd2389c-5d58-b382-1bcf-ca3eb09cdcc8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4c1d6518-1c45-4fe2-e427-fbc6a405769e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4c1d6518-1c45-4fe2-e427-fbc6a405769e}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{fede44cf-6b40-bd84-1ada-efb496744d3e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
